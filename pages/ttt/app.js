@@ -1,5 +1,4 @@
-"use client"
-import styles from './styles.css'
+import useState from 'react';
 
 function Square({ value }) {
     function handleClick() {
