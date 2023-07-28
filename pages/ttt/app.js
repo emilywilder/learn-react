@@ -13,18 +13,17 @@ export default function Board() {
     const [squares, setSquares] = useState(Array(9).fill(null))
 
     function handleClick(i) {
-        // make a copy to update
-        if (squares[i]) {
-            return
+        if (!squares[i]) {
+            // make a copy to update
+            const nextSquares = squares.slice()
+            if (xIsNext) {
+                nextSquares[i] = 'X'
+            } else {
+                nextSquares[i] = 'O'
+            }
+            setSquares(nextSquares)
+            setXIsNext(!xIsNext)    
         }
-        const nextSquares = squares.slice()
-        if (xIsNext) {
-            nextSquares[i] = 'X'
-        } else {
-            nextSquares[i] = 'O'
-        }
-        setSquares(nextSquares)
-        setXIsNext(!xIsNext)
     }
 
     return (
