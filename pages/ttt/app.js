@@ -92,13 +92,13 @@ export default function Game() {
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             </div>
             <div className='game-info'>
-                <Moves history={history} />
+                <Moves history={history} jumpTo={jumpTo} />
             </div>
         </div>
     )
 }
 
-function Moves({history}) {
+function Moves({history, jumpTo}) {
     const moves = history.map((squares, move) => {
         let description
         if (move == history.length - 1) {
