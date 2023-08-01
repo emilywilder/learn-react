@@ -86,6 +86,19 @@ export default function Game() {
         setCurrentMove(nextMove)
     }
 
+    return (
+        <div className='game'>
+            <div className='game-board'>
+                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+            </div>
+            <div className='game-info'>
+                <Moves history={history} />
+            </div>
+        </div>
+    )
+}
+
+function Moves({history}) {
     const moves = history.map((squares, move) => {
         let description
         if (move == history.length - 1) {
@@ -101,15 +114,9 @@ export default function Game() {
             </li>
         )
     })
-
     return (
-        <div className='game'>
-            <div className='game-board'>
-                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-            </div>
-            <div className='game-info'>
-                <ol>{moves}</ol>
-            </div>
-        </div>
+        <ol>
+            {moves}
+        </ol>
     )
 }
