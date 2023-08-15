@@ -99,6 +99,8 @@ export default function Game() {
 }
 
 function Moves({history, jumpTo}) {
+    const [descendingOrder, setDescendingOrder] = useState(false)
+
     const moves = history.map((squares, move) => {
         let description
         if (move == history.length - 1) {
@@ -115,8 +117,13 @@ function Moves({history, jumpTo}) {
         )
     })
     return (
-        <ol>
-            {moves}
-        </ol>
+        <>
+            <div>
+                <button onClick={() => setDescendingOrder(!descendingOrder)}>Toggle Order</button>
+            </div>
+            <ol>
+                {moves}
+            </ol>
+        </>
     )
 }
