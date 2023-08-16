@@ -56,7 +56,8 @@
     padding: 0;
   }
   
-  .square {
+  .square,
+  .square_win {
     background: #fff;
     border: 1px solid #999;
     float: left;
@@ -71,6 +72,10 @@
     width: 34px;
   }
   
+  .square_win {
+    background: rgb(128, 234, 132);
+  }
+
   .board-row:after {
     clear: both;
     content: '';
