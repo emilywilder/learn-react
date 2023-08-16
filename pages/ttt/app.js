@@ -24,6 +24,10 @@ function Board({ xIsNext, squares, onPlay }) {
         status = "Next player: " + (xIsNext ? 'X' : 'O')
     }
 
+    function squarePosToRowColumn(x) {
+        return Math.floor(x / 3) + ',' + x % 3
+    }
+
     function handleClick(i) {
         // only handle click if square selected is empty
         if (!squares[i]) {
@@ -36,7 +40,7 @@ function Board({ xIsNext, squares, onPlay }) {
                 } else {
                     nextSquares[i] = 'O'
                 }
-                onPlay(nextSquares)
+                onPlay(nextSquares, squarePosToRowColumn(i))
             }
         }
     }
@@ -100,13 +104,16 @@ function calculateWinner(squares) {
 export default function Game() {
     const [history, setHistory] = useState([Array(9).fill(null)])
     const [currentMove, setCurrentMove] = useState(0)
+    const [posHistory, setPosHistory] = useState(Array)
     const xIsNext = currentMove % 2 == 0
     const currentSquares = history[currentMove]
 
-    function handlePlay(nextSquares) {
+    function handlePlay(nextSquares, pos) {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]
+        const nextPosHistory = [...posHistory.slice(0, currentMove + 1), pos]
         setHistory(nextHistory)
         setCurrentMove(nextHistory.length - 1)
+        setPosHistory(nextPosHistory)
     }
 
     return (
@@ -115,13 +122,13 @@ export default function Game() {
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             </div>
             <div className='game-info'>
-                <Moves history={history} jumpTo={setCurrentMove} />
+                <Moves history={history} posHistory={posHistory} jumpTo={setCurrentMove} />
             </div>
         </div>
     )
 }
 
-function Moves({history, jumpTo}) {
+function Moves({history, posHistory, jumpTo}) {
     const [descendingOrder, setDescendingOrder] = useState(true)
     
     const moves = history.map((squares, move) => {
@@ -133,7 +140,7 @@ function Moves({history, jumpTo}) {
                 </li>
             )
         } else if (move > 0) {
-            description = 'Go to move #' + move
+            description = 'Go to move #' + move + ' at position (' + posHistory[move] + ')'
         } else {
             description = 'Go to game start'
         }
