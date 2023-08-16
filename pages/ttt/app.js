@@ -74,7 +74,7 @@ function getWinningLines(squares) {
             return lines[i]
         }
     }
-    return null
+    return []
 
 }
 
