@@ -109,17 +109,13 @@ export default function Game() {
         setCurrentMove(nextHistory.length - 1)
     }
 
-    function jumpTo(nextMove) {
-        setCurrentMove(nextMove)
-    }
-
     return (
         <div className='game'>
             <div className='game-board'>
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             </div>
             <div className='game-info'>
-                <Moves history={history} jumpTo={jumpTo} />
+                <Moves history={history} jumpTo={setCurrentMove} />
             </div>
         </div>
     )
