@@ -46,12 +46,13 @@ function Board({ xIsNext, squares, onPlay }) {
             <div className='status'>{status}</div>
             {
                 [[0,1,2], [3,4,5], [6,7,8]].map((i) => (
-                    <div className='board-row'>
+                    <div className='board-row' key={i}>
                         {
                             i.map((j) => (
                                 <Square value={squares[j]}
                                     onSquareClick={() => handleClick(j)}
-                                    winner={...winningLines.includes(j)} />
+                                    winner={...winningLines.includes(j)}
+                                    key={j} />
                             ))
                         }
                     </div>
