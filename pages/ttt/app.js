@@ -10,9 +10,12 @@ function Square({value, onSquareClick}) {
 
 function Board({ xIsNext, squares, onPlay }) {
     const winner = calculateWinner(squares);
+    const draw = determineDraw(squares)
     let status
     if (winner) {
         status = "Winner: " + winner
+    } else if (draw) {
+        status = "Draw!"
     } else {
         status = "Next player: " + (xIsNext ? 'X' : 'O')
     }
@@ -73,6 +76,10 @@ function getWinningLines(squares) {
     }
     return null
 
+}
+
+function determineDraw(squares) {
+    return (!squares.includes(null) && !calculateWinner(squares))
 }
 
 function calculateWinner(squares) {
