@@ -18,15 +18,19 @@ function Board({ xIsNext, squares, onPlay }) {
     }
 
     function handleClick(i) {
-        if (!squares[i] && !calculateWinner(squares)) {
-            // make a copy to update
-            const nextSquares = squares.slice()
-            if (xIsNext) {
-                nextSquares[i] = 'X'
-            } else {
-                nextSquares[i] = 'O'
+        // only handle click if square selected is empty
+        if (!squares[i]) {
+            // if no winner
+            if (!calculateWinner(squares)) {
+                // make a copy to update
+                const nextSquares = squares.slice()
+                if (xIsNext) {
+                    nextSquares[i] = 'X'
+                } else {
+                    nextSquares[i] = 'O'
+                }
+                onPlay(nextSquares)
             }
-            onPlay(nextSquares)
         }
     }
 
