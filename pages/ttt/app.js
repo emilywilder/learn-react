@@ -127,7 +127,7 @@ function Moves({history, jumpTo}) {
     const moves = history.map((squares, move) => {
         let description
         if (move == history.length - 1) {
-            description = 'You are at move #' + move
+            return (<li key={move}>{'You are at move #' + move}</li>)
         } else if (move > 0) {
             description = 'Go to move #' + move
         } else {
