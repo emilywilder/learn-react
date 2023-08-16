@@ -134,9 +134,14 @@ function Moves({history, posHistory, jumpTo}) {
     const moves = history.map((squares, move) => {
         let description
         if (move == history.length - 1) {
+            if (move == 0) {
+                description = 'You are at game start'
+            } else {
+                description = 'You are at move #' + move
+            }
             return (
                 <li key={move}>
-                    {'You are at move #' + move}
+                    {description}
                 </li>
             )
         } else if (move > 0) {
