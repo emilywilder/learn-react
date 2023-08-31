@@ -32,9 +32,9 @@ function AppItem( app: AppItem ) {
 function SectionItem( section: SectionItem ) {
   const apps = section.apps.map((app, count) => {
     return (
-      <li key={count}>
+      <div key={count}>
         <AppItem name={app.name} location={app.location} />
-      </li>
+      </div>
     )
   })
 
@@ -43,9 +43,7 @@ function SectionItem( section: SectionItem ) {
       <div className='section'>
         { section.name }
       </div>
-      <ol>
-        { apps }
-      </ol>
+      { apps }
     </>
   )
 }
@@ -53,9 +51,9 @@ function SectionItem( section: SectionItem ) {
 function PartItem( part: PartItem ) {
     const sections = part.sections.map((section, count) => {
       return (
-        <li key={count}>
+        <div key={count}>
           <SectionItem name={section.name} apps={section.apps} />
-        </li>
+        </div>
       )
     })
     
@@ -64,9 +62,7 @@ function PartItem( part: PartItem ) {
         <div className='part'>
           { part.name }
         </div>
-        <ul>
-          { sections }
-        </ul>
+        { sections }
       </main>
     )
   }
@@ -74,18 +70,16 @@ function PartItem( part: PartItem ) {
 export default function Home() {
   const parts = APP_DB.parts.map((part, count) => {
     return (
-      <li key={count}>
+      <div key={count}>
         <PartItem name={part.name} sections={part.sections} />
-      </li>
+      </div>
     )
   })
   
   return (
     <main>
-      <div className='title'>Emily's Learn-react repo</div>
-      <ul>
-        { parts }
-      </ul>
+      <div className='title'>Emily Learns React</div>
+      { parts }
     </main>
   )
 }
