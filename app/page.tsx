@@ -23,7 +23,9 @@ const APP_DB: AppDBInterface = require('./apps.json')
 
 function AppItem( app: AppItem ) {
   return (
+    <div className='app'>
       <Link href={app.location}>{app.name}</Link>
+    </div>
   )
 }
 
@@ -38,9 +40,9 @@ function SectionItem( section: SectionItem ) {
 
   return (
     <>
-      <p>
+      <div className='section'>
         { section.name }
-      </p>
+      </div>
       <ol>
         { apps }
       </ol>
@@ -59,9 +61,9 @@ function PartItem( part: PartItem ) {
     
     return (
       <main>
-        <p>
+        <div className='part'>
           { part.name }
-        </p>
+        </div>
         <ul>
           { sections }
         </ul>
@@ -80,7 +82,7 @@ export default function Home() {
   
   return (
     <main>
-      <h1>Emily's Learn-react repo</h1>
+      <div className='title'>Emily's Learn-react repo</div>
       <ul>
         { parts }
       </ul>
