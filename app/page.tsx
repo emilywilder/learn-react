@@ -6,7 +6,8 @@ interface AppItem {
 }
 
 const APPS: AppItem[] = [
-  { name: 'Tic-Tac-Toe', location: '/ttt' }
+  { name: 'Tutorial: Tic-Tac-Toe', location: '/quick-start/ttt' },
+  { name: 'Thinking in React: Product Stock', location: '/quick-start/product-stock' }
 ]
 
 function AppItem( app: AppItem ) {
