@@ -1,11 +1,20 @@
 {
-    "sections": [
+    "parts": [
         {
-            "name": "Quick Start",
-            "apps": [
-                { "name": "Tutorial: Tic-Tac-Toe", "location": "/quick-start/ttt" },
-                { "name": "Thinking in React: Product Stock", "location": "/quick-start/product-stock" }
+            "name": "Get Started",
+            "sections": [
+                {
+                    "name": "Quick Start",
+                    "apps": [
+                        { "name": "Tutorial: Tic-Tac-Toe", "location": "/quick-start/ttt" },
+                        { "name": "Thinking in React: Product Stock", "location": "/quick-start/product-stock" }
+                    ]
+                }
             ]
+        },
+        {
+            "name": "Learn React",
+            "sections": []
         }
     ]
 }

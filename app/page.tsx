@@ -10,11 +10,16 @@ interface SectionItem {
   apps: AppItem[]
 }
 
-interface SectionsInterface {
+interface PartItem {
+  name: string,
   sections: SectionItem[]
 }
 
-const APP_DB: SectionsInterface = require('./apps.json')
+interface AppDBInterface {
+  parts: PartItem[]
+}
+
+const APP_DB: AppDBInterface = require('./apps.json')
 
 function AppItem( app: AppItem ) {
   return (
@@ -43,11 +48,32 @@ function SectionItem( section: SectionItem ) {
   )
 }
 
+function PartItem( part: PartItem ) {
+    const sections = part.sections.map((section, count) => {
+      return (
+        <li key={count}>
+          <SectionItem name={section.name} apps={section.apps} />
+        </li>
+      )
+    })
+    
+    return (
+      <main>
+        <p>
+          { part.name }
+        </p>
+        <ul>
+          { sections }
+        </ul>
+      </main>
+    )
+  }
+
 export default function Home() {
-  const sections = APP_DB.sections.map((section, count) => {
+  const parts = APP_DB.parts.map((part, count) => {
     return (
       <li key={count}>
-        <SectionItem name={section.name} apps={section.apps} />
+        <PartItem name={part.name} sections={part.sections} />
       </li>
     )
   })
@@ -56,7 +82,7 @@ export default function Home() {
     <main>
       <h1>Emily's Learn-react repo</h1>
       <ul>
-        { sections }
+        { parts }
       </ul>
     </main>
   )
