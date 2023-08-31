@@ -23,7 +23,7 @@ const APP_DB: AppDBInterface = require('./apps.json')
 
 function AppItem( app: AppItem ) {
   return (
-    <div className='app'>
+    <div className="p-2 pl-5 hover:bg-gradient-to-r from-tiffany-blue hover:text-white shadow-md rounded">
       <Link href={app.location}>{app.name}</Link>
     </div>
   )
@@ -40,10 +40,12 @@ function SectionItem( section: SectionItem ) {
 
   return (
     <>
-      <div className='section'>
+      <div className='p-1'>
         { section.name }
       </div>
-      { apps }
+      <div className='p-2 space-y-3'>
+        { apps }
+      </div>
     </>
   )
 }
@@ -59,10 +61,12 @@ function PartItem( part: PartItem ) {
     
     return (
       <main>
-        <div className='part'>
-          { part.name }
+        <div className='p-3'>
+          <div className='font-bold border-b'>
+            { part.name }  
+          </div>
+          { sections }
         </div>
-        { sections }
       </main>
     )
   }
@@ -78,8 +82,12 @@ export default function Home() {
   
   return (
     <main>
-      <div className='title'>Emily Learns React</div>
-      { parts }
+      <div className='p-3 shadow font-sans font-thin text-3xl bg-tiffany-blue text-white'>
+        Emily Learns React
+      </div>
+      <div>
+        { parts }
+      </div>
     </main>
   )
 }
