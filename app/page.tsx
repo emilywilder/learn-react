@@ -5,10 +5,7 @@ interface AppItem {
   location: string
 }
 
-const APPS: AppItem[] = [
-  { name: 'Tutorial: Tic-Tac-Toe', location: '/quick-start/ttt' },
-  { name: 'Thinking in React: Product Stock', location: '/quick-start/product-stock' }
-]
+const APPS: AppItem[] = require('./apps.json')
 
 function AppItem( app: AppItem ) {
   return (
