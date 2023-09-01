@@ -23,8 +23,13 @@ const APP_DB: AppDBInterface = require('./apps.json')
 
 function AppItem( app: AppItem ) {
   return (
-    <div className="p-2 pl-5 hover:bg-gradient-to-r from-tiffany-blue hover:text-white shadow-md rounded">
-      <Link href={app.location}>{app.name}</Link>
+    <div className="flex p-2 pl-5 hover:bg-gradient-to-r from-tiffany-blue hover:text-white shadow-md rounded">
+      <div className='flex-none w-10 react-logo'>
+        <img src='/react.svg' width='24em' />
+      </div>
+      <div className='flex-auto'>
+        <Link href={app.location}>{app.name}</Link>
+      </div>
     </div>
   )
 }
