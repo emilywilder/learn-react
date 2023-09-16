@@ -6,8 +6,8 @@
                 {
                     "name": "Quick Start",
                     "apps": [
-                        { "name": "Tutorial: Tic-Tac-Toe", "location": "/quick-start/ttt" },
-                        { "name": "Thinking in React: Product Stock", "location": "/quick-start/product-stock" }
+                        { "name": "Tutorial: Tic-Tac-Toe", "location": "/get-started/quick-start/ttt" },
+                        { "name": "Thinking in React: Product Stock", "location": "/get-started/quick-start/product-stock" }
                     ]
                 }
             ]
