@@ -17,7 +17,9 @@
             "sections": [
                 {
                     "name": "Describing the UI",
-                    "apps": []
+                    "apps": [
+                        { "name": "Your First Component", "location": "/learn-react/describe-ui/first-comp" }
+                    ]
                 },
                 {
                     "name": "Adding Interactivity",
