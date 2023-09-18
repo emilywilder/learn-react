@@ -1,5 +1,6 @@
 import { getImageUrl } from './utils'
 
+// Components take a single argument and destructures it into variables
 function Avatar({ person, size }) {
     return (
         <img
