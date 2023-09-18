@@ -18,7 +18,8 @@
                 {
                     "name": "Describing the UI",
                     "apps": [
-                        { "name": "Your First Component", "location": "/learn-react/describe-ui/first-comp" }
+                        { "name": "Your First Component", "location": "/learn-react/describe-ui/first-comp" },
+                        { "name": "Importing and Exporting Components", "location": "/learn-react/describe-ui/import-export" }
                     ]
                 },
                 {
