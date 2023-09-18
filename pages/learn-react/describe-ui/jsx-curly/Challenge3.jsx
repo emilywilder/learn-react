@@ -1,3 +1,4 @@
+import { getImageUrl } from './Challenge3Utils'
 
 const baseUrl = 'https://i.imgur.com/';
 const person = {
@@ -16,7 +17,7 @@ export default function TodoList() {
       <h1>{person.name}'s Todos</h1>
       <img
         className="avatar"
-        src={`${baseUrl}${person.imageId}${person.imageSize}.jpg`}
+        src={getImageUrl(baseUrl, person)}
         alt={person.name}
       />
       <ul>
