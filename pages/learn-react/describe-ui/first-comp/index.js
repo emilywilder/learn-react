@@ -10,7 +10,7 @@ import Challenge4 from './Challenge-4.js'
 export default function Home() {
     return (
         <StrictMode>
-            <Challenge4 />
+            <App />
         </StrictMode>
     )
 }
