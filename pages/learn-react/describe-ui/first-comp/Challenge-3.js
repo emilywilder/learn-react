@@ -1,4 +1,4 @@
-function profile() {
+function Profile() {
     return (
       <img
         src="https://i.imgur.com/QIrZWGIs.jpg"
@@ -11,9 +11,9 @@ function profile() {
     return (
       <section>
         <h1>Amazing scientists</h1>
-        <profile />
-        <profile />
-        <profile />
+        <Profile />
+        <Profile />
+        <Profile />
       </section>
     );
   }
