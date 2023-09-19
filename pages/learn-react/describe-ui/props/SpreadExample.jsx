@@ -45,15 +45,10 @@ function Avatar({ person, size, isSepia, thickBorder }) {
     )
 }
 
-function Profile({ person, size, isSepia, thickBorder }) {
+function Profile(props) {
     return (
         <div className="card">
-            <Avatar
-                person={person}
-                size={size}
-                isSepia={isSepia}
-                thickBorder={thickBorder}
-            />
+            <Avatar {...props} />
         </div>
     )
  }
