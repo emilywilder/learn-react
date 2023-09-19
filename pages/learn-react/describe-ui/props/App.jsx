@@ -1,21 +1,16 @@
-import { getImageUrl } from './utils'
+import Avatar from "./Avatar"
 
-// Components take a single argument and destructures it into variables
-function Avatar({ person, size }) {
+function Card({ children }) {
     return (
-        <img
-            className="avatar"
-            src={getImageUrl(person)}
-            alt={person.name}
-            width={size}
-            height={size}
-        />
+        <div className="card">
+            {children}
+        </div>
     )
 }
 
 export default function Profile() {
     return (
-        <div>
+        <Card>
             <Avatar
                 size={100}
                 person={{
@@ -23,20 +18,6 @@ export default function Profile() {
                     imageId: 'YfeOqp2'
                 }}
             />
-            <Avatar
-                size={80}
-                person={{
-                    name: 'Aklilu Lemma',
-                    imageId: 'OKS67lh'
-                }}
-            />
-            <Avatar
-                size={50}
-                person={{
-                    name: 'Lin Lanying',
-                    imageId: '1bX5QH6'
-                }}
-            />
-        </div>
+        </Card>
     )
 }
