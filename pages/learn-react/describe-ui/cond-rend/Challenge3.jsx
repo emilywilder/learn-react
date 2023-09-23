@@ -1,26 +1,27 @@
-function Drink({ name }) {
-    let part
-    let caff
-    let age
-    if (name === 'tea') {
-        part = 'leaf'
-        caff = '15–70 mg/cup'
-        age = '4,000+ years'
-    } else {
-        part = 'bean'
-        caff = '80–185 mg/cup'
-        age = '1,000+ years'
+const drinks = {
+    tea: {
+        part: 'leaf',
+        caffeine: '15–70 mg/cup',
+        age: '4,000+ years'
+    },
+    coffee: {
+        part: 'bean',
+        caffeine: '80–185 mg/cup',
+        age: '1,000+ years'
     }
+}
+
+function Drink({ name }) {
     return (
       <section>
         <h1>{name}</h1>
         <dl>
           <dt>Part of plant</dt>
-          <dd>{part}</dd>
+          <dd>{drinks[name].part}</dd>
           <dt>Caffeine content</dt>
-          <dd>{caff}</dd>
+          <dd>{drinks[name].caffeine}</dd>
           <dt>Age</dt>
-          <dd>{age}</dd>
+          <dd>{drinks[name].age}</dd>
         </dl>
       </section>
     );
