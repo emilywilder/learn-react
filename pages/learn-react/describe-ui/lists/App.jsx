@@ -4,7 +4,7 @@ import { getImageUrl } from './utils.jsx'
 export default function List () {
     const chemists = people.filter(person => person.profession === 'chemist')
     const listItems = chemists.map(person => 
-        <li>
+        <li key={person.id}>
             <img
                 src={getImageUrl(person)}
                 alt={person.name}
