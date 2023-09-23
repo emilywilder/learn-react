@@ -1,5 +1,6 @@
 import React, { StrictMode } from "react";
-import "./styles.css";
+// import "./styles.css";
+import "./Challenge1-styles.css";
 
 // import App from './App'
 // import App from './SpreadExample'
