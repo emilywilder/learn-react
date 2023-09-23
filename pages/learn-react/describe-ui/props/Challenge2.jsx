@@ -4,7 +4,7 @@ function Avatar({ person, size }) {
   return (
     <img
       className="avatar"
-      src={getImageUrl(person, 'b')}
+      src={getImageUrl(person, (size < 90) ? 's' : 'b')}
       alt={person.name}
       width={size}
       height={size}
@@ -14,6 +14,7 @@ function Avatar({ person, size }) {
 
 export default function Profile() {
   return (
+    <>
     <Avatar
       size={40}
       person={{ 
@@ -21,5 +22,13 @@ export default function Profile() {
         imageId: '7vQD0fP'
       }}
     />
+     <Avatar
+      size={120}
+      person={{ 
+        name: 'Gregorio Y. Zara', 
+        imageId: '7vQD0fP'
+      }}
+    />
+    </>
   );
 }
