@@ -23,7 +23,8 @@
                         { "name": "Writing Markup with JSX", "location": "/learn-react/describe-ui/jsx-markup" },
                         { "name": "JavaScript in JSX with Curly Braces", "location": "/learn-react/describe-ui/jsx-curly" },
                         { "name": "Passing Props to a Component", "location": "/learn-react/describe-ui/props" },
-                        { "name": "Conditional Rendering", "location": "/learn-react/describe-ui/cond-rend" }
+                        { "name": "Conditional Rendering", "location": "/learn-react/describe-ui/cond-rend" },
+                        { "name": "Rendering Lists", "location": "/learn-react/describe-ui/lists" }
                     ]
                 },
                 {
