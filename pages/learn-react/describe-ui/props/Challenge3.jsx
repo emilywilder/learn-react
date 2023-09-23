@@ -1,8 +1,17 @@
+function Card({ children }) {
+    return (
+        <div className="card">
+            <div className="card-content">
+                {children}
+            </div>
+        </div>
+    )
+}
+
 export default function Profile() {
     return (
       <div>
-        <div className="card">
-          <div className="card-content">
+        <Card>
             <h1>Photo</h1>
             <img
               className="avatar"
@@ -11,15 +20,11 @@ export default function Profile() {
               width={70}
               height={70}
             />
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-content">
+        </Card>
+        <Card>
             <h1>About</h1>
             <p>Aklilu Lemma was a distinguished Ethiopian scientist who discovered a natural treatment to schistosomiasis.</p>
-          </div>
-        </div>
+        </Card>         
       </div>
     );
   }
-  
