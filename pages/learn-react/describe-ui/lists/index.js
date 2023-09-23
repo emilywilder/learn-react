@@ -1,5 +1,5 @@
 import React, { StrictMode } from "react";
-// import "./styles.css";
+import "./styles.css";
 
 import App from './App'
 
