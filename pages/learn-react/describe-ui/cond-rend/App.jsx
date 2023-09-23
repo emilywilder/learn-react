@@ -1,9 +1,9 @@
 function Item({ name, isPacked }) {
-    if (isPacked) {
-        return null;
-    }
-    return <li className="item">{name}</li>;
-    
+    return (
+        <li className="item">
+            {isPacked ? name + ' ✔' : name}
+        </li>
+    )
   }
   
   export default function PackingList() {
