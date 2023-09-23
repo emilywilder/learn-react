@@ -11,6 +11,7 @@ function Card({ children }) {
 export default function Profile() {
     return (
         <Card>
+            <h1>Katsuko Saruhashi</h1>
             <Avatar
                 size={100}
                 person={{
