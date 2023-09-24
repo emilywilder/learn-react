@@ -1,6 +1,6 @@
 export default function Button() {
     return (
-      <button onClick={function handleClick() {
+      <button onClick={() => {
         alert('You clicked me!')
       }}>
         Click me
