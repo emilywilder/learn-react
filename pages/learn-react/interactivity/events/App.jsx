@@ -1,29 +1,14 @@
-function Button({ onClick, children }) {
+export default function Toolbar() {
     return (
-        <button onClick={onClick}>
-            {children}
-        </button>
-    )
-}
-
-function Toolbar({ onPlayMovie, onUploadImage }) {
-    return (
-        <div>
-            <Button onClick={onPlayMovie}>
+        <div className="Toolbar" onClick={() => {
+            alert('You clicked on the toolbar!')
+        }}>
+            <button onClick={() => alert('Playing!')}>
                 Play Movie
-            </Button>
-            <Button onClick={onUploadImage}>
+            </button>
+            <button onClick={() => alert('Uploading!')}>
                 Upload Image
-            </Button>
+            </button>
         </div>
-    )
-}
-
-export default function App() {
-    return (
-        <Toolbar
-            onPlayMovie={() => alert('Playing!')}
-            onUploadImage={() => alert('Uploading!')}
-        />
     )
 }
