@@ -1,8 +1,8 @@
 export default function StoryTray({ stories }) {
-    stories.push({
+    const createStory = {
       id: 'create',
       label: 'Create Story'
-    });
+    }
   
     return (
       <ul>
@@ -11,7 +11,10 @@ export default function StoryTray({ stories }) {
             {story.label}
           </li>
         ))}
+        <li key={createStory.id}>
+          {createStory.label}
+        </li>
       </ul>
-    );
+    )
   }
   
