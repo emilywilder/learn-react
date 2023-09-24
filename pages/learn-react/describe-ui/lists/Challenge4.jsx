@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 const poem = {
     lines: [
       'I write, erase, rewrite',
@@ -7,13 +9,16 @@ const poem = {
   };
   
   export default function Poem() {
+    const renderLines = poem.lines.map((line, index) =>
+      <Fragment key={index}>
+        <p>{line}</p>
+        { index < poem.lines.length - 1 && <hr/> }
+      </Fragment>
+    )
+    
     return (
       <article>
-        {poem.lines.map((line, index) =>
-          <p key={index}>
-            {line}
-          </p>
-        )}
+        {renderLines}
       </article>
     );
   }
