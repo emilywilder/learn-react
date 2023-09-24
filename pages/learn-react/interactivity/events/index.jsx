@@ -1,8 +1,13 @@
 import React, { StrictMode } from "react";
+import dynamic from "next/dynamic";
 import "./styles.css";
 
 // import App from './App'
-import App from './Challenge1'
+const App = dynamic(() => {
+      return import("./Challenge1");
+    },
+    { ssr: false }
+  )
 
 export default function Home() {
     return (
