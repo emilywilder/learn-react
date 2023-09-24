@@ -30,7 +30,9 @@
                 },
                 {
                     "name": "Adding Interactivity",
-                    "apps": []
+                    "apps": [
+                        { "name": "Responding to Events", "location": "/learn-react/interactivity/events" }
+                    ]
                 },
                 {
                     "name": "Managing State",
