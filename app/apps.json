@@ -31,7 +31,8 @@
                 {
                     "name": "Adding Interactivity",
                     "apps": [
-                        { "name": "Responding to Events", "location": "/learn-react/interactivity/events" }
+                        { "name": "Responding to Events", "location": "/learn-react/interactivity/events" },
+                        { "name": "State: A Component's Memory", "location": "/learn-react/interactivity/state" }
                     ]
                 },
                 {
