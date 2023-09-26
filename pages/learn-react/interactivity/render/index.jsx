@@ -1,4 +1,4 @@
-import Image from './Image'
+import Gallery from './Gallery'
 import { createRoot } from 'react-dom/client'
 import { useEffect } from 'react'
 
@@ -10,7 +10,7 @@ export default function Home() {
     useEffect(() => {
         if (document) {
             const root = createRoot(document.getElementById('__next'))
-            root.render(<Image />)
+            root.render(<Gallery />)
         }
       }, []);
 }
