@@ -33,7 +33,8 @@
                     "apps": [
                         { "name": "Responding to Events", "location": "/learn-react/interactivity/events" },
                         { "name": "State: A Component's Memory", "location": "/learn-react/interactivity/state" },
-                        { "name": "Render and Commit", "location": "/learn-react/interactivity/render" }
+                        { "name": "Render and Commit", "location": "/learn-react/interactivity/render" },
+                        { "name": "State as a Snapshot", "location": "/learn-react/interactivity/snapshot" }
                     ]
                 },
                 {
