@@ -9,24 +9,21 @@ export default function Form() {
 
   function handleFirstNameChange(e) {
     setPerson({
-        firstName: e.target.value,
-        lastName: person.lastName,
-        email: person.email
+        ...person,
+        firstName: e.target.value
     })
   }
 
   function handleLastNameChange(e) {
     setPerson({
-        firstName: person.firstName,
-        lastName: e.target.value,
-        email: person.email
+        ...person,
+        lastName: e.target.value
     })
   }
 
   function handleEmailChange(e) {
     setPerson({
-        firstName: person.firstName,
-        lastName: person.lastName,
+        ...person,
         email: e.target.value
     })
   }
