@@ -8,7 +8,9 @@ export default function Counter() {
       <h1>{number}</h1>
       <button onClick={() => {
         setNumber(number + 5);
-        alert(number);
+        setTimeout(() => {
+          alert(number);
+        }, 3000);
       }}>+5</button>
     </>
   )
