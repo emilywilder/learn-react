@@ -36,7 +36,8 @@
                         { "name": "Render and Commit", "location": "/learn-react/interactivity/render" },
                         { "name": "State as a Snapshot", "location": "/learn-react/interactivity/snapshot" },
                         { "name": "Queueing a Series of State Updates", "location": "/learn-react/interactivity/queueing" },
-                        { "name": "Updating Objects in State", "location": "/learn-react/interactivity/update-objects" }
+                        { "name": "Updating Objects in State", "location": "/learn-react/interactivity/update-objects" },
+                        { "name": "Updating Arrays in State", "location": "/learn-react/interactivity/update-arrays" }
                     ]
                 },
                 {
