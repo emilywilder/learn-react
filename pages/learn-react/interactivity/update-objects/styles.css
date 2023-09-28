@@ -46,5 +46,11 @@
     padding-inline-start: 20px;
   }
   
-  body { margin: 0; padding: 0; height: 250px; }
+  label {
+    display: block;
+  }
+  input {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
   
