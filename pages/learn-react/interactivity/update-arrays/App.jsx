@@ -14,10 +14,14 @@ export default function List() {
         onChange={e => setName(e.target.value)}
       />
       <button onClick={() => {
-        artists.push({
-          id: nextId++,
-          name: name,
-        });
+        setArtists(
+          [...artists,
+            {
+              id: nextId++,
+              name: name,
+            }
+          ]
+        );
       }}>Add</button>
       <ul>
         {artists.map(artist => (
