@@ -34,21 +34,18 @@ export default function ShoppingCart() {
   }
 
   function handleDecreaseClick(productId) {
-    const product = products.find((product) => product.id === productId)
-    if (product.count <= 1) {
-        setProducts(products.filter((p) => p.id !== productId))
-    } else {
-        setProducts(products.map(product => {
-            if (product.id === productId) {
-              return {
-                ...product,
-                count: product.count - 1
-              };
-            } else {
-              return product;
-            }
-        }))
-    }
+    let nextProducts = products.map(product => {
+        if (product.id === productId) {
+            return {
+            ...product,
+            count: product.count - 1
+            };
+        } else {
+            return product;
+        }
+    })
+    nextProducts = nextProducts.filter(p => p.count > 0)
+    setProducts(nextProducts)
   }
 
 
