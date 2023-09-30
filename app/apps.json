@@ -42,7 +42,9 @@
                 },
                 {
                     "name": "Managing State",
-                    "apps": []
+                    "apps": [
+                        { "name": "Reacting to Input with State", "location": "/learn-react/manage-state/reacting" }
+                    ]
                 },
                 {
                     "name": "Escape Hatches",
