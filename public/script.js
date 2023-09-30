@@ -54,31 +54,12 @@ async function handleFormSubmit(e) {
       }, 1500);
     });
   }
-  
-  
-import React, { useEffect } from 'react';
-import { createRoot } from 'react-dom/client'
-import Page from './public/index.html';
-var htmlDoc = {__html: Page};
 
-// let form = document.getElementById('form');
-// let textarea = document.getElementById('textarea');
-// let button = document.getElementById('button');
-// let loadingMessage = document.getElementById('loading');
-// let errorMessage = document.getElementById('error');
-// let successMessage = document.getElementById('success');
-// form.onsubmit = handleFormSubmit;
-// textarea.oninput = handleTextareaChange;
-
-
-export default function App() {
-  useEffect(() =>  {
-    if (document) {
-      const root = createRoot(document.getElementById('__next'))
-      root.render(
-        <div dangerouslySetInnerHTML={htmlDoc} />
-      )
-    }
-  }, [])
-  
-}
+let form = document.getElementById('form');
+let textarea = document.getElementById('textarea');
+let button = document.getElementById('button');
+let loadingMessage = document.getElementById('loading');
+let errorMessage = document.getElementById('error');
+let successMessage = document.getElementById('success');
+form.onsubmit = handleFormSubmit;
+textarea.oninput = handleTextareaChange;
