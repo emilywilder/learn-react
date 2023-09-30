@@ -15,26 +15,32 @@ export default function TaskApp() {
   );
 
   function handleAddTodo(title) {
-    todos.push({
-      id: nextId++,
-      title: title,
-      done: false
-    });
+    setTodos([
+        ...todos,
+        {
+            id: nextId++,
+            title: title,
+            done: false
+          }
+    ])
   }
 
   function handleChangeTodo(nextTodo) {
-    const todo = todos.find(t =>
-      t.id === nextTodo.id
-    );
-    todo.title = nextTodo.title;
-    todo.done = nextTodo.done;
+    setTodos(todos.map(t => {
+        if (t.id === nextTodo.id) {
+            return {
+                ...t,
+                title: nextTodo.title,
+                done: nextTodo.done
+            }
+        } else {
+            return t
+        }
+    }))
   }
 
   function handleDeleteTodo(todoId) {
-    const index = todos.findIndex(t =>
-      t.id === todoId
-    );
-    todos.splice(index, 1);
+    setTodos(todos.filter(t => t.id !== todoId))
   }
 
   return (
