@@ -9,11 +9,22 @@ export default function Form({ status = 'empty'}) {
                 In which city is there a billboard that turns air into drinkable water?
             </p>
             <form>
-                <textarea />
+                <textarea disabled={
+                    status === 'submitting'
+                }/>
                 <br />
-                <button>
+                <button disabled={
+                    status === 'empty' ||
+                    status === 'submitting'
+                }>
                     Submit
                 </button>
+                {
+                    status === 'error' &&
+                    <p className="Error">
+                        Good guess but a wrong answer. Try again!
+                    </p>
+                }
             </form>
         </>
     )
