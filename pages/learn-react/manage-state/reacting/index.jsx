@@ -1,20 +1,12 @@
-import React, { useEffect } from 'react';
-import { createRoot } from 'react-dom/client'
-import Script from 'next/script';
+import { StrictMode } from "react"
 
-import index_html from './public/index.html'
+import "./styles.css"
+import App from './App'
 
-export default function App() {
-  useEffect(() =>  {
-    if (document) {
-        const root = createRoot(document.getElementById('__next'))
-        root.render(
-            <>
-                <Script src="/script.js" />
-                <div dangerouslySetInnerHTML={{__html: index_html}} />
-            </>   
-        )
-    }
-  }, [])
-  
+export default function Home() {
+    return (
+        <StrictMode>
+            <App />
+        </StrictMode>
+    )
 }
