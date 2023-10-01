@@ -1,4 +1,14 @@
-function Form({ status = 'empty'}) {
+import { useState } from "react"
+
+export default function Form({ status = 'empty'}) {
+    const [answer, setAnswer] = useState('')
+    const [error, setError] = useState(null)
+    const [isEmpty, setIsEmpty] = useState(true)
+    const [isTpying, setIsTyping] = useState(false)
+    const [isSubmitting, setIsSumbitting] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [isError, setIsError] = useState(false)
+
     if (status === 'success') {
         return <h1>That's right!</h1>
     }
@@ -26,28 +36,6 @@ function Form({ status = 'empty'}) {
                     </p>
                 }
             </form>
-        </>
-    )
-}
-
-export default function App() {
-    let statuses = [
-        'empty',
-        'typing',
-        'submitting',
-        'success',
-        'error'
-    ]
-
-    return (
-        <>
-            {statuses.map(status => (
-                <section key={status}>
-                    <h4>Form ({status}):</h4>
-                    <Form status={status} />
-                    <br />
-                </section>
-            ))}
         </>
     )
 }
