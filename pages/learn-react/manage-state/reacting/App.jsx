@@ -1,41 +1,70 @@
 import { useState } from "react"
 
-export default function Form({ status = 'empty'}) {
+export default function Form() {
     const [answer, setAnswer] = useState('')
     const [error, setError] = useState(null)
-    const [isEmpty, setIsEmpty] = useState(true)
-    const [isTpying, setIsTyping] = useState(false)
-    const [isSubmitting, setIsSumbitting] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
-    const [isError, setIsError] = useState(false)
+    const [status, setStatus] = useState('typing')
 
     if (status === 'success') {
         return <h1>That's right!</h1>
     }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        setStatus('submitting')
+        try {
+            await submitForm(answer)
+            setStatus('success')
+        } catch (err) {
+            setStatus('typing')
+            setError(err)
+        }
+    }
+
+    function handleTextareaChange(e) {
+        setAnswer(e.target.value)
+    }
+
     return (
         <>
             <h2>City quiz</h2>
             <p>
                 In which city is there a billboard that turns air into drinkable water?
             </p>
-            <form>
-                <textarea disabled={
-                    status === 'submitting'
-                }/>
+            <form onSubmit={handleSubmit}>
+                <textarea
+                    value={answer}
+                    onChange={handleTextareaChange}
+                    disabled={status === 'submitting'}
+                />
                 <br />
                 <button disabled={
-                    status === 'empty' ||
+                    answer.length === 0 ||
                     status === 'submitting'
                 }>
                     Submit
                 </button>
                 {
-                    status === 'error' &&
+                    error !== null &&
                     <p className="Error">
-                        Good guess but a wrong answer. Try again!
+                        {error.message}
                     </p>
                 }
             </form>
         </>
     )
+}
+
+function submitForm(answer) {
+    // Emulate network response
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            let shouldError = answer.toLowerCase() !== 'lima'
+            if (shouldError) {
+                reject(new Error('Good guess but a wrong answer'))
+            } else {
+                resolve()
+            }
+        }, 1500)
+    })
 }
