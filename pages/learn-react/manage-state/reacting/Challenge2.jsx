@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
-import { createRoot } from 'react-dom/client'
-import Script from 'next/script';
-
-import index_html from './public/index.html'
-
-export default function App() {
-    useEffect(() =>  {
-      if (document) {
-          const root = createRoot(document.getElementById('__next'))
-          root.render(
-              <>
-                  <Script src="/no-react-lesson.js" />
-                  <div dangerouslySetInnerHTML={{__html: index_html}} />
-              </>   
-          )
-      }
-    }, []) 
+export default function EditProfile() {
+    return (
+      <form>
+        <label>
+          First name:{' '}
+          <b>Jane</b>
+          <input />
+        </label>
+        <label>
+          Last name:{' '}
+          <b>Jacobs</b>
+          <input />
+        </label>
+        <button type="submit">
+          Edit Profile
+        </button>
+        <p><i>Hello, Jane Jacobs!</i></p>
+      </form>
+    );
   }
+  
