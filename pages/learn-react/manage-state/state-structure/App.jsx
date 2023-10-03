@@ -12,13 +12,31 @@ export default function Menu() {
     items[0]
   );
 
+  function handleItemChange(id, e) {
+    setItems(items.map(item => {
+        if (item.id === id) {
+            return {
+                ...items,
+                title: e.target.value
+            }
+        } else {
+            return item
+        }
+    }))
+  }
+
   return (
     <>
       <h2>What's your travel snack?</h2>
       <ul>
         {items.map(item => (
           <li key={item.id}>
-            {item.title}
+          <input
+            value={item.title}
+            onChange={e => {
+                handleItemChange(item.id, e)
+            }}
+          />
             {' '}
             <button onClick={() => {
               setSelectedItem(item);
