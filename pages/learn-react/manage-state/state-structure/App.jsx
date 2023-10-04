@@ -1,22 +1,24 @@
-import { useState } from 'react';
+import { useImmer } from 'use-immer';
 import { initialTravelPlan } from './places';
 
 export default function TravelPlan() {
-  const [plan, setPlan] = useState(initialTravelPlan);
+  const [plan, updatePlan] = useImmer(initialTravelPlan);
 
   function handleComplete(parentId, childId) {
-    const parent = plan[parentId]
-    // remove place from parent's list of children ids
-    const nextParent = {
-        ...parent,
-        childIds: parent.childIds.filter(
+    updatePlan(draft => {
+        const parent = draft[parentId]
+        // remove place from parent's list of children ids
+        parent.childIds = parent.childIds.filter(
             id => id !== childId
         )
-    }
-    // update plan with new parent object
-    setPlan({
-        ...plan,
-        [parentId]: nextParent
+        // reclaim memory of removed children
+        function deleteAllChildren(id) {
+            const place = draft[id]
+            place.childIds.forEach(deleteAllChildren)
+            delete draft[id]
+        }
+
+        deleteAllChildren(childId)
     })
   }
 
