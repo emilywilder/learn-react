@@ -5,6 +5,7 @@ const nextConfig = {
             test: /\.(html)$/,
             loader: 'html-loader',
         })
+        // config.resolve.fallback = { fs: false };
         return config
       },
 }
