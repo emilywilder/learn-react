@@ -4,10 +4,10 @@ import Letter from './Challenge3-Letter';
 
 export default function MailClient() {
   const [letters, setLetters] = useState(initialLetters);
-  const [highlightedLetter, setHighlightedLetter] = useState(null);
+  const [highlightedLetterId, setHighlightedLetterId] = useState(null);
 
   function handleHover(letter) {
-    setHighlightedLetter(letter);
+    setHighlightedLetterId(letter.id);
   }
 
   function handleStar(starred) {
@@ -32,7 +32,7 @@ export default function MailClient() {
             key={letter.id}
             letter={letter}
             isHighlighted={
-              letter === highlightedLetter
+              letter.id === highlightedLetterId
             }
             onHover={handleHover}
             onToggleStar={handleStar}
