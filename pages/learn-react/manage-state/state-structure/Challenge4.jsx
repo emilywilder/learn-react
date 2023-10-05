@@ -3,14 +3,16 @@ import { letters } from './Challenge4-data.js';
 import Letter from './Challenge4-Letter';
 
 export default function MailClient() {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
 
-  // TODO: allow multiple selection
-  const selectedCount = 1;
+  const selectedCount = selectedIds.length
 
   function handleToggle(toggledId) {
-    // TODO: allow multiple selection
-    setSelectedId(toggledId);
+    if (selectedIds.includes(toggledId)) {
+        setSelectedIds(selectedIds.filter(x => x !== toggledId))
+    } else {
+        setSelectedIds([...selectedIds, toggledId])
+    }
   }
 
   return (
@@ -22,8 +24,7 @@ export default function MailClient() {
             key={letter.id}
             letter={letter}
             isSelected={
-              // TODO: allow multiple selection
-              letter.id === selectedId
+              selectedIds.includes(letter.id)
             }
             onToggle={handleToggle}
           />
