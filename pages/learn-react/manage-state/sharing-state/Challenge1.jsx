@@ -1,15 +1,6 @@
 import { useState } from 'react';
 
 export default function SyncedInputs() {
-  return (
-    <>
-      <Input label="First input" />
-      <Input label="Second input" />
-    </>
-  );
-}
-
-function Input({ label }) {
   const [text, setText] = useState('');
 
   function handleChange(e) {
@@ -17,12 +8,29 @@ function Input({ label }) {
   }
 
   return (
+    <>
+      <Input
+        label="First input"
+        text={text}
+        onChange={handleChange}
+      />
+      <Input
+        label="Second input"
+        text={text}
+        onChange={handleChange}
+      />
+    </>
+  );
+}
+
+function Input({ label, text, onChange }) {
+  return (
     <label>
       {label}
       {' '}
       <input
         value={text}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </label>
   );
