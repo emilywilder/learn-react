@@ -2,16 +2,6 @@ import { useState } from 'react';
 import { foods, filterItems } from './Challenge2-data.js';
 
 export default function FilterableList() {
-  return (
-    <>
-      <SearchBar />
-      <hr />
-      <List items={foods} />
-    </>
-  );
-}
-
-function SearchBar() {
   const [query, setQuery] = useState('');
 
   function handleChange(e) {
@@ -19,11 +9,22 @@ function SearchBar() {
   }
 
   return (
+    <>
+      <SearchBar query={query} onChange={handleChange} />
+      <hr />
+      <List items={filterItems(foods, query)} />
+    </>
+  );
+}
+
+function SearchBar({ query, onChange }) {
+
+  return (
     <label>
       Search:{' '}
       <input
         value={query}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </label>
   );
