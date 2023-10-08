@@ -1,11 +1,10 @@
 import { useState } from "react";
 
 export default function App() {
-    const counter = <Counter />
     return (
         <div>
-            {counter}
-            {counter}
+            <Counter />
+            <Counter />
         </div>
     )
 }
