@@ -1,11 +1,12 @@
 import { StrictMode } from "react"
 
 // import "./styles.css"
-import "./Challenge1-styles.css"
+// import "./Challenge1-styles.css"
+import "./Challenge2.css"
 
 // import App from './App'
 // import App from './NestedDefinitionExample'
-import App from './Challenge1'
+import App from './Challenge2'
 
 function Blank() {
     return (
