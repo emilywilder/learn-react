@@ -46,7 +46,8 @@
                         { "name": "Reacting to Input with State", "location": "/learn-react/manage-state/reacting" },
                         { "name": "Choosing the State Structure", "location": "/learn-react/manage-state/state-structure" },
                         { "name": "Sharing State Between Components", "location": "/learn-react/manage-state/sharing-state" },
-                        { "name": "Preserving and Resetting State", "location": "/learn-react/manage-state/preserve-reset" }
+                        { "name": "Preserving and Resetting State", "location": "/learn-react/manage-state/preserve-reset" },
+                        { "name": "Extracting State Logic into a Reducer", "location": "/learn-react/manage-state/reducer" }
                     ]
                 },
                 {
