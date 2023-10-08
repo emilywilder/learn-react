@@ -46,20 +46,21 @@
     padding-inline-start: 20px;
   }
   
-  h1 {
-    font-size: 18px;
+  .chat, .contact-list {
+    float: left;
+    margin-bottom: 20px;
   }
-  
-  .counter {
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li button {
     width: 100px;
-    text-align: center;
-    border: 1px solid gray;
-    border-radius: 4px;
-    padding: 20px;
-    margin: 0 20px 20px 0;
+    padding: 10px;
+    margin-right: 10px;
   }
-  
-  .hover {
-    background: #ffffd8;
+  textarea {
+    height: 150px;
   }
   
