@@ -2,33 +2,29 @@ import { useState } from 'react';
 
 export default function App() {
   const [reverse, setReverse] = useState(false);
-  let checkbox = (
-    <label>
-      <input
-        type="checkbox"
-        checked={reverse}
-        onChange={e => setReverse(e.target.checked)}
-      />
-      Reverse order
-    </label>
+  return (
+    <>
+        {reverse ? (
+            <>
+                <Field key="last" label="Last name" />
+                <Field key="first" label="First name" />
+            </>
+        ) : (
+            <>
+                <Field key="first" label="First name" />
+                <Field key="last" label="Last name" />
+            </>
+        )}
+        <label>
+            <input
+                type="checkbox"
+                checked={reverse}
+                onChange={e => setReverse(e.target.checked)}
+            />
+            Reverse order
+        </label>
+    </>
   );
-  if (reverse) {
-    return (
-      <>
-        <Field label="Last name" /> 
-        <Field label="First name" />
-        {checkbox}
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Field label="First name" /> 
-        <Field label="Last name" />
-        {checkbox}
-      </>
-    );    
-  }
 }
 
 function Field({ label }) {
