@@ -12,30 +12,15 @@ export default function TaskApp() {
        this component.
     */ 
     function handleAddTask(text) {
-        setTasks([
-            ...tasks,
-            {
-                id: nextId++,
-                text: text,
-                done: false
-            }
-        ])
+
     }
 
     function handleChangeTask(task) {
-        setTasks(
-            tasks.map((t) => {
-                if (t.id === task.id) {
-                    return task
-                } else {
-                    return t
-                }
-            })
-        )
+
     }
 
     function handleDeleteTask(taskId) {
-        setTasks(tasks.filter((t) => t.id !== taskId))
+
     }
 
     return (
@@ -49,6 +34,32 @@ export default function TaskApp() {
             />
         </>
     )
+}
+
+// Moved event handler logic to a single reducer function
+function tasksReducer(tasks, action) {
+    if (action.type === 'added') {
+        return [
+            ...tasks,
+            {
+                id: nextId++,
+                text: text,
+                done: false
+            }
+        ]
+    } else if (action.type === 'changed') {
+        return tasks.map((t) => {
+            if (t.id === action.task.id) {
+                return action.task
+            } else {
+                return t
+            }
+        })
+    } else if (action.type === 'deleted') {
+        return tasks.filter((t) => t.id !== action.id)
+    } else {
+        throw Error('Unknown action: ' + action.type)
+    }
 }
 
 let nextId = 3
