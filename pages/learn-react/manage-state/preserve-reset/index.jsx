@@ -2,8 +2,8 @@ import { StrictMode } from "react"
 
 import "./styles.css"
 
-// import App from './App'
-import App from './NestedDefinitionExample'
+import App from './App'
+// import App from './NestedDefinitionExample'
 
 function Blank() {
     return (
