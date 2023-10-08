@@ -5,6 +5,12 @@ import TaskList from "./TaskList";
 export default function TaskApp() {
     const [tasks, setTasks] = useState(initialTasks)
 
+    /* These event handlers can be moved into a reducer function,
+       defined outside of the Component.
+
+       Instead of setting state, they will dispatch an action to
+       this component.
+    */ 
     function handleAddTask(text) {
         setTasks([
             ...tasks,
