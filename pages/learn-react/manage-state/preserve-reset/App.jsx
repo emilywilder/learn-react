@@ -1,35 +1,42 @@
 import { useState } from "react";
 
 export default function App() {
-    const [isPaused, setIsPaused] = useState(false)
+    const [isFancy, setIsFancy] = useState(false)
     return (
         <div>
-            {isPaused ? (
-                <p>See you later!</p>
+            {isFancy ? (
+                <div>
+                    <Counter isFancy={true} />
+                </div>
             ) : (
-                <Counter />
+                <section>
+                    <Counter isFancy={false} />
+                </section>
             )}
             <label>
                 <input
                     type="checkbox"
-                    checked={isPaused}
+                    checked={isFancy}
                     onChange={e => {
-                        setIsPaused(e.target.checked)
+                        setIsFancy(e.target.checked)
                     }}
                 />
-                Take a break
+                Use fancy styling
             </label>
         </div>
     )
 }
 
-function Counter() {
+function Counter({ isFancy }) {
     const [score, setScore] = useState(0)
     const [hover, setHover] = useState(false)
 
     let className = 'counter'
     if (hover) {
         className += ' hover'
+    }
+    if (isFancy) {
+        className += ' fancy'
     }
 
     return (
