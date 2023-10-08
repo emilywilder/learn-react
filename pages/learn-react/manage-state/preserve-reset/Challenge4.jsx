@@ -21,7 +21,7 @@ export default function Gallery() {
       <h3>
         Image {index + 1} of {images.length}
       </h3>
-      <img src={image.src} />
+      <img key={index} src={image.src} />
       <p>
         {image.place}
       </p>
