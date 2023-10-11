@@ -1,10 +1,10 @@
-import { useReducer } from "react";
+import { useImmerReducer } from "use-immer";
 import AddTask from "./AddTask";
 import TaskList from "./TaskList";
 import tasksReducer from "./tasksReducer";
 
 export default function TaskApp() {
-    const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)
+    const [tasks, dispatch] = useImmerReducer(tasksReducer, initialTasks)
 
     function handleAddTask(text) {
         dispatch({
