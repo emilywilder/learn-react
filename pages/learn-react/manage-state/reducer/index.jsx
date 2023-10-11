@@ -2,8 +2,8 @@ import { StrictMode } from "react"
 
 import "./styles.css"
 
-// import App from './App'
-import App from './ReducerExample'
+import App from './App'
+// import App from './ReducerExample'
 
 function Blank() {
     return (

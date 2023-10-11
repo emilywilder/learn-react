@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import AddTask from "./AddTask";
 import TaskList from "./TaskList";
 
 export default function TaskApp() {
-    const [tasks, setTasks] = useState(initialTasks)
+    const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)
 
     /* These event handlers can be moved into a reducer function,
        defined outside of the Component.
@@ -12,15 +12,25 @@ export default function TaskApp() {
        this component.
     */ 
     function handleAddTask(text) {
-
+        dispatch({
+            type: 'added',
+            id: nextId++,
+            text: text
+        })
     }
 
     function handleChangeTask(task) {
-
+        dispatch({
+            type: 'changed',
+            task: task
+        })
     }
 
     function handleDeleteTask(taskId) {
-
+        dispatch({
+            type: 'deleted',
+            id: taskId
+        })
     }
 
     return (
