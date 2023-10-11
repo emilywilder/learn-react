@@ -1,16 +1,11 @@
 import { useReducer } from "react";
 import AddTask from "./AddTask";
 import TaskList from "./TaskList";
+import tasksReducer from "./tasksReducer";
 
 export default function TaskApp() {
     const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)
 
-    /* These event handlers can be moved into a reducer function,
-       defined outside of the Component.
-
-       Instead of setting state, they will dispatch an action to
-       this component.
-    */ 
     function handleAddTask(text) {
         dispatch({
             type: 'added',
@@ -44,37 +39,6 @@ export default function TaskApp() {
             />
         </>
     )
-}
-
-// Moved event handler logic to a single reducer function
-function tasksReducer(tasks, action) {
-    switch (action.type) {
-        case 'added': {
-            return [
-                ...tasks,
-                {
-                    id: action.id,
-                    text: action.text,
-                    done: false
-                }
-            ]
-        }
-        case 'changed': {
-            return tasks.map((t) => {
-                if (t.id === action.task.id) {
-                    return action.task
-                } else {
-                    return t
-                }
-            })
-        }
-        case 'deleted': {
-            return tasks.filter((t) => t.id !== action.id)
-        }
-        default: {
-            throw Error('Unknown action: ' + action.type)
-        }
-    }
 }
 
 let nextId = 3
