@@ -43,8 +43,8 @@ function tasksReducer(tasks, action) {
             return [
                 ...tasks,
                 {
-                    id: nextId++,
-                    text: text,
+                    id: action.id,
+                    text: action.text,
                     done: false
                 }
             ]
