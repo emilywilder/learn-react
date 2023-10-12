@@ -4,7 +4,7 @@ export function useReducer(reducer, initialState) {
   const [state, setState] = useState(initialState);
 
   function dispatch(action) {
-    setState(reducer(state, action))
+    setState((s) => reducer(s, action))
   }
 
   return [state, dispatch];
