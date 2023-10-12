@@ -5,7 +5,7 @@ import { initialState, messengerReducer } from './Challenge3-messengerReducer';
 
 export default function Messenger() {
   const [state, dispatch] = useReducer(messengerReducer, initialState);
-  const message = state.message;
+  const messages = state.messages;
   const contact = contacts.find((c) => c.id === state.selectedId);
   return (
     <div>
@@ -16,7 +16,7 @@ export default function Messenger() {
       />
       <Chat
         key={contact.id}
-        message={message}
+        messages={messages}
         contact={contact}
         dispatch={dispatch}
       />
