@@ -48,7 +48,8 @@
                         { "name": "Sharing State Between Components", "location": "/learn-react/manage-state/sharing-state" },
                         { "name": "Preserving and Resetting State", "location": "/learn-react/manage-state/preserve-reset" },
                         { "name": "Extracting State Logic into a Reducer", "location": "/learn-react/manage-state/reducer" },
-                        { "name": "Passing Data Deeply with Context", "location": "/learn-react/manage-state/context" }
+                        { "name": "Passing Data Deeply with Context", "location": "/learn-react/manage-state/context" },
+                        { "name": "Scaling Up with Reducer and Context", "location": "/learn-react/manage-state/scaling" }
                     ]
                 },
                 {
