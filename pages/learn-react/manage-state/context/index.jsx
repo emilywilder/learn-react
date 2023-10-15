@@ -15,5 +15,5 @@ export default function Home() {
         <StrictMode>
             <App />
         </StrictMode>
-    )    
+    )
 }
