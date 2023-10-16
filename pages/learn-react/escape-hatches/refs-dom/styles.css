@@ -70,3 +70,7 @@
     padding: 0.5rem;
   }
   
+  div.error {
+    color: red;
+    padding: 0.5rem;
+  }

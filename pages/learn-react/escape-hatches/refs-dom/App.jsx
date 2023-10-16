@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 const MyInput = forwardRef((props, ref) => {
     const realInputRef = useRef(null)
@@ -12,17 +12,36 @@ const MyInput = forwardRef((props, ref) => {
 
 export default function MyForm() {
     const inputRef = useRef(null)
+    const [errorMsg, setErrorMsg] = useState('')
 
-    function handleClick() {
+    function handleClickFocus() {
+        setErrorMsg('')
         inputRef.current.focus()
+    }
+
+    function handleClickBlur() {
+        setErrorMsg('')
+        try {
+            inputRef.current.blur()
+        } catch(err) {
+            setErrorMsg(err.message)
+        }
     }
 
     return (
         <>
             <MyInput ref={inputRef} />
-            <button onClick={handleClick}>
+            <button onClick={handleClickFocus}>
                 Focus the input
             </button>
+            <button onClick={handleClickBlur}>
+                Blur the input
+            </button>
+            {errorMsg &&
+                <div className="error">
+                    {errorMsg}
+                </div>
+            }
         </>
     )
 }
