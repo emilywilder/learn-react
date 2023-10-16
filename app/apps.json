@@ -54,7 +54,9 @@
                 },
                 {
                     "name": "Escape Hatches",
-                    "apps": []
+                    "apps": [
+                        { "name": "Referencing Values with Refs", "location": "/learn-react/escape-hatches/refs" }
+                    ]
                 }
             ]
         }
