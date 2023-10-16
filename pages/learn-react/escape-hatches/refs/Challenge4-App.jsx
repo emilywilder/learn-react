@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 export default function Chat() {
     const [text, setText] = useState('')
+    const textRef = useRef(text)
 
     function handleSend() {
         setTimeout(() => {
-            alert('Sending: ' + text)
+            alert('Sending: ' + textRef.current)
         }, 3000)
     }
 
@@ -13,7 +14,10 @@ export default function Chat() {
         <>
             <input
                 value={text}
-                onChange={e => setText(e.target.value)}
+                onChange={e => {
+                    textRef.current = e.target.value
+                    setText(textRef.current)
+                }}
             />
             <button onClick={handleSend}>
                 Send
