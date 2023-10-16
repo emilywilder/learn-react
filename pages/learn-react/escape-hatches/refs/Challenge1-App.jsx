@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Chat() {
     const [text, setText] = useState('')
     const [isSending, setIsSending] = useState(false)
-    let timeoutID = null
+    const timeoutID = useRef(null)
 
     function handleSend() {
         setIsSending(true)
-        timeoutID = setTimeout(() => {
+        timeoutID.current = setTimeout(() => {
             alert('Sent!')
             setIsSending(false)
         }, 3000)
@@ -15,7 +15,7 @@ export default function Chat() {
 
     function handleUndo() {
         setIsSending(false)
-        clearTimeout(timeoutID)
+        clearTimeout(timeoutID.current)
     }
 
     return (
