@@ -1,6 +1,8 @@
-export default function SearchButton() {
+import { forwardRef } from "react"
+
+export default function SearchButton({onClick}) {
     return (
-        <button>
+        <button onClick={onClick}>
             Search
         </button>
     )
