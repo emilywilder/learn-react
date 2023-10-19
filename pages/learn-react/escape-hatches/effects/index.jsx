@@ -1,8 +1,8 @@
 import { StrictMode } from "react"
 
-// import "./styles.css"
+import "./styles.css"
 
-// import App from './App'
+import App from './App'
 
 function Blank() {
     return (
@@ -13,7 +13,7 @@ function Blank() {
 export default function Home() {
     return (
         <StrictMode>
-            <Blank />
+            <App />
         </StrictMode>
     )
 }
