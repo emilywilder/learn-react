@@ -4,8 +4,8 @@ export default function MyInput({ shouldFocus, value, onChange }) {
     const ref = useRef(null)
 
     useEffect(() => {
-        ref.current.focus()
-    }, [])
+        shouldFocus && ref.current.focus()
+    }, [shouldFocus])
 
     return (
         <input
