@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function MyInput({ value, onChange }) {
     const ref = useRef(null)
 
-    // TODO: This doesn't quite work. Fix it.
-    // ref.current.focus()
+    useEffect(() => {
+        ref.current.focus()
+    }, [])
 
     return (
         <input
