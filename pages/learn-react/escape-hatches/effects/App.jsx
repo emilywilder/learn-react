@@ -11,11 +11,7 @@ function VideoPlayer({ src, isPlaying }) {
             console.log('Calling video.pause()')
             ref.current.pause()
         }
-        // empty dependencies causes the lint error:
-        /*  React Hook useEffect has a missing dependency: 'isPlaying'.
-            Either include it or remove the dependency array.
-        */
-    }, [])
+    }, [isPlaying])
 
     return <video ref={ref} src={src} loop playsInline />
 }
