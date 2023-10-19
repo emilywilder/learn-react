@@ -6,10 +6,12 @@ export default function Page() {
     const [bio, setBio] = useState(null)
 
     useEffect(() => {
+        let ignoreFetch = false
         setBio(null)
         fetchBio(person).then(result => {
-            setBio(result)
+            !ignoreFetch && setBio(result)
         })
+        return () => ignoreFetch = true
     }, [person])
 
     return (
