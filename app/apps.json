@@ -56,7 +56,8 @@
                     "name": "Escape Hatches",
                     "apps": [
                         { "name": "Referencing Values with Refs", "location": "/learn-react/escape-hatches/refs" },
-                        { "name": "Manipulating the DOM with Refs", "location": "/learn-react/escape-hatches/refs-dom" }
+                        { "name": "Manipulating the DOM with Refs", "location": "/learn-react/escape-hatches/refs-dom" },
+                        { "name": "Synchronizing with Effects", "location": "/learn-react/escape-hatches/effects" }
                     ]
                 }
             ]
