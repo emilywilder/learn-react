@@ -1,21 +1,26 @@
 import { useRef, useState } from "react"
+import { flushSync } from "react-dom"
 
 export default function CatFriends() {
     const [index, setIndex] = useState(0)
     const catRef = useRef({})
-    const scrollOptions = {
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center'
-    }
 
     return (
         <>
             <nav>
                 <button onClick={() => {
-                    const _index = index < catList.length - 1 ? index + 1 : 0
-                    setIndex(_index)
-                    catRef.current[_index].scrollIntoView(scrollOptions)
+                    flushSync(() => {
+                        if (index < catList.length - 1) {
+                            setIndex(index + 1)
+                        } else {
+                            setIndex(0)
+                        }
+                    })
+                    catRef.current.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    })
                 }}>
                     Next
                 </button>
@@ -23,9 +28,8 @@ export default function CatFriends() {
             <div>
                 <ul>
                     {catList.map((cat, i) => (
-                        <li key={cat.id} ref={(node) => {
-                            catRef.current[cat.id] = node
-                        }}>
+                         // set catRef if li is "selected"
+                        <li key={cat.id} ref={index === i ? catRef : null}>
                             <img
                                 className={index === i ? 'active': ''}
                                 src={cat.imageUrl}
