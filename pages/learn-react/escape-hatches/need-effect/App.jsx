@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Profiler, useEffect, useState } from "react";
 
 function BadForm() {
     const [firstName, setFirstName] = useState('Taylor');
@@ -55,7 +55,28 @@ function FormInputs({
                 onChange={onChangeLast}
                 defaultValue={lastName}
             />
-            <p>{fullName}</p>
+            <h4>{fullName}</h4>
+        </>
+    )
+}
+
+function ProfileForm({ name, Form }) {
+    const [time, setTime] = useState(0)
+
+    function handleRender(id, phase, actualDuration) {
+        console.log(
+            `⏰ The ${id} interaction took ` +
+            `${actualDuration}ms to render (${phase})`
+        )
+        setTime(time + actualDuration)
+    }
+    return (
+        <>
+            <h2>{name}:</h2>
+            <Profiler id={name} onRender={handleRender}>
+                <Form />
+            </Profiler>
+            <p><i>Total render time: {time}ms</i></p>
         </>
     )
 }
@@ -63,10 +84,8 @@ function FormInputs({
 export default function App() {
     return (
         <>
-            <h1>Don&apos;t do:</h1>
-            <BadForm />
-            <h1>Do:</h1>
-            <GoodForm />
+            <ProfileForm name="Incorrect Form" Form={BadForm} />
+            <ProfileForm name="Correct Form" Form={GoodForm} />
         </>
     )
 }
