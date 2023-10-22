@@ -1,4 +1,5 @@
-import { Profiler, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import ProfileComponent from "../../../Profiling";
 
 function EffectTodoList({ todos, filter }) {
     const [newTodo, setNewTodo] = useState('');
@@ -44,27 +45,6 @@ function RenderTodos({ todos }) {
 
 function getFilteredTodos(todos, filter) {
     return todos.filter(filter)
-}
-
-function ProfileComponent({ name, Component, props }) {
-    const [time, setTime] = useState(0)
-
-    function handleRender(id, phase, actualDuration) {
-        console.log(
-            `⏰ The ${id} interaction took ` +
-            `${actualDuration}ms to render (${phase})`
-        )
-        setTime(time + actualDuration)
-    }
-    return (
-        <>
-            <h3>{name}:</h3>
-            <Profiler id={name} onRender={handleRender}>
-                <Component {...props} />
-            </Profiler>
-            <p><i>Total render time: {time}ms</i></p>
-        </>
-    )
 }
 
 export default function App() {
