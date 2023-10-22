@@ -1,104 +1,107 @@
-import { useEffect, useMemo, useState } from "react";
-import ProfileComponent from "../../../Profiling";
+import { useEffect, useState } from "react"
 
-function EffectTodoList({ todos, filter }) {
-    const [newTodo, setNewTodo] = useState('');
-  
-    // 🔴 Avoid: redundant state and unnecessary Effect
-    const [visibleTodos, setVisibleTodos] = useState([]);
+function BadProfilePage({ userId }) {
+    const [comment, setComment] = useState('')
+
+    // 🔴 Avoid: Resetting state on prop change in an Effect
     useEffect(() => {
-      setVisibleTodos(getFilteredTodos(todos, filter));
-    }, [todos, filter]);
+        setComment('')
+    }, [userId])
     // ...
-    return <RenderTodos todos={visibleTodos} />
+    const user = users.find((u) => u.id === userId)
+    function handleChange(e) { setComment(e.target.value) }
+    
+    return <ProfileInfo user={user} handleChange={handleChange} />
 }
 
-function BlockingTodoList({ todos, filter }) {
-    const [newTodo, setNewTodo] = useState('');
-    // ✅ This is fine if getFilteredTodos() is not slow.
-    const visibleTodos = getFilteredTodos(todos, filter);
-    // ...
-    return <RenderTodos todos={visibleTodos} />
-}
-
-function CachingTodoList({ todos, filter }) {
-    const [newTodo, setNewTodo] = useState('');
-    const visibleTodos = useMemo(() => {
-      // ✅ Does not re-run unless todos or filter change
-      return getFilteredTodos(todos, filter);
-    }, [todos, filter]);
-    // ...
-    return <RenderTodos todos={visibleTodos} />
-}
-
-function RenderTodos({ todos }) {
+function GoodProfilePage({ userId }) {
     return (
-        <ul>
-            {todos.map(x => 
-                <li key={x.id}>
-                    {x.task}
-                </li>
-            )}
-        </ul>
+        <Profile
+            userId={userId}
+            key={userId}
+        />
     )
 }
 
-function getFilteredTodos(todos, filter) {
-    return todos.filter(filter)
+function Profile({ userId }) {
+    // ✅ This and any other state below will reset on key change automatically
+    const [comment, setComment] = useState('')
+    // ...
+    const user = users.find((u) => u.id === userId)
+    function handleChange(e) { setComment(e.target.value) }
+    
+    return <ProfileInfo user={user} handleChange={handleChange} />
+}
+
+function ProfileInfo({ user, handleChange }) {
+    return (
+        <div className="px-3">
+            <div className="pb-3 text-2xl">Hi! I&apos;m {user.name}!</div>
+            <div>Leave a comment:</div>
+            <textarea
+                className="border-2"
+                onChange={handleChange}
+            />
+        </div>
+    )
 }
 
 export default function App() {
-    const [filterName, setFilterName] = useState('Alice')
-    const todos = [
-        {
-            id: 1,
-            person: 'Alice',
-            task: 'Clean living room'
-        },
-        {
-            id: 2,
-            person: 'Alice',
-            task: 'Brush cat'
-        },
-        {
-            id: 3,
-            person: 'Bobbie',
-            task: 'Clean bedroom'
-        },
-        {
-            id: 4,
-            person: 'Bobbie',
-            task: 'Take out trash'
-        }
-    ]
-    const filterTodos = (todo) => todo.person === filterName
-    const props = { todos: todos, filter: filterTodos }
+    const [selectedId, setSelectedId] = useState(1)
+    
     return (
-        <>
-            <h1>Select a person:</h1>
-            <select
-                value={filterName}
-                onChange={e => setFilterName(e.target.value)}
-            >
-                <option>Alice</option>
-                <option>Bobbie</option>
-            </select>
-            <h2>{filterName}&apos;s Todos</h2>
-            <ProfileComponent
-                name="useEffect Todo List"
-                Component={EffectTodoList}
-                props={props}
-            />
-            <ProfileComponent
-                name="Blocking Todo List"
-                Component={BlockingTodoList}
-                props={props}
-            />
-            <ProfileComponent
-                name="Caching Todo List"
-                Component={CachingTodoList}
-                props={props}
-            />
-        </>
+        <div className="font-sans ms-3" >
+            <form>
+                <div className="flex mt-4 mb-6 pb-6">
+                    {users.map((u) => (
+                        <div className="flex text-sm" key={u.id} >
+                            <label>
+                                <input
+                                    className="sr-only peer"
+                                    type="radio"
+                                    name={u.name}
+                                    value={u.name}
+                                    checked={u.id === selectedId ? 'checked' : ''}
+                                    onChange={() => setSelectedId(u.id)}
+                                />
+                                <div className="w-flex px-2 h-12 rounded-lg flex items-center justify-center peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white hover:bg-slate-700 hover:text-white hover:font-semibold">
+                                    {u.name}
+                                </div>
+                            </label>
+                        </div>
+                    ))}
+                </div>
+            </form>
+            <div className="grid grid-cols-3 gap-4 place-items-center">
+                <div className="text-red-700">Don&apos;t do this:</div>
+                <div className="col-span-2">
+                    <BadProfilePage userId={selectedId} />
+                </div>                
+                <div className="text-green-700">Do this:</div>
+                <div className="col-span-2">
+                    <GoodProfilePage userId={selectedId} />
+                </div>
+                
+            </div>
+        </div>
     )
 }
+
+const users = [
+    {
+        id: 0,
+        name: 'Zero',
+    },
+    {
+        id: 1,
+        name: 'One',
+    },
+    {
+        id: 2,
+        name: 'Two',
+    },
+    {
+        id: 3,
+        name: 'Three',
+    },
+]
