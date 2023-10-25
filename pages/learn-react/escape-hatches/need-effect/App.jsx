@@ -1,107 +1,149 @@
 import { useEffect, useState } from "react"
 
-function BadProfilePage({ userId }) {
-    const [comment, setComment] = useState('')
-
-    // 🔴 Avoid: Resetting state on prop change in an Effect
+function BadList({ items }) {
+    const [isReverse, setIsReverse] = useState(false);
+    const [selection, setSelection] = useState(null);
+  
+    // 🔴 Avoid: Adjusting state on prop change in an Effect
     useEffect(() => {
-        setComment('')
-    }, [userId])
+      setSelection(null);
+    }, [items]);
     // ...
-    const user = users.find((u) => u.id === userId)
-    function handleChange(e) { setComment(e.target.value) }
-    
-    return <ProfileInfo user={user} handleChange={handleChange} />
+    const selectedId = selection ? selection.id : null
+    function handleChange(id) {
+        const selection = items.find((x) => x.id === id)
+        setSelection(selection)
+    }
+    return <ListItems items={items} selectedId={selectedId} onChange={handleChange}/>
 }
 
-function GoodProfilePage({ userId }) {
-    return (
-        <Profile
-            userId={userId}
-            key={userId}
-        />
-    )
-}
-
-function Profile({ userId }) {
-    // ✅ This and any other state below will reset on key change automatically
-    const [comment, setComment] = useState('')
+function BetterList({ items }) {
+    const [isReverse, setIsReverse] = useState(false);
+    const [selection, setSelection] = useState(null);
+  
+    // Better: Adjust the state while rendering
+    const [prevItems, setPrevItems] = useState(items);
+    if (items !== prevItems) {
+      setPrevItems(items);
+      setSelection(null);
+    }
     // ...
-    const user = users.find((u) => u.id === userId)
-    function handleChange(e) { setComment(e.target.value) }
-    
-    return <ProfileInfo user={user} handleChange={handleChange} />
+    const selectedId = selection ? selection.id : null
+    function handleChange(id) {
+        const selection = items.find((x) => x.id === id)
+        setSelection(selection)
+    }
+    return <ListItems items={items} selectedId={selectedId} onChange={handleChange}/>
 }
 
-function ProfileInfo({ user, handleChange }) {
+function BestList({ items }) {
+    const [isReverse, setIsReverse] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+    // ✅ Best: Calculate everything during rendering
+    const selection = items.find(item => item.id === selectedId) ?? null;
+    // ...
+    function handleChange(id) {
+        setSelectedId(id)
+    }
+    return <ListItems items={items} selectedId={selectedId} onChange={handleChange}/>
+}
+
+function ListItems({ items, selectedId, onChange }) {
     return (
-        <div className="px-3">
-            <div className="pb-3 text-2xl">Hi! I&apos;m {user.name}!</div>
-            <div>Leave a comment:</div>
-            <textarea
-                className="border-2"
-                onChange={handleChange}
-            />
-        </div>
+        <form>
+            {items.map((x) => (
+                <label key={x.id}>
+                    <input
+                        className="sr-only peer"
+                        type="radio"
+                        name={x.item}
+                        value={x.item}
+                        checked={x.id === selectedId}
+                        onChange={() => onChange(x.id)}
+                    />
+                    <div className="rounded p-1 peer-checked:text-white peer-checked:bg-blue-400">
+                        {x.item}
+                    </div>
+                </label>
+
+            ))}
+        </form>
     )
 }
 
 export default function App() {
-    const [selectedId, setSelectedId] = useState(1)
-    
+    const [person, setPerson] = useState('')
+    const filteredItems = items.filter((x) => x.name === person)
+
     return (
-        <div className="font-sans ms-3" >
-            <form>
-                <div className="flex mt-4 mb-6 pb-6">
-                    {users.map((u) => (
-                        <div className="flex text-sm" key={u.id} >
-                            <label>
-                                <input
-                                    className="sr-only peer"
-                                    type="radio"
-                                    name={u.name}
-                                    value={u.name}
-                                    checked={u.id === selectedId ? 'checked' : ''}
-                                    onChange={() => setSelectedId(u.id)}
-                                />
-                                <div className="w-flex px-2 h-12 rounded-lg flex items-center justify-center peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white hover:bg-slate-700 hover:text-white hover:font-semibold">
-                                    {u.name}
-                                </div>
-                            </label>
-                        </div>
-                    ))}
-                </div>
+        <div className="m-3">
+            <form className="flex flex-wrap">
+                {getUniqueNames(items).map((name) => (
+                    <label key={name}>
+                    <input
+                        className="sr-only peer"
+                        type="radio"
+                        name={name}
+                        value={name}
+                        checked={name === person}
+                        onChange={e => setPerson(e.target.value)}
+                    />
+                    <div className="text-sm p-2 rounded-lg peer-checked:bg-blue-400 peer-checked:text-white">
+                        {name}
+                    </div>
+                </label>
+                ))}
             </form>
-            <div className="grid grid-cols-3 gap-4 place-items-center">
-                <div className="text-red-700">Don&apos;t do this:</div>
-                <div className="col-span-2">
-                    <BadProfilePage userId={selectedId} />
-                </div>                
-                <div className="text-green-700">Do this:</div>
-                <div className="col-span-2">
-                    <GoodProfilePage userId={selectedId} />
+            { person ? (
+                <div className="grid grid-cols-3 gap-4 place-items-center">
+                    <div className="text-red-700">useEffect</div>
+                    <div className="col-span-2">
+                        <BadList items={filteredItems} />
+                    </div>                
+                    <div className="text-yellow-500">Change state</div>
+                    <div className="col-span-2">
+                        <BetterList items={filteredItems} />
+                    </div>
+                    <div className="text-green-700">Calculate</div>
+                    <div className="col-span-2">
+                        <BestList items={filteredItems} />
+                    </div>
                 </div>
-                
-            </div>
+            ) : (
+                <div className="mt-3 ms-3">Select a person to see their list items.</div>
+            )}
         </div>
     )
 }
+function getUniqueNames(list) {
+    const names = list.map((x) => x.name)
+    return [...new Set(names)]
+}
 
-const users = [
+const items = [
     {
         id: 0,
-        name: 'Zero',
+        name: 'Betty',
+        item: 'Oat Milk',
     },
     {
         id: 1,
-        name: 'One',
+        name: 'Veronica',
+        item: 'Bagels',
     },
     {
         id: 2,
-        name: 'Two',
+        name: 'Betty',
+        item: 'Tofu',
     },
     {
         id: 3,
-        name: 'Three',
+        name: 'Veronica',
+        item: 'Coffee',
+    },
+    {
+        id: 4,
+        name: 'Veronica',
+        item: 'Milk',
     },
 ]
