@@ -95,18 +95,30 @@ export default function App() {
                 ))}
             </form>
             { person ? (
-                <div className="grid grid-cols-3 gap-4 place-items-center">
-                    <div className="text-red-700">useEffect</div>
-                    <div className="col-span-2">
-                        <BadList items={filteredItems} />
-                    </div>                
-                    <div className="text-yellow-500">Change state</div>
-                    <div className="col-span-2">
-                        <BetterList items={filteredItems} />
+                <div className="p-2 flex flex-wrap">
+                    <div className="flex w-36 m-2 flex-col rounded-xl overflow-hidden bg-white bg-clip-border shadow-md">
+                        <div className="flex h-20 bg-red-400 text-white p-2">
+                            Adjust state after render
+                        </div>
+                        <div className="p-2 text-center">
+                            <BadList items={filteredItems} />
+                        </div>
                     </div>
-                    <div className="text-green-700">Calculate</div>
-                    <div className="col-span-2">
-                        <BestList items={filteredItems} />
+                    <div className="flex w-36 m-2 flex-col rounded-xl overflow-hidden bg-white bg-clip-border shadow-md">
+                        <div className="flex h-20 bg-yellow-400 text-white p-2 justify-center">
+                            Adjust state during render
+                        </div>
+                        <div className="p-2 text-center">
+                            <BetterList items={filteredItems} />
+                        </div>
+                    </div>
+                    <div className="flex w-36 m-2 flex-col rounded-xl overflow-hidden bg-white bg-clip-border shadow-md">
+                        <div className="flex h-20 bg-green-400 text-white p-2">
+                            Calculate during render
+                        </div>
+                        <div className="p-2 text-center">
+                            <BestList items={filteredItems} />
+                        </div>
                     </div>
                 </div>
             ) : (
