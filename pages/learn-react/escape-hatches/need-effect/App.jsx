@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 function showNotification(message) {
     alert(message)
@@ -63,18 +65,12 @@ function RenderProduct({ product, onByClick, onCheckoutClick }) {
 }
 
 function RenderProductPage({ ProductPage, header }) {
-    const [product, setProduct] = useState({
-        id: 0,
-        name: 'Ultimate Fancy Gadget Mark II',
-        isInCart: false
-    })
+    const product = useStore((state) => state.product)
+    const putInCart = useStore((state) => state.putInCart)
 
     function addToCart(product) {
-        const newProduct = {
-            ...product,
-            isInCart: true
-        }
-        setProduct(newProduct)
+        putInCart()
+        console.log('added to cart')
     }
 
     return (
@@ -98,9 +94,38 @@ export default function App() {
             'color': 'red-400'
         }
     }
+    const resetProduct = useStore((state) => state.reset)
     return (
-        <div className="flex flex-wrap m-3">
-            <RenderProductPage ProductPage={BadProductPage} header={headers.bad} />
+        <div className="relative h-screen">
+            <div className="flex flex-wrap m-3">
+                <RenderProductPage ProductPage={BadProductPage} header={headers.bad} />
+            </div>
+            <div className="absolute bottom-10 right-8">
+                <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
+                    Reset Cart
+                </div>
+            </div>
         </div>
     )
 }
+
+const defaultProduct = {
+    id: 0,
+    name: 'Ultimate Fancy Gadget Mark II',
+    isInCart: false
+}
+
+const useStore = create(persist(
+    (set, get) => ({
+        product: defaultProduct,
+        putInCart: () => set((state) => ({ product: {
+            ...state.product,
+            isInCart: true
+        }})),
+        reset: () => set(() => ({ product: defaultProduct }))
+    }),
+    {
+        name: "learn-react-escape-hatches-need-effect-product",
+        getStorage: () => sessionStorage,
+    }
+))
