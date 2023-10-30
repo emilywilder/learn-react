@@ -1,4 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+function showNotification(message) {
+    alert(message)
+}
+
+function navigateTo(url) {
+    showNotification(`Navigating to ${url}`)
+}
 
 function BadProductPage({ product, addToCart }) {
     // 🔴 Avoid: Event-specific logic inside an Effect
@@ -24,9 +32,9 @@ function BadProductPage({ product, addToCart }) {
             />
 }
 
-function Button({ children }) {
+function Button({ onClick, children }) {
     return (
-        <div className="p-2 m-1 bg-blue-400 rounded text-white font-bold hover:bg-blue-500">
+        <div onClick={onClick} className="p-2 m-1 bg-blue-400 rounded text-white font-bold hover:bg-blue-500">
             {children}
         </div>
     )
@@ -55,13 +63,18 @@ function RenderProduct({ product, onByClick, onCheckoutClick }) {
 }
 
 function RenderProductPage({ ProductPage, header }) {
-    const product = {
+    const [product, setProduct] = useState({
         id: 0,
         name: 'Ultimate Fancy Gadget Mark II',
         isInCart: false
-    }
+    })
+
     function addToCart(product) {
-        product.isInCart = true
+        const newProduct = {
+            ...product,
+            isInCart: true
+        }
+        setProduct(newProduct)
     }
 
     return (
