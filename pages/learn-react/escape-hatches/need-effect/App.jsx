@@ -87,7 +87,7 @@ function RenderProduct({ product, onByClick, onCheckoutClick }) {
     )
 }
 
-function RenderProductPage({ ProductPage, header }) {
+function RenderProductPage({ ProductPage, useStore, header }) {
     const product = useStore((state) => state.product)
     const putInCart = useStore((state) => state.putInCart)
 
@@ -119,12 +119,12 @@ export default function App() {
             outline: 'outline-red-400'
         }
     }
-    const resetProduct = useStore((state) => state.reset)
+    const resetProduct = useBadStore((state) => state.reset)
     return (
         <div className="relative h-screen">
             <div className="flex flex-wrap m-3">
-                <RenderProductPage ProductPage={BadProductPage} header={headers.bad} />
-                <RenderProductPage ProductPage={GoodProductPage} header={headers.good} />
+                <RenderProductPage ProductPage={BadProductPage} useStore={useBadStore} header={headers.bad} />
+                <RenderProductPage ProductPage={GoodProductPage} useStore={useGoodStore} header={headers.good} />
             </div>
             <div className="absolute bottom-10 right-8">
                 <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
@@ -141,17 +141,25 @@ const defaultProduct = {
     isInCart: false
 }
 
-const useStore = create(persist(
-    (set, get) => ({
+const store = (set, get) => ({
         product: defaultProduct,
         putInCart: () => set((state) => ({ product: {
             ...state.product,
             isInCart: true
         }})),
         reset: () => set(() => ({ product: defaultProduct }))
-    }),
-    {
-        name: "learn-react-escape-hatches-need-effect-product",
+    })
+
+const useBadStore = create(persist(
+    store, {
+        name: "learn-react-escape-hatches-need-effect-product-bad",
+        getStorage: () => sessionStorage,
+    }
+))
+
+const useGoodStore = create(persist(
+    store, {
+        name: "learn-react-escape-hatches-need-effect-product-good",
         getStorage: () => sessionStorage,
     }
 ))
