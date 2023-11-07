@@ -28,10 +28,10 @@ function BadProductPage({ product, addToCart }) {
     }
     // ...
     return <RenderProduct
-                product={product}
-                onByClick={handleBuyClick}
-                onCheckoutClick={handleCheckoutClick}
-            />
+        product={product}
+        onByClick={handleBuyClick}
+        onCheckoutClick={handleCheckoutClick}
+    />
 }
 
 function Button({ onClick, children }) {
@@ -74,7 +74,7 @@ function RenderProductPage({ ProductPage, header }) {
     }
 
     return (
-        <div className={`m-2 rounded outline outline-${header.color} bg-${header.color}`}>
+        <div className={`m-2 rounded outline ${header.bg} ${header.outline}`}>
             <div className="p-2 text-white font-bold">
                 {header.text}
             </div>
@@ -85,13 +85,15 @@ function RenderProductPage({ ProductPage, header }) {
 
 export default function App() {
     const headers = {
-        'good': {
-            'text': "Good Page",
-            'color': 'green-400'
+        good: {
+            text: "Good Page",
+            bg: 'bg-green-400',
+            outline: 'outline-green-400'
         },
-        'bad': {
-            'text': "Bad Page",
-            'color': 'red-400'
+        bad: {
+            text: "Bad Page",
+            bg: 'bg-red-400',
+            outline: 'outline-red-400'
         }
     }
     const resetProduct = useStore((state) => state.reset)
