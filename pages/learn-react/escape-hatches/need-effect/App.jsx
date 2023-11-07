@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 function showNotification(message) {
-    alert(message)
+    console.log(message)
 }
 
 function navigateTo(url) {
