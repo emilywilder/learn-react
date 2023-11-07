@@ -34,6 +34,29 @@ function BadProductPage({ product, addToCart }) {
     />
 }
 
+function GoodProductPage({ product, addToCart }) {
+    // ✅ Good: Event-specific logic is called from event handlers
+    function buyProduct() {
+        addToCart(product);
+        showNotification(`Added ${product.name} to the shopping cart!`);
+    }
+  
+    function handleBuyClick() {
+        buyProduct();
+    }
+  
+    function handleCheckoutClick() {
+        buyProduct();
+        navigateTo('/checkout');
+    }
+    // ...
+    return <RenderProduct
+        product={product}
+        onByClick={handleBuyClick}
+        onCheckoutClick={handleCheckoutClick}
+    />
+}
+
 function Button({ onClick, children }) {
     return (
         <div onClick={onClick} className="p-2 m-1 bg-blue-400 rounded text-white font-bold hover:bg-blue-500">
@@ -101,6 +124,7 @@ export default function App() {
         <div className="relative h-screen">
             <div className="flex flex-wrap m-3">
                 <RenderProductPage ProductPage={BadProductPage} header={headers.bad} />
+                <RenderProductPage ProductPage={GoodProductPage} header={headers.good} />
             </div>
             <div className="absolute bottom-10 right-8">
                 <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
