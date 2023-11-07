@@ -46,7 +46,7 @@ function RenderProduct({ product, onByClick, onCheckoutClick }) {
     return (
         <div className="flex flex-col w-64">
             <div className="h-full w-full bg-cover rounded bg-[url('/chester-alvarez-bphc6kyobMg-unsplash.jpg')]">
-                <div className="h-full backdrop-brightness-50 rounded-lg">
+                <div className="h-full backdrop-brightness-50 rounded">
                     <div className="text-white text-3xl p-2">
                         {product.name}
                     </div>
