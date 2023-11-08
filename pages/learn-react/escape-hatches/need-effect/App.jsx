@@ -90,6 +90,7 @@ function RenderProduct({ product, onByClick, onCheckoutClick }) {
 function RenderProductPage({ ProductPage, useStore, header }) {
     const product = useStore((state) => state.product)
     const putInCart = useStore((state) => state.putInCart)
+    const resetProduct = useStore((state) => state.reset)
 
     function addToCart(product) {
         putInCart()
@@ -101,7 +102,24 @@ function RenderProductPage({ ProductPage, useStore, header }) {
             <div className="p-2 text-white font-bold">
                 {header.text}
             </div>
-            <ProductPage product={product} addToCart={addToCart} />
+            <div className="flex bg-white">
+                <ProductPage product={product} addToCart={addToCart} />
+                <div className="flex flex-col justify-center p-2">
+                    <label className=" bg-white">
+                        <input
+                            className="m-2"
+                            type="checkbox"
+                            checked={product.isInCart}
+                        />
+                        In Cart
+                    </label>
+                    <div className="mt-2">
+                        <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
+                            Reset Cart
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
@@ -119,17 +137,12 @@ export default function App() {
             outline: 'outline-red-400'
         }
     }
-    const resetProduct = useBadStore((state) => state.reset)
+    
     return (
         <div className="relative h-screen">
             <div className="flex flex-wrap m-3">
                 <RenderProductPage ProductPage={BadProductPage} useStore={useBadStore} header={headers.bad} />
                 <RenderProductPage ProductPage={GoodProductPage} useStore={useGoodStore} header={headers.good} />
-            </div>
-            <div className="absolute bottom-10 right-8">
-                <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
-                    Reset Cart
-                </div>
             </div>
         </div>
     )
