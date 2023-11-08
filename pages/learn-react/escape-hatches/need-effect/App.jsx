@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-function showNotification(message) {
-    console.log(message)
-}
-
-function BadProductPage({ product, addToCart, navigateTo }) {
+function BadProductPage({ product, addToCart, navigateTo, showNotification }) {
     // 🔴 Avoid: Event-specific logic inside an Effect
     useEffect(() => {
         if (product.isInCart) {
@@ -30,7 +26,7 @@ function BadProductPage({ product, addToCart, navigateTo }) {
     />
 }
 
-function GoodProductPage({ product, addToCart, navigateTo }) {
+function GoodProductPage({ product, addToCart, navigateTo, showNotification }) {
     // ✅ Good: Event-specific logic is called from event handlers
     function buyProduct() {
         addToCart(product);
@@ -88,10 +84,16 @@ function RenderProductPage({ ProductPage, useStore, header }) {
     const putInCart = useStore((state) => state.putInCart)
     const resetProduct = useStore((state) => state.reset)
     const [redirects, setRedirects] = useState([])
+    const [notified, setNotified] = useState(false)
 
     const navigateTo = (url) => {
         console.log(`redirect to ${url}`)
         setRedirects([...redirects, url])
+    }
+
+    const showNotification = (msg) => {
+        console.log(msg)
+        setNotified(true)
     }
 
     return (
@@ -100,9 +102,9 @@ function RenderProductPage({ ProductPage, useStore, header }) {
                 {header.text}
             </div>
             <div className="flex bg-white">
-                <ProductPage product={product} addToCart={putInCart} navigateTo={navigateTo} />
+                <ProductPage product={product} addToCart={putInCart} navigateTo={navigateTo} showNotification={showNotification} />
                 <div className="flex flex-col justify-center p-2">
-                    <label className="">
+                    <label>
                         <input
                             className="m-2"
                             type="checkbox"
@@ -111,7 +113,7 @@ function RenderProductPage({ ProductPage, useStore, header }) {
                         />
                         In Cart
                     </label>
-                    <label className="">
+                    <label>
                         <input
                             className="m-2"
                             type="checkbox"
@@ -119,6 +121,15 @@ function RenderProductPage({ ProductPage, useStore, header }) {
                             readOnly
                         />
                         Redirected
+                    </label>
+                    <label>
+                        <input
+                            className="m-2"
+                            type="checkbox"
+                            checked={notified}
+                            readOnly
+                        />
+                        Notified
                     </label>
                     <div className="mt-2">
                         <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
