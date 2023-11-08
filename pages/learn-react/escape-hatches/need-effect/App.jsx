@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-function BadProductPage({ product, addToCart, navigateTo, showNotification }) {
+const HelperContext = createContext()
+
+function BadProductPage({ product, addToCart }) {
     // 🔴 Avoid: Event-specific logic inside an Effect
     useEffect(() => {
         if (product.isInCart) {
@@ -19,6 +22,7 @@ function BadProductPage({ product, addToCart, navigateTo, showNotification }) {
         navigateTo('/checkout');
     }
     // ...
+    const { navigateTo, showNotification } = useContext(HelperContext)
     return <RenderProduct
         product={product}
         onByClick={handleBuyClick}
@@ -26,7 +30,7 @@ function BadProductPage({ product, addToCart, navigateTo, showNotification }) {
     />
 }
 
-function GoodProductPage({ product, addToCart, navigateTo, showNotification }) {
+function GoodProductPage({ product, addToCart }) {
     // ✅ Good: Event-specific logic is called from event handlers
     function buyProduct() {
         addToCart(product);
@@ -42,6 +46,7 @@ function GoodProductPage({ product, addToCart, navigateTo, showNotification }) {
         navigateTo('/checkout');
     }
     // ...
+    const { navigateTo, showNotification } = useContext(HelperContext)
     return <RenderProduct
         product={product}
         onByClick={handleBuyClick}
@@ -116,7 +121,9 @@ function RenderProductPage({ ProductPage, useStore, header }) {
                 {header.text}
             </div>
             <div className="flex bg-white">
-                <ProductPage product={product} addToCart={putInCart} navigateTo={navigateTo} showNotification={showNotification} />
+                <HelperContext.Provider value={{ navigateTo, showNotification }}>
+                    <ProductPage product={product} addToCart={putInCart} />
+                </HelperContext.Provider>
                 <div className="flex flex-col justify-center p-2">
                     <Checkbox label="In Cart" isChecked={product.isInCart} />
                     <Checkbox label="Redirected" isChecked={redirects.length} />
