@@ -57,6 +57,20 @@ function Button({ onClick, children }) {
     )
 }
 
+function Checkbox({ label, isChecked }) {
+    return (
+        <label>
+            <input
+                className="m-2"
+                type="checkbox"
+                checked={isChecked}
+                readOnly
+            />
+            {label}
+        </label>
+    )
+}
+
 function RenderProduct({ product, onByClick, onCheckoutClick }) {
     return (
         <div className="flex flex-col">
@@ -104,33 +118,9 @@ function RenderProductPage({ ProductPage, useStore, header }) {
             <div className="flex bg-white">
                 <ProductPage product={product} addToCart={putInCart} navigateTo={navigateTo} showNotification={showNotification} />
                 <div className="flex flex-col justify-center p-2">
-                    <label>
-                        <input
-                            className="m-2"
-                            type="checkbox"
-                            checked={product.isInCart}
-                            readOnly
-                        />
-                        In Cart
-                    </label>
-                    <label>
-                        <input
-                            className="m-2"
-                            type="checkbox"
-                            checked={redirects.length}
-                            readOnly
-                        />
-                        Redirected
-                    </label>
-                    <label>
-                        <input
-                            className="m-2"
-                            type="checkbox"
-                            checked={notified}
-                            readOnly
-                        />
-                        Notified
-                    </label>
+                    <Checkbox label="In Cart" isChecked={product.isInCart} />
+                    <Checkbox label="Redirected" isChecked={redirects.length} />
+                    <Checkbox label="Notified" isChecked={notified} />
                     <div className="mt-2">
                         <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
                             Reset Cart
