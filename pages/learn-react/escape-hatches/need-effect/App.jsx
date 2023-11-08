@@ -6,11 +6,7 @@ function showNotification(message) {
     console.log(message)
 }
 
-function navigateTo(url) {
-    showNotification(`Navigating to ${url}`)
-}
-
-function BadProductPage({ product, addToCart }) {
+function BadProductPage({ product, addToCart, navigateTo }) {
     // 🔴 Avoid: Event-specific logic inside an Effect
     useEffect(() => {
         if (product.isInCart) {
@@ -34,7 +30,7 @@ function BadProductPage({ product, addToCart }) {
     />
 }
 
-function GoodProductPage({ product, addToCart }) {
+function GoodProductPage({ product, addToCart, navigateTo }) {
     // ✅ Good: Event-specific logic is called from event handlers
     function buyProduct() {
         addToCart(product);
@@ -67,8 +63,8 @@ function Button({ onClick, children }) {
 
 function RenderProduct({ product, onByClick, onCheckoutClick }) {
     return (
-        <div className="flex flex-col w-64">
-            <div className="h-full w-full bg-cover rounded-bl bg-[url('/chester-alvarez-bphc6kyobMg-unsplash.jpg')]">
+        <div className="flex flex-col">
+            <div className="h-full w-64 bg-cover rounded-bl bg-[url('/chester-alvarez-bphc6kyobMg-unsplash.jpg')]">
                 <div className="h-full backdrop-brightness-50 rounded-bl">
                     <div className="text-white text-3xl p-2">
                         {product.name}
@@ -91,10 +87,11 @@ function RenderProductPage({ ProductPage, useStore, header }) {
     const product = useStore((state) => state.product)
     const putInCart = useStore((state) => state.putInCart)
     const resetProduct = useStore((state) => state.reset)
+    const [redirects, setRedirects] = useState([])
 
-    function addToCart(product) {
-        putInCart()
-        console.log('added to cart')
+    const navigateTo = (url) => {
+        console.log(`redirect to ${url}`)
+        setRedirects([...redirects, url])
     }
 
     return (
@@ -103,15 +100,25 @@ function RenderProductPage({ ProductPage, useStore, header }) {
                 {header.text}
             </div>
             <div className="flex bg-white">
-                <ProductPage product={product} addToCart={addToCart} />
+                <ProductPage product={product} addToCart={putInCart} navigateTo={navigateTo} />
                 <div className="flex flex-col justify-center p-2">
-                    <label className=" bg-white">
+                    <label className="">
                         <input
                             className="m-2"
                             type="checkbox"
                             checked={product.isInCart}
+                            readOnly
                         />
                         In Cart
+                    </label>
+                    <label className="">
+                        <input
+                            className="m-2"
+                            type="checkbox"
+                            checked={redirects.length}
+                            readOnly
+                        />
+                        Redirected
                     </label>
                     <div className="mt-2">
                         <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
