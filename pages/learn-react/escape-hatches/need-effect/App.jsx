@@ -56,9 +56,9 @@ function GoodProductPage({ product, addToCart }) {
 
 function Button({ onClick, children }) {
     return (
-        <div onClick={onClick} className="p-2 m-1 bg-blue-400 rounded text-white font-bold hover:bg-blue-500">
+        <button onClick={onClick} className="p-2 m-1 bg-blue-400 rounded text-white font-bold hover:bg-blue-500">
             {children}
-        </div>
+        </button>
     )
 }
 
@@ -128,10 +128,10 @@ function RenderProductPage({ ProductPage, useStore, header }) {
                     <Checkbox label="In Cart" isChecked={product.isInCart} />
                     <Checkbox label="Redirected" isChecked={redirects.length} />
                     <Checkbox label="Notified" isChecked={notified} />
-                    <div className="mt-2">
-                        <div onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
+                    <div className="p-2">
+                        <button onClick={resetProduct} className="p-2 bg-red-500 rounded text-white font-bold hover:bg-red-600">
                             Reset Cart
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
