@@ -11,7 +11,7 @@ function BadProductPage({ product, addToCart }) {
         if (product.isInCart) {
             showNotification(`Added ${product.name} to the shopping cart!`);
         }
-    }, [product]);
+    }, [product]); // eslint-disable-line
   
     function handleBuyClick() {
         addToCart(product);
