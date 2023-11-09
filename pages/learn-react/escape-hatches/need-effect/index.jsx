@@ -42,27 +42,36 @@ function Blank() {
 
 function NavBar() {
     const [showMenu, setShowMenu] = useState(false)
+    const [selectedSublessonId, setSelectedSublessonId] = useState(5)
+
+    const selectedSublesson = sublessons.find((sl) => sl.id === selectedSublessonId)
+
+    const handleHamburgerClick = () => setShowMenu(!showMenu)
+    const handleMenuClick = (id) => {
+        setSelectedSublessonId(id)
+        handleHamburgerClick()
+    }
 
     const listSublessons = (
         sublessons.map((sl) => (
-            <li key={sl.id}><a>{sl.title}</a></li>
+            <li key={sl.id}>
+                <a onClick={() => handleMenuClick(sl.id)}>{sl.title}</a>
+            </li>
         ))
     )
-
-    const handleClick = () => setShowMenu(!showMenu)
     
     return (
         <>
             <div className="navbar bg-base-100">
                 <div className="flex-none">
-                    <button className="btn btn-square btn-ghost" onClick={handleClick}>
+                    <button className="btn btn-square btn-ghost" onClick={handleHamburgerClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
                 <div className="flex-1 breadcrumbs ml-2">
                     <ul>
                         <li className="normal-case text-xl">You Might Not Need an Effect</li>
-                        <li>Sharing logic between event handlers</li>
+                        <li>{selectedSublesson.title}</li>
                     </ul>
                 </div>
             </div>
@@ -71,6 +80,7 @@ function NavBar() {
                     {listSublessons}
                 </ul>
             }
+            <selectedSublesson.component />
         </>
     )
 }
@@ -79,7 +89,6 @@ export default function Home() {
     return (
         <StrictMode>
             <NavBar />
-            <Sharing />
         </StrictMode>
     )
 }
