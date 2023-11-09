@@ -25,6 +25,7 @@
     "zustand": "^4.4.4"
   },
   "devDependencies": {
+    "daisyui": "^3.9.4",
     "html-loader": "^4.2.0"
   }
 }
