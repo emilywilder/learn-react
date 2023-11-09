@@ -1,4 +1,4 @@
-import { StrictMode } from "react"
+import { StrictMode, useState } from "react"
 
 import '../../../../app/globals.css'
 
@@ -41,17 +41,21 @@ function Blank() {
 }
 
 function NavBar() {
+    const [showMenu, setShowMenu] = useState(false)
+
     const listSublessons = (
         sublessons.map((sl) => (
             <li key={sl.id}><a>{sl.title}</a></li>
         ))
     )
 
+    const handleClick = () => setShowMenu(!showMenu)
+    
     return (
         <>
             <div className="navbar bg-base-100">
                 <div className="flex-none">
-                    <button className="btn btn-square btn-ghost">
+                    <button className="btn btn-square btn-ghost" onClick={handleClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
@@ -62,9 +66,11 @@ function NavBar() {
                     </ul>
                 </div>
             </div>
-            <ul className="menu bg-base-200 rounded-box">
-                {listSublessons}
-            </ul>
+            {showMenu && 
+                <ul className="menu bg-base-200 rounded-box">
+                    {listSublessons}
+                </ul>
+            }
         </>
     )
 }
