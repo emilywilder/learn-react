@@ -1,6 +1,18 @@
 import { StrictMode } from "react"
 
-import '../../../../app/globals.css'
+import '@/app/globals.css'
+import LessonNavbar from "@/components/lessonNavbar"
+
+import Updating from './Updating'
+import Sharing from './Sharing'
+
+export default function Home() {
+    return (
+        <StrictMode>
+            <LessonNavbar sublessons={sublessons} />
+        </StrictMode>
+    )
+}
 
 /* Pages and unique names
     Updating: Updating state based on props or state
@@ -17,10 +29,6 @@ import '../../../../app/globals.css'
     Fetching: Fetching data
 */
 
-import Updating from './Updating'
-import Sharing from './Sharing'
-import LessonNavbar from "@/components/lessonNavbar"
-
 const sublessons = [
     {
         id: 0,
@@ -35,17 +43,3 @@ const sublessons = [
         usesTailwind: true
     }
 ]
-
-function Blank() {
-    return (
-        <p>This app is yet to be defined.</p>
-    )
-}
-
-export default function Home() {
-    return (
-        <StrictMode>
-            <LessonNavbar sublessons={sublessons} />
-        </StrictMode>
-    )
-}
