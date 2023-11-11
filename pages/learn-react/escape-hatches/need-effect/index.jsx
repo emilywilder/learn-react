@@ -84,7 +84,7 @@ function NavBar() {
             {/* disable tailwind for components made before its inclusion
                 and set a default margain as the content is too left adjusted
                 when tailwind is not used. */}
-            <div className={!selectedSublesson.usesTailwind && 'notailwind ml-4'}>
+            <div className={!selectedSublesson.usesTailwind ? 'notailwind ml-4' : undefined}>
                 <selectedSublesson.component />
             </div>
         </>
