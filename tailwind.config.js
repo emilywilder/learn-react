@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const { scopedPreflightStyles } = require('tailwindcss-scoped-preflight');
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -17,5 +20,11 @@ module.exports = {
       }  
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    scopedPreflightStyles({
+      cssSelector: '.notailwind', // or .notailwind or even [data-tailwind=false] - any valid CSS selector of your choice
+      mode: 'except matched',
+  })
+  ],
 }

@@ -24,13 +24,14 @@ const sublessons = [
     {
         id: 0,
         title: "Updating state based on props or state",
-        component: Updating
+        component: Updating,
+        usesTailwind: false
     },
     {
         id: 5,
         title: "Sharing logic between event handlers",
-        component: Sharing
-
+        component: Sharing,
+        usesTailwind: true
     }
 ]
 
@@ -80,7 +81,12 @@ function NavBar() {
                     {listSublessons}
                 </ul>
             }
-            <selectedSublesson.component />
+            {/* disable tailwind for components made before its inclusion
+                and set a default margain as the content is too left adjusted
+                when tailwind is not used. */}
+            <div className={!selectedSublesson.usesTailwind && 'notailwind ml-4'}>
+                <selectedSublesson.component />
+            </div>
         </>
     )
 }
