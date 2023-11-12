@@ -4,8 +4,8 @@ import '@/app/globals.css'
 import LessonNavbar from "@/components/lessonNavbar"
 import Blank from "@/components/blank"
 
-import Updating from './Updating'
-import Sharing from './Sharing'
+import Updating from './updating/App'
+import Sharing from './sharing/App'
 
 export default function Home() {
     return (
