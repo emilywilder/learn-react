@@ -5,6 +5,7 @@ import LessonNavbar from "@/components/lessonNavbar"
 
 import Updating from './updating/App'
 import Sharing from './sharing/App'
+import Caching from './caching/App'
 
 export default function Home() {
     return (
@@ -24,7 +25,7 @@ const sublessons = [
     {
         id: 1,
         title: "Caching expensive calculations",
-        component: null, // Caching
+        component: Caching,
         usesTailwind: false
     },
     {
