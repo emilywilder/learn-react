@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import Blank from "@/components/blank"
+
 export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
     const [selectedSublessonId, setSelectedSublessonId] = useState(defaultSelectedId)
 
@@ -53,7 +55,7 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
                 and set a default margain as the content is too left adjusted
                 when tailwind is not used. */}
             <div className={!selectedSublesson.usesTailwind ? 'notailwind ml-4' : undefined}>
-                <selectedSublesson.component />
+                {selectedSublesson.component ? <selectedSublesson.component /> : <Blank />}
             </div>
         </>
     )
