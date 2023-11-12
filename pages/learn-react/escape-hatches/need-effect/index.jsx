@@ -4,8 +4,8 @@ import '@/app/globals.css'
 import LessonNavbar from "@/components/lessonNavbar"
 
 import Updating from './updating/App'
-import Sharing from './sharing/App'
 import Caching from './caching/App'
+import Sharing from './sharing/App'
 
 export default function Home() {
     return (
