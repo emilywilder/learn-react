@@ -6,6 +6,7 @@ import LessonNavbar from "@/components/lessonNavbar"
 import Updating from './updating/App'
 import Caching from './caching/App'
 import Resetting from './resetting/App'
+import Adjusting from './adjusting/App'
 import Sharing from './sharing/App'
 
 export default function Home() {
@@ -38,7 +39,7 @@ const sublessons = [
     {
         id: 3,
         title: "Adjusting some state when a prop changes",
-        component: null, // Adjusting
+        component: Adjusting,
         usesTailwind: false
     },
     {
