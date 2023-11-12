@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-export default function LessonNavbar({ sublessons }) {
+export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
     const [showMenu, setShowMenu] = useState(false)
-    const [selectedSublessonId, setSelectedSublessonId] = useState(5)
+    const [selectedSublessonId, setSelectedSublessonId] = useState(defaultSelectedId)
 
     const selectedSublesson = sublessons.find((sl) => sl.id === selectedSublessonId)
 

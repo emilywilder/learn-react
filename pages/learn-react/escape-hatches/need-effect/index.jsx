@@ -10,7 +10,7 @@ import Sharing from './sharing/App'
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={4} />
         </StrictMode>
     )
 }
