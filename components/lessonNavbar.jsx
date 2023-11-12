@@ -15,7 +15,9 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
     const listSublessons = (
         sublessons.map((sl) => (
             <li key={sl.id}>
-                <a onClick={() => handleMenuClick(sl.id)}>{sl.title}</a>
+                <a className={sl.id === selectedSublessonId ? 'active' : undefined}
+                    onClick={() => handleMenuClick(sl.id)}>{sl.title}
+                </a>
             </li>
         ))
     )
