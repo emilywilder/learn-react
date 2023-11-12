@@ -25,7 +25,9 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
         sublessons.map((sl) => (
             <li key={sl.id}>
                 <a className={sl.id === selectedSublessonId ? 'active' : undefined}
-                    onClick={() => handleMenuClick(sl.id)}>{sl.title}
+                    onClick={() => handleMenuClick(sl.id)}
+                >
+                {sl.title} <p className="flex justify-end">{!sl.component ? '⚠' : undefined}</p>
                 </a>
             </li>
         ))
