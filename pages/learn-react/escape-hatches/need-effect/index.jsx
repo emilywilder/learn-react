@@ -5,6 +5,7 @@ import LessonNavbar from "@/components/lessonNavbar"
 
 import Updating from './updating/App'
 import Caching from './caching/App'
+import Resetting from './resetting/App'
 import Sharing from './sharing/App'
 
 export default function Home() {
@@ -31,7 +32,7 @@ const sublessons = [
     {
         id: 2,
         title: "Resetting all state when a prop changes",
-        component: null, // Resetting
+        component: Resetting,
         usesTailwind: false
     },
     {
