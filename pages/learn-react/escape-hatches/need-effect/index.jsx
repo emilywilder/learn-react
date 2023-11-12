@@ -8,11 +8,12 @@ import Caching from './caching/App'
 import Resetting from './resetting/App'
 import Adjusting from './adjusting/App'
 import Sharing from './sharing/App'
+import Post from './post/App'
 
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={4} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={5} />
         </StrictMode>
     )
 }
@@ -51,7 +52,7 @@ const sublessons = [
     {
         id: 5,
         title: "Sending a POST request",
-        component: null, // Post
+        component: Post,
         usesTailwind: true
     },
     {
