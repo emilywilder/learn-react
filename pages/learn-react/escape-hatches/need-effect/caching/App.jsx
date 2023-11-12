@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import ProfileComponent from "@/components/Profiling";
+import ProfileComponent from "@/components/profiling";
 
 function EffectTodoList({ todos, filter }) {
     const [newTodo, setNewTodo] = useState('');
