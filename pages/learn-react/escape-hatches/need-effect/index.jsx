@@ -34,13 +34,13 @@ const sublessons = [
         id: 2,
         title: "Resetting all state when a prop changes",
         component: Resetting,
-        usesTailwind: false
+        usesTailwind: true
     },
     {
         id: 3,
         title: "Adjusting some state when a prop changes",
         component: Adjusting,
-        usesTailwind: false
+        usesTailwind: true
     },
     {
         id: 4,
