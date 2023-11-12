@@ -79,7 +79,7 @@ function Checkbox({ label, isChecked }) {
 function RenderProduct({ product, onByClick, onCheckoutClick }) {
     return (
         <div className="flex w-64">
-            <div className="bg-cover rounded-bl bg-[url('/chester-alvarez-bphc6kyobMg-unsplash.jpg')]">
+            <div className="bg-cover rounded-bl bg-[url('/images/chester-alvarez-bphc6kyobMg-unsplash.jpg')]">
                 <div className="backdrop-brightness-50 rounded-bl">
                     <div className="text-white text-3xl p-2">
                         {product.name}
