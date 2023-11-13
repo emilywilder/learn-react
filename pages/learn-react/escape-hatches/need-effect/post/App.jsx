@@ -31,27 +31,24 @@ function Form() {
             <form className="form-control space-y-10">
                 <div className="flex space-x-4">
                     <div>
-                        <label className="label">First Name</label>
-                        <input
-                            className="input input-bordered"
+                        <FormInput
+                            labelText="First Name"
                             placeholder="Enter first name"
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="label">Last Name</label>
-                        <input
-                            className="input input-bordered"
+                        <FormInput
+                            labelText="Last Name"
                             placeholder="Enter last name"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
-                    
                 </div>
-                <div className="grid justify-start">
-                    <button className="btn btn-primary" onClick={handleSubmit}>
+                <div className="grid grid-cols-2">
+                    <button className="btn btn-primary justify-self-start" onClick={handleSubmit}>
                         Submit
                     </button>
                 </div>
@@ -59,6 +56,23 @@ function Form() {
         </div>
     )
   }
+
+function FormInput({ labelText, placeholder, value, onChange }) {
+    return (
+        <>
+            <label className="label">
+                <span className="label-text">{labelText}</span>
+            </label>
+            <input
+                className="input input-bordered"
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+            />
+        </>
+    )
+    
+}
 
 export default function App() {
     return (
