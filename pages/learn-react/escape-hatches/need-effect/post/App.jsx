@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-function post(url, json) {
-    console.log(`POST ${JSON.stringify(json)} to ${url}`)
-}
+const formContext = createContext()
 
 function Form() {
     const [firstName, setFirstName] = useState('');
@@ -26,6 +24,7 @@ function Form() {
       setJsonToSubmit({ firstName, lastName });
     }
     // ...
+    const post = useContext(formContext)
     return (
         <div className="indicator">
             <span className="indicator-item badge badge-secondary"></span>
@@ -73,6 +72,10 @@ function FormInput({ labelText, placeholder, value, onChange }) {
 }
 
 function Registry() {
+    function post(url, json) {
+        console.log(`POST ${JSON.stringify(json)} to ${url}`)
+    }
+
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex lg:flex-row">
@@ -80,7 +83,9 @@ function Registry() {
                     <h1 className="text-5xl font-bold">Registry</h1>
                     <p className="py-6">There are currently no names registered.</p>
                 </div>
-                <Form />
+                <formContext.Provider value={post}>
+                    <Form />
+                </formContext.Provider>
             </div>
         </div>
     )
