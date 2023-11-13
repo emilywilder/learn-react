@@ -98,8 +98,8 @@ function Registry() {
 
     return (
         <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content flex lg:flex-row">
-                <div className="text-left">
+            <div className="hero-content flex lg:flex-row space-x-10">
+                <div className="text-center">
                     <h1 className="text-5xl font-bold">Registry</h1>
                     <div className="py-6 overflow-x-hidden">
                         {registryList.length ? (
@@ -120,7 +120,7 @@ function Registry() {
                                 </tbody>
                             </table>
                         ) : (
-                            "There are currently no names registered."
+                            <p>There are currently no names registered.</p>
                         )}
                     </div>
                 </div>
