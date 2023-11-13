@@ -27,49 +27,53 @@ function Form() {
     }
     // ...
     return (
-        <div className="flex justify-center mt-10">
-            <form className="form-control space-y-10">
-                <div className="flex space-x-4">
-                    <div>
+        <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content flex lg:flex-row">
+                <div className="text-left">
+                    <h1 className="text-5xl font-bold">Registry</h1>
+                    <p className="py-6">List of names</p>
+                </div>
+                <div className="card max-w-sm shadow-2xl bg-base-100">
+                    <form className="card-body">
                         <FormInput
                             labelText="First Name"
                             placeholder="Enter first name"
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
-                    </div>
-                    <div>
                         <FormInput
                             labelText="Last Name"
                             placeholder="Enter last name"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                         />
-                    </div>
+                        <div className="form-control mt-6">
+                            <button className="btn btn-primary" onClick={handleSubmit}>
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div className="grid grid-cols-2">
-                    <button className="btn btn-primary justify-self-start" onClick={handleSubmit}>
-                        Submit
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     )
   }
 
 function FormInput({ labelText, placeholder, value, onChange }) {
     return (
-        <>
+        <div className="form-control">
             <label className="label">
                 <span className="label-text">{labelText}</span>
             </label>
             <input
+                type="text"
                 className="input input-bordered"
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
+                required
             />
-        </>
+        </div>
     )
     
 }
