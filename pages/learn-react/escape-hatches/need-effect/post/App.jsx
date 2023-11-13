@@ -26,6 +26,26 @@ function Form() {
       setJsonToSubmit({ firstName, lastName });
     }
     // ...
+    return (
+        <div className="flex justify-center mt-10">
+            <form className="form-control space-y-10">
+                <div className="flex space-x-4">
+                    <div className="">
+                    <label className="label">First Name</label>
+                    <input className="input input-bordered" placeholder="Enter first name" />
+                    </div>
+                    <div className="">
+                    <label className="label">Last Name</label>
+                    <input className="input input-bordered" placeholder="Enter last name" />
+                    </div>
+                    
+                </div>
+                <div className="grid justify-start">
+                    <button className="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    )
   }
 
 export default function App() {
