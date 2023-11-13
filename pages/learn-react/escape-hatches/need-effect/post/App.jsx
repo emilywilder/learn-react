@@ -72,8 +72,28 @@ function FormInput({ labelText, placeholder, value, onChange }) {
 }
 
 function Registry() {
+    const [registryList, setRegistryList] = useState([])
+    console.debug(`registryList: ${JSON.stringify(registryList)}`)
+
     function post(url, json) {
-        console.log(`POST ${JSON.stringify(json)} to ${url}`)
+        console.debug(`POST ${JSON.stringify(json)} to ${url}`)
+        switch (url) {
+            case '/analytics/event':
+                console.log(`${JSON.stringify(json)} sent to analytics`)
+                break
+            case '/api/register':
+                setRegistryList([
+                    ...registryList,
+                    {
+                        ...json,
+                        id: registryList.length
+                    }
+                ])
+                console.log(`registered ${JSON.stringify(json)}`)
+                break
+            default:
+                throw Error(`Unknown path: ${url}`)
+        }
     }
 
     return (
@@ -81,7 +101,19 @@ function Registry() {
             <div className="hero-content flex lg:flex-row">
                 <div className="text-left">
                     <h1 className="text-5xl font-bold">Registry</h1>
-                    <p className="py-6">There are currently no names registered.</p>
+                    <div className="py-6">
+                        {registryList.length ? (
+                            <ul>
+                                {registryList.map(n => (
+                                    <li key={n.id}>
+                                        {n.lastName}, {n.firstName}
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            "There are currently no names registered."
+                        )}
+                    </div>
                 </div>
                 <formContext.Provider value={post}>
                     <Form />
