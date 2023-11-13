@@ -26,8 +26,7 @@ function Form() {
     // ...
     const post = useContext(formContext)
     return (
-        <div className="indicator">
-            <span className="indicator-item badge badge-secondary"></span>
+        
             <div className="card max-w-sm shadow-2xl bg-base-100 relative">
                 <form className="card-body">
                     <FormInput
@@ -49,7 +48,7 @@ function Form() {
                     </div>
                 </form>
             </div>
-        </div>
+        
     )
   }
 
@@ -73,12 +72,16 @@ function FormInput({ labelText, placeholder, value, onChange }) {
 
 function Registry() {
     const [registryList, setRegistryList] = useState([])
+    const [analyticsSent, setAnalyticsSent] = useState(false)
+
     console.debug(`registryList: ${JSON.stringify(registryList)}`)
+    console.debug(`analyticsSent: ${analyticsSent}`)
 
     function post(url, json) {
         console.debug(`POST ${JSON.stringify(json)} to ${url}`)
         switch (url) {
             case '/analytics/event':
+                setAnalyticsSent(true)
                 console.log(`${JSON.stringify(json)} sent to analytics`)
                 break
             case '/api/register':
@@ -125,7 +128,12 @@ function Registry() {
                     </div>
                 </div>
                 <formContext.Provider value={post}>
-                    <Form />
+                    <div className="indicator">
+                        {analyticsSent && (
+                            <span className="indicator-item badge badge-secondary"></span>
+                        )}
+                        <Form />
+                    </div>
                 </formContext.Provider>
             </div>
         </div>
