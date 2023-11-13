@@ -27,36 +27,28 @@ function Form() {
     }
     // ...
     return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content flex lg:flex-row">
-                <div className="text-left">
-                    <h1 className="text-5xl font-bold">Registry</h1>
-                    <p className="py-6">List of names</p>
-                </div>
-                <div className="indicator">
-                    <span className="indicator-item badge badge-secondary"></span>
-                    <div className="card max-w-sm shadow-2xl bg-base-100 relative">
-                    <form className="card-body">
-                        <FormInput
-                            labelText="First Name"
-                            placeholder="Enter first name"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        <FormInput
-                            labelText="Last Name"
-                            placeholder="Enter last name"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <div className="form-control mt-6">
-                            <button className="btn btn-primary" onClick={handleSubmit}>
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                </div>
+        <div className="indicator">
+            <span className="indicator-item badge badge-secondary"></span>
+            <div className="card max-w-sm shadow-2xl bg-base-100 relative">
+                <form className="card-body">
+                    <FormInput
+                        labelText="First Name"
+                        placeholder="Enter first name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    <FormInput
+                        labelText="Last Name"
+                        placeholder="Enter last name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                    <div className="form-control mt-6">
+                        <button className="btn btn-primary" onClick={handleSubmit}>
+                            Submit
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     )
@@ -78,11 +70,24 @@ function FormInput({ labelText, placeholder, value, onChange }) {
             />
         </div>
     )
-    
+}
+
+function Registry() {
+    return (
+        <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content flex lg:flex-row">
+                <div className="text-left">
+                    <h1 className="text-5xl font-bold">Registry</h1>
+                    <p className="py-6">There are currently no names registered.</p>
+                </div>
+                <Form />
+            </div>
+        </div>
+    )
 }
 
 export default function App() {
     return (
-        <Form />
+        <Registry />
     )
 }
