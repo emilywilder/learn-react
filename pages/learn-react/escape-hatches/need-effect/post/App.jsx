@@ -101,15 +101,24 @@ function Registry() {
             <div className="hero-content flex lg:flex-row">
                 <div className="text-left">
                     <h1 className="text-5xl font-bold">Registry</h1>
-                    <div className="py-6">
+                    <div className="py-6 overflow-x-hidden">
                         {registryList.length ? (
-                            <ul>
-                                {registryList.map(n => (
-                                    <li key={n.id}>
-                                        {n.lastName}, {n.firstName}
-                                    </li>
-                                ))}
-                            </ul>
+                            <table className="table bg-base-100">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {registryList.map(n => (
+                                        <tr key={n.id}>
+                                            <th>{n.id + 1}</th>
+                                            <td>{n.firstName} {n.lastName}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         ) : (
                             "There are currently no names registered."
                         )}
