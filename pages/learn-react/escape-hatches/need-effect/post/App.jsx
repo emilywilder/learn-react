@@ -32,16 +32,28 @@ function Form() {
                 <div className="flex space-x-4">
                     <div>
                         <label className="label">First Name</label>
-                        <input className="input input-bordered" placeholder="Enter first name" />
+                        <input
+                            className="input input-bordered"
+                            placeholder="Enter first name"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
                     </div>
                     <div>
                         <label className="label">Last Name</label>
-                        <input className="input input-bordered" placeholder="Enter last name" />
+                        <input
+                            className="input input-bordered"
+                            placeholder="Enter last name"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
                     </div>
                     
                 </div>
                 <div className="grid justify-start">
-                    <button className="btn btn-primary">Submit</button>
+                    <button className="btn btn-primary" onClick={handleSubmit}>
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>
