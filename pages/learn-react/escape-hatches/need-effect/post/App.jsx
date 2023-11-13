@@ -127,14 +127,23 @@ function Registry() {
                         )}
                     </div>
                 </div>
-                <formContext.Provider value={post}>
-                    <div className="indicator">
-                        {analyticsSent && (
-                            <span className="indicator-item badge badge-secondary"></span>
-                        )}
+                
+                <div className="flex flex-col space-y-5">
+                    <formContext.Provider value={post}>
                         <Form />
+                    </formContext.Provider>
+                    <div className="flex justify-end">
+                        <label className="label space-x-4">
+                            <span className="label-text font-thin">Analytics sent</span> 
+                            <input
+                                className="checkbox checkbox-xs checkbox-secondary"
+                                type="checkbox" 
+                                checked={analyticsSent}
+                                readOnly
+                            />
+                        </label>
                     </div>
-                </formContext.Provider>
+                </div>
             </div>
         </div>
     )
