@@ -33,7 +33,9 @@ function Form() {
                     <h1 className="text-5xl font-bold">Registry</h1>
                     <p className="py-6">List of names</p>
                 </div>
-                <div className="card max-w-sm shadow-2xl bg-base-100">
+                <div className="indicator">
+                    <span className="indicator-item badge badge-secondary"></span>
+                    <div className="card max-w-sm shadow-2xl bg-base-100 relative">
                     <form className="card-body">
                         <FormInput
                             labelText="First Name"
@@ -53,6 +55,7 @@ function Form() {
                             </button>
                         </div>
                     </form>
+                </div>
                 </div>
             </div>
         </div>
