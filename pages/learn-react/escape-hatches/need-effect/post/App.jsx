@@ -26,29 +26,27 @@ function Form() {
     // ...
     const post = useContext(formContext)
     return (
-        
-            <div className="card max-w-sm shadow-2xl bg-base-100 relative">
-                <form className="card-body">
-                    <FormInput
-                        labelText="First Name"
-                        placeholder="Enter first name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <FormInput
-                        labelText="Last Name"
-                        placeholder="Enter last name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <div className="form-control mt-6">
-                        <button className="btn btn-primary" onClick={handleSubmit}>
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-        
+        <div className="card max-w-sm shadow-2xl bg-base-100 relative">
+            <form className="card-body">
+                <FormInput
+                    labelText="First Name"
+                    placeholder="Enter first name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
+                <FormInput
+                    labelText="Last Name"
+                    placeholder="Enter last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                />
+                <div className="form-control mt-6">
+                    <button className="btn btn-primary" onClick={handleSubmit}>
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
     )
   }
 
