@@ -25,6 +25,7 @@ module.exports = {
     scopedPreflightStyles({
       cssSelector: '.notailwind', // or .notailwind or even [data-tailwind=false] - any valid CSS selector of your choice
       mode: 'except matched',
-  })
+    }),
+    // require('@tailwindcss/forms')
   ],
 }
