@@ -98,7 +98,7 @@ function Registry() {
     }
 
     return (
-        <div className="min-h-screen bg-base-200">
+        <div className="bg-base-200">
             <div className="flex flex-col">
                 <div className="text-5xl mx-auto font-bold p-10">Amazing Event</div>
                 <div className="grid grid-cols-2">
@@ -106,7 +106,6 @@ function Registry() {
                         <formContext.Provider value={post}>
                             <Form />
                         </formContext.Provider>
-                        
                     </div>
                     <div className="m-4 max-h-80 overflow-hidden">
                         <RegistryList registryList={registryList}/>
@@ -128,11 +127,11 @@ function Registry() {
     )
 }
 
-function RegistryList({registryList}) {
+function RegistryList({ registryList }) {
     return (
-        <div className="flex flex-col space-y-4 max-h-full items-center rounded-xl ">
+        <div className="flex flex-col space-y-4 max-h-full items-center rounded-xl">
             <h1 className="font-bold">Registry list</h1>
-            <div className="overflow-y-auto h-64 min-w-full rounded-xl">
+            <div className="overflow-y-auto h-64 rounded-xl flex items-center">
             {registryList.length ? (
                 <table className="table bg-base-100">
                     <thead>
@@ -160,6 +159,8 @@ function RegistryList({registryList}) {
 
 export default function App() {
     return (
-        <Registry />
+        <div className="min-h-screen bg-base-200">
+            <Registry />
+        </div>
     )
 }
