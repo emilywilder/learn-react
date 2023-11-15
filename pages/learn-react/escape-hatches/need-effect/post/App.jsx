@@ -99,29 +99,30 @@ function Registry() {
 
     return (
         <div className="min-h-screen bg-base-200">
-            <div className="hero-content flex-col">
-                <div className="text-5xl font-bold p-10">Amazing Event</div>
-                <div className="grid grid-cols-2 space-x-4">
-                    <div className="self-start">
-                        <RegistryList registryList={registryList}/>
-                    </div>
-                    <div className="space-y-5 self-end">
+            <div className="flex flex-col">
+                <div className="text-5xl mx-auto font-bold p-10">Amazing Event</div>
+                <div className="grid grid-cols-2">
+                    <div className="m-4">
                         <formContext.Provider value={post}>
                             <Form />
                         </formContext.Provider>
-                        <div className="flex justify-end">
-                            <label className="label space-x-4">
-                                <span className="label-text font-thin">Analytics sent</span> 
-                                <input
-                                    className="checkbox checkbox-xs checkbox-secondary"
-                                    type="checkbox" 
-                                    checked={analyticsSent}
-                                    readOnly
-                                />
-                            </label>
-                        </div>
+                        
+                    </div>
+                    <div className="m-4 max-h-80 overflow-hidden">
+                        <RegistryList registryList={registryList}/>
                     </div>
                 </div>
+            </div>
+            <div className="flex justify-end p-4">
+                <label className="label space-x-4">
+                    <span className="label-text font-thin">Analytics sent</span> 
+                    <input
+                        className="checkbox checkbox-xs checkbox-secondary"
+                        type="checkbox"
+                        checked={analyticsSent}
+                        readOnly
+                    />
+                </label>
             </div>
         </div>
     )
@@ -129,29 +130,29 @@ function Registry() {
 
 function RegistryList({registryList}) {
     return (
-        <div className="flex flex-col self-start">
+        <div className="flex flex-col space-y-4 max-h-full items-center rounded-xl ">
             <h1 className="font-bold">Registry list</h1>
-            <div className="py-6 overflow-x-hidden">
-                {registryList.length ? (
-                    <table className="table bg-base-100">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Name</th>
+            <div className="overflow-y-auto h-64 min-w-full rounded-xl">
+            {registryList.length ? (
+                <table className="table bg-base-100">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {registryList.map(n => (
+                            <tr key={n.id}>
+                                <th>{n.id + 1}</th>
+                                <td>{n.firstName} {n.lastName}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {registryList.map(n => (
-                                <tr key={n.id}>
-                                    <th>{n.id + 1}</th>
-                                    <td>{n.firstName} {n.lastName}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>There are currently no names registered.</p>
-                )}
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>There are currently no names registered.</p>
+            )}
             </div>
         </div>
     )
