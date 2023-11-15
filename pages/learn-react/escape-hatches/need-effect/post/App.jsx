@@ -9,7 +9,7 @@ function Form() {
     // ✅ Good: This logic should run because the component was displayed
     useEffect(() => {
       post('/analytics/event', { eventName: 'visit_form' });
-    }, []);
+    }, []); // eslint-disable-line
   
     // 🔴 Avoid: Event-specific logic inside an Effect
     const [jsonToSubmit, setJsonToSubmit] = useState(null);
@@ -17,7 +17,7 @@ function Form() {
       if (jsonToSubmit !== null) {
         post('/api/register', jsonToSubmit);
       }
-    }, [jsonToSubmit]);
+    }, [jsonToSubmit]); // eslint-disable-line
   
     function handleSubmit(e) {
       e.preventDefault();
