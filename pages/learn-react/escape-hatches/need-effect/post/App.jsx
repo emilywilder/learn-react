@@ -69,7 +69,7 @@ function FormInput({ labelText, placeholder, value, onChange }) {
 }
 
 function Registry() {
-    const [registryList, setRegistryList] = useState([])
+    const [registryList, setRegistryList] = useState([])    
     const [analyticsSent, setAnalyticsSent] = useState(false)
 
     console.debug(`registryList: ${JSON.stringify(registryList)}`)
@@ -129,9 +129,9 @@ function Registry() {
 
 function RegistryList({ registryList }) {
     return (
-        <div className="flex flex-col space-y-4 max-h-full items-center rounded-xl">
-            <h1 className="font-bold">Registry list</h1>
-            <div className="overflow-y-auto h-64 rounded-xl flex items-center">
+        <div className="flex flex-col space-y-4 h-full rounded-xl items-center">
+            <h1 className="font-bold self-center">Registry list</h1>
+            <div className="flex max-h-64 min-w-full overflow-y-scroll rounded-xl">
             {registryList.length ? (
                 <table className="table bg-base-100">
                     <thead>
@@ -150,7 +150,7 @@ function RegistryList({ registryList }) {
                     </tbody>
                 </table>
             ) : (
-                <p>There are currently no names registered.</p>
+                <div className="min-w-full text-center self-center">There are currently no names registered.</div>
             )}
             </div>
         </div>
