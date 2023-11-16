@@ -129,11 +129,11 @@ function Registry() {
 
 function RegistryList({ registryList }) {
     return (
-        <div className="flex flex-col space-y-4 h-full rounded-xl items-center">
+        <div className="flex flex-col space-y-4 h-full rounded-xl">
             <h1 className="font-bold self-center">Registry list</h1>
-            <div className="flex max-h-64 min-w-full overflow-y-scroll rounded-xl">
+            <div className="max-h-60 max-w-full overflow-y-scroll rounded-xl">
             {registryList.length ? (
-                <table className="table bg-base-100">
+                <table className="table bg-base-100 max-h-full">
                     <thead>
                         <tr>
                             <th></th>
@@ -150,7 +150,7 @@ function RegistryList({ registryList }) {
                     </tbody>
                 </table>
             ) : (
-                <div className="min-w-full text-center self-center">There are currently no names registered.</div>
+                <p className="flex justify-center p-10">There are currently no names registered.</p>
             )}
             </div>
         </div>
