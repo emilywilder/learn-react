@@ -26,7 +26,7 @@ function Form() {
     // ...
     const post = useContext(formContext)
     return (
-        <div className="card max-w-sm shadow-2xl bg-base-100 relative">
+        <div className="card shadow-2xl bg-base-100">
             <form className="card-body">
                 <FormInput
                     labelText="First Name"
@@ -99,10 +99,10 @@ function Registry() {
 
     return (
         <div className="bg-base-200">
-            <div className="flex flex-col">
-                <div className="text-5xl mx-auto font-bold p-10">Amazing Event</div>
-                <div className="grid grid-cols-2">
-                    <div className="m-4">
+            <div className="flex flex-col items-center">
+                <div className="text-5xl font-bold p-10">Amazing Event</div>
+                <div className="flex flex-shrink-0 space-x-10">
+                    <div>
                         <formContext.Provider value={post}>
                             <Form />
                         </formContext.Provider>
@@ -129,11 +129,11 @@ function Registry() {
 
 function RegistryList({ registryList }) {
     return (
-        <div className="flex flex-col space-y-4 h-full rounded-xl">
-            <h1 className="font-bold self-center">Registry list</h1>
-            <div className="max-h-60 max-w-full overflow-y-scroll rounded-xl">
+        <div className="flex flex-col items-center space-y-4">
+            <h1 className="font-bold">Registry list</h1>
+            <div className="overflow-scroll min-w-[20em] rounded-xl max-h-60">
             {registryList.length ? (
-                <table className="table bg-base-100 max-h-full">
+                <table className="table bg-base-100">
                     <thead>
                         <tr>
                             <th></th>
@@ -150,7 +150,7 @@ function RegistryList({ registryList }) {
                     </tbody>
                 </table>
             ) : (
-                <p className="flex justify-center p-10">There are currently no names registered.</p>
+                <p className="mt-10">There are currently no names registered.</p>
             )}
             </div>
         </div>
