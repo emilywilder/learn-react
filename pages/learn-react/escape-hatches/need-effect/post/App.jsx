@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const formContext = createContext()
 
-function Form() {
+function BadForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
   
@@ -26,6 +26,45 @@ function Form() {
     // ...
     const post = useContext(formContext)
     return (
+        <FormContent
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            onClick={handleSubmit}
+        />
+    )
+}
+
+function GoodForm() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+  
+    // ✅ Good: This logic runs because the component was displayed
+    useEffect(() => {
+      post('/analytics/event', { eventName: 'visit_form' });
+    }, []);
+  
+    function handleSubmit(e) {
+      e.preventDefault();
+      // ✅ Good: Event-specific logic is in the event handler
+      post('/api/register', { firstName, lastName });
+    }
+    // ...
+    const post = useContext(formContext)
+    return (
+        <FormContent
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            onClick={handleSubmit}
+        />
+    )
+}
+
+function FormContent({ firstName, setFirstName, lastName, setLastName, onClick }) {
+    return (
         <div className="card shadow-2xl bg-base-100">
             <form className="card-body">
                 <FormInput
@@ -41,14 +80,14 @@ function Form() {
                     onChange={(e) => setLastName(e.target.value)}
                 />
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary" onClick={handleSubmit}>
+                    <button className="btn btn-primary" onClick={onClick}>
                         Register
                     </button>
                 </div>
             </form>
         </div>
     )
-  }
+}
 
 function FormInput({ labelText, placeholder, value, onChange }) {
     return (
@@ -68,7 +107,7 @@ function FormInput({ labelText, placeholder, value, onChange }) {
     )
 }
 
-function Registry() {
+function Registry({ Form, outlineColor }) {
     const [registryList, setRegistryList] = useState([])    
     const [analyticsSent, setAnalyticsSent] = useState(false)
 
@@ -98,6 +137,7 @@ function Registry() {
     }
 
     return (
+        <div className={`outline ${outlineColor} rounded-xl m-8 overflow-hidden`}>
         <div className="bg-base-200">
             <div className="flex flex-col items-center">
                 <div className="text-5xl font-bold p-10">Amazing Event</div>
@@ -123,6 +163,7 @@ function Registry() {
                     />
                 </label>
             </div>
+        </div>
         </div>
     )
 }
@@ -159,8 +200,9 @@ function RegistryList({ registryList }) {
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-base-200">
-            <Registry />
+        <div className="min-h-screen bg-base-200 pt-4">
+                <Registry Form={BadForm} outlineColor={"outline-red-500"} />
+                <Registry Form={GoodForm} outlineColor={"outline-green-500"} />
         </div>
     )
 }
