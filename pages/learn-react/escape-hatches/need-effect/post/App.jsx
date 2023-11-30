@@ -138,32 +138,32 @@ function Registry({ Form, outlineColor }) {
 
     return (
         <div className={`outline ${outlineColor} rounded-xl m-8 overflow-hidden`}>
-        <div className="bg-base-200">
-            <div className="flex flex-col items-center">
-                <div className="text-5xl font-bold p-10">Amazing Event</div>
-                <div className="flex flex-shrink-0 space-x-10">
-                    <div>
-                        <formContext.Provider value={post}>
-                            <Form />
-                        </formContext.Provider>
-                    </div>
-                    <div className="m-4 max-h-80 overflow-hidden">
-                        <RegistryList registryList={registryList}/>
+            <div className="bg-base-200">
+                <div className="flex flex-col items-center">
+                    <div className="text-5xl font-bold p-10">Amazing Event</div>
+                    <div className="flex flex-shrink-0 space-x-10">
+                        <div>
+                            <formContext.Provider value={post}>
+                                <Form />
+                            </formContext.Provider>
+                        </div>
+                        <div className="m-4 max-h-80 overflow-hidden">
+                            <RegistryList registryList={registryList}/>
+                        </div>
                     </div>
                 </div>
+                <div className="flex justify-end p-4">
+                    <label className="label space-x-4">
+                        <span className="label-text font-thin">Analytics sent</span> 
+                        <input
+                            className="checkbox checkbox-xs checkbox-secondary"
+                            type="checkbox"
+                            checked={analyticsSent}
+                            readOnly
+                        />
+                    </label>
+                </div>
             </div>
-            <div className="flex justify-end p-4">
-                <label className="label space-x-4">
-                    <span className="label-text font-thin">Analytics sent</span> 
-                    <input
-                        className="checkbox checkbox-xs checkbox-secondary"
-                        type="checkbox"
-                        checked={analyticsSent}
-                        readOnly
-                    />
-                </label>
-            </div>
-        </div>
         </div>
     )
 }
