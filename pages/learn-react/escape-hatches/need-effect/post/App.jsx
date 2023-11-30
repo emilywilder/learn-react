@@ -43,7 +43,7 @@ function GoodForm() {
     // ✅ Good: This logic runs because the component was displayed
     useEffect(() => {
       post('/analytics/event', { eventName: 'visit_form' });
-    }, []);
+    }, []); // eslint-disable-line
   
     function handleSubmit(e) {
       e.preventDefault();
