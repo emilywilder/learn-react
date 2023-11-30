@@ -9,6 +9,7 @@ import Resetting from './resetting/App'
 import Adjusting from './adjusting/App'
 import Sharing from './sharing/App'
 import Post from './post/App'
+import Chains from './chains/App'
 
 export default function Home() {
     return (
@@ -58,7 +59,7 @@ const sublessons = [
     {
         id: 6,
         title: "Chains of computations",
-        component: null, // Chains
+        component: Chains,
         usesTailwind: true
     },
     {
