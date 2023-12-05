@@ -12,13 +12,31 @@ const cards = [
         id: 1,
         name: 'empress',
         location: '/images/empress-6016923_1280.jpg',
-        gold: false,
+        gold: true,
     },
     {
         id: 2,
         name: 'the hanged man',
         location: '/images/hanged-man-6016939_1280.jpg',
         gold: false,
+    },
+    {
+        id: 3,
+        name: 'hermit',
+        location: '/images/hermit-6016941_1280.jpg',
+        gold: true,
+    },
+    {
+        id: 4,
+        name: 'hierophant',
+        location: '/images/hierophant-6016942_1280.jpg',
+        gold: false,
+    },
+    {
+        id: 5,
+        name: 'king of cups',
+        location: '/images/king-of-cups-6686829_1280.jpg',
+        gold: true,
     },
 ]
 
@@ -62,12 +80,18 @@ function Game() {
 
     // ...
     return (
-        <div className="flex justify-center">
-            <div className="grid grid-cols-3 grid-rows-2 my-10">
-                <Blank /><Blank /><Blank />
-                <Card id={0} />
-                <Card id={1} />
-                <Card id={2} />
+        <div>
+            <div className="flex flex-col items-center p-2">
+                <div className="font-serif text-4xl p-4">Find the golden cards!</div>
+                <p className="font-bold">Round: {round}</p>
+                <p>Golden cards found: {goldCardCount}/{3}</p>
+            </div>
+            <div className="flex justify-center">
+                <div className="grid grid-cols-3 grid-rows-2">
+                    {Array.from(Array(6).keys()).map((i) => (
+                        <Card key={i} id={i} onClick={handlePlaceCard} />
+                    ))}
+                </div>
             </div>
         </div>
     )
@@ -91,11 +115,14 @@ function CardSpace({ children }) {
     )
 }
 
-function Card({ id }) {
+function Card({ id, onClick }) {
     const card = cards.find(c => c.id === id)
     return (
         <CardSpace>
-            <button className="card shadow-xl place-items-center">
+            <button
+                className="card shadow-xl place-items-center"
+                onClick={() => onClick(card)}
+            >
                 <Image width={720} height={1280} src={card.location} alt={card.name} />
             </button>
         </CardSpace>
