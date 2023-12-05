@@ -14,7 +14,7 @@ import Chains from './chains/App'
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={5} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={6} />
         </StrictMode>
     )
 }
