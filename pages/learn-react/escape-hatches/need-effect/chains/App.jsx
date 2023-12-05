@@ -14,40 +14,44 @@ const cards = [
     {
         id: 0,
         name: 'chariot',
-        location: '/images/chariot-6016921_1280.jpg',
+        img_url: '/images/chariot-6016921_1280.jpg',
         gold: false,
     },
     {
         id: 1,
         name: 'empress',
-        location: '/images/empress-6016923_1280.jpg',
-        gold: true,
+        img_url: '/images/empress-6016923_1280.jpg',
+        gold: false,
     },
     {
         id: 2,
         name: 'the hanged man',
-        location: '/images/hanged-man-6016939_1280.jpg',
+        img_url: '/images/hanged-man-6016939_1280.jpg',
         gold: false,
     },
     {
         id: 3,
         name: 'hermit',
-        location: '/images/hermit-6016941_1280.jpg',
-        gold: true,
+        img_url: '/images/hermit-6016941_1280.jpg',
+        gold: false,
     },
     {
         id: 4,
         name: 'hierophant',
-        location: '/images/hierophant-6016942_1280.jpg',
+        img_url: '/images/hierophant-6016942_1280.jpg',
         gold: false,
     },
     {
         id: 5,
         name: 'king of cups',
-        location: '/images/king-of-cups-6686829_1280.jpg',
-        gold: true,
+        img_url: '/images/king-of-cups-6686829_1280.jpg',
+        gold: false,
     },
 ]
+
+// set 3 random cards to be golden
+// TODO: move into <App/>
+shuffleArray(cards).slice(0,2).map(card => card.gold = true)
 
 function Game() {
     const [card, setCard] = useState(null)
@@ -134,13 +138,14 @@ function Card({ id, onClick }) {
                 className="card shadow-xl place-items-center"
                 onClick={() => onClick(card)}
             >
-                <Image width={720} height={1280} src={card.location} alt={card.name} />
+                <Image width={720} height={1280} src={card.img_url} alt={card.name} />
             </button>
         </CardSpace>
     )
 }
 
 export default function App() {
+    const cardIds = shuffleArray(Array.from(Array(6).keys()))
     return (
         <div className="bg-base-200 h-screen">
             <Game />
