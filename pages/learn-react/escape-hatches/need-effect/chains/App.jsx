@@ -131,12 +131,16 @@ function CardSpace({ children }) {
 }
 
 function Card({ id, onClick }) {
+    const [borderClassName, setBorderClassName] = useState("")
     const card = cards.find(c => c.id === id)
     return (
         <CardSpace>
             <button
-                className="card shadow-xl place-items-center"
-                onClick={() => onClick(card)}
+                className={`card shadow-xl place-items-center ${borderClassName}`}
+                onClick={() => {
+                    card.gold && setBorderClassName("border-4 border-yellow-500")
+                    onClick(card)
+                }}
             >
                 <Image width={720} height={1280} src={card.img_url} alt={card.name} />
             </button>
