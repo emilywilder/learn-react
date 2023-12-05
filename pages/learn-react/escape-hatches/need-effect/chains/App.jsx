@@ -1,6 +1,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+// taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffleArray(arr) {
+    return arr
+        .map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value)
+
+}
+
 const cards = [
     {
         id: 0,
@@ -79,6 +88,8 @@ function Game() {
     }
 
     // ...
+    const cardIds = shuffleArray(Array.from(Array(6).keys()))
+
     return (
         <div>
             <div className="flex flex-col items-center p-2">
@@ -88,7 +99,7 @@ function Game() {
             </div>
             <div className="flex justify-center">
                 <div className="grid grid-cols-3 grid-rows-2">
-                    {Array.from(Array(6).keys()).map((i) => (
+                    {cardIds.map((i) => (
                         <Card key={i} id={i} onClick={handlePlaceCard} />
                     ))}
                 </div>
