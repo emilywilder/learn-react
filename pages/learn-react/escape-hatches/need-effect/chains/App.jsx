@@ -117,7 +117,7 @@ function Game() {
             <div className="flex justify-center">
                 <div className="grid grid-cols-3 grid-rows-2">
                     {cards.map((c) => (
-                        <Card key={c.id} id={c.id} onClick={handleClick} cards={cards} />
+                        <Card key={c.id} card={c} onClick={handleClick} />
                     ))}
                 </div>
             </div>
@@ -143,9 +143,8 @@ function CardSpace({ children }) {
     )
 }
 
-function Card({ id, onClick, cards }) {
+function Card({ card, onClick }) {
     // const [borderClassName, setBorderClassName] = useState("")
-    const card = cards.find(c => c.id === id)
     let borderClassName = ""
     if (card.selected) {
         if (card.gold) {
