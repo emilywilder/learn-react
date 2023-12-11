@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { createContext, useContext, useEffect, useState } from "react";
-
-const CardContext = createContext()
+import { useEffect, useState } from "react";
 
 // taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffleArray(arr) {
@@ -45,7 +43,6 @@ const cardList = [
     },
 ]
 
-
 function Game() {
     const [card, setCard] = useState(null)
     const [goldCardCount, setGoldCardCount] = useState(0)
@@ -85,42 +82,69 @@ function Game() {
     }
 
     // ...
-
-    const [cards, setCards, newCards] = useContext(CardContext)
-    if (goldCardCount > 3) {
-        const shuffledCards = shuffleArray(newCards())
-        setCards(shuffledCards)
+    const [cards, setCards] = useState(newCards())
+    const [showRound, setShowRound] = useState(true)
+    
+    function newCards() {
+        // add the gold and selected attributes to each card
+        let cards = (cardList.map((c) => {
+            return {...c, gold: false, selected: false}
+        }))
+        // set 4 random cards to be golden
+        shuffleArray(cards).slice(0,4).map(c => c.gold = true)
+        return cards
     }
 
     function handleClick(card) {
-        const newCards = cards.map((c) => {
-            if (c.id == card.id) {
-                return {...card,
-                    selected: true
+        let nextCards
+        if (goldCardCount == 3 && card.gold) {
+            nextCards = shuffleArray(newCards())
+            setShowRound(false)
+        } else {
+            nextCards = cards.map((c) => {
+                if (c.id == card.id) {
+                    return {...card,
+                        selected: true
+                    }
+                } else {
+                    return c
                 }
-            } else {
-                return c
-            }
-        })
-        console.log(newCards)
-        setCards(newCards)
+            })
+        }
+
+        setCards(nextCards)
         handlePlaceCard(card)
     }
 
     return (
         <div>
-            <div className="flex flex-col items-center p-2">
-                <div className="font-serif text-4xl p-4">Find the golden cards!</div>
-                <p className="font-bold">Round: {round}</p>
-                <p>Golden cards found: {goldCardCount}/{4}</p>
-            </div>
-            <div className="flex justify-center">
-                <div className="grid grid-cols-3 grid-rows-2">
-                    {cards.map((c) => (
-                        <Card key={c.id} card={c} onClick={handleClick} />
-                    ))}
+            {showRound ? (
+                <div>
+                    <div className="flex flex-col items-center p-2">
+                        <div className="font-serif text-4xl p-4">Find the golden cards!</div>
+                        <p className="font-bold">Round: {round}</p>
+                        <p>Golden cards found: {goldCardCount}/{4}</p>
+                    </div>
+                    <div className="flex justify-center">
+                        <div className="grid grid-cols-3 grid-rows-2">
+                            {cards.map((c) => (
+                                <Card key={c.id} card={c} onClick={handleClick} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className="h-96">
+                    <div className="flex justify-center place-items-center h-full ">
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => setShowRound(true)}
+                        >
+                            Next Round!
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
@@ -163,24 +187,9 @@ function Card({ card, onClick }) {
 }
 
 export default function App() {
-    const [cards, setCards] = useState(newCards())
-
-    function newCards() {
-        // add the gold and selected attributes to each card
-        let cards = (cardList.map((c) => {
-            return {...c, gold: false, selected: false}
-        }))
-        // set 4 random cards to be golden
-        shuffleArray(cards).slice(0,4).map(c => c.gold = true)
-        return cards
-    }
-
     return (
         <div className="bg-base-200 h-screen">
-            <CardContext.Provider value={[cards, setCards, newCards]}>
-                <Game />
-            </CardContext.Provider>
+            <Game />
         </div>
     )
-    
 }
