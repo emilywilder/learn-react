@@ -92,6 +92,21 @@ function Game() {
         setCards(shuffledCards)
     }
 
+    function handleClick(card) {
+        const newCards = cards.map((c) => {
+            if (c.id == card.id) {
+                return {...card,
+                    selected: true
+                }
+            } else {
+                return c
+            }
+        })
+        console.log(newCards)
+        setCards(newCards)
+        handlePlaceCard(card)
+    }
+
     return (
         <div>
             <div className="flex flex-col items-center p-2">
@@ -102,7 +117,7 @@ function Game() {
             <div className="flex justify-center">
                 <div className="grid grid-cols-3 grid-rows-2">
                     {cards.map((c) => (
-                        <Card key={c.id} id={c.id} onClick={handlePlaceCard} cards={cards} />
+                        <Card key={c.id} id={c.id} onClick={handleClick} cards={cards} />
                     ))}
                 </div>
             </div>
@@ -129,18 +144,19 @@ function CardSpace({ children }) {
 }
 
 function Card({ id, onClick, cards }) {
-    const [borderClassName, setBorderClassName] = useState("")
+    // const [borderClassName, setBorderClassName] = useState("")
     const card = cards.find(c => c.id === id)
+    let borderClassName = ""
+    if (card.selected) {
+        if (card.gold) {
+            borderClassName = "border-4 border-yellow-500"
+        }
+    }
     return (
         <CardSpace>
             <button
                 className={`card shadow-xl place-items-center ${borderClassName}`}
-                onClick={() => {
-                    if (card.gold) {
-                        setBorderClassName("border-4 border-yellow-500")
-                    }
-                    onClick(card)
-                }}
+                onClick={() => onClick(card)}
             >
                 <Image width={720} height={1280} src={card.img_url} alt={card.name} />
             </button>
