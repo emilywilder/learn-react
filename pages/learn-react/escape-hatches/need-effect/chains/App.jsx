@@ -144,7 +144,6 @@ function CardSpace({ children }) {
 }
 
 function Card({ card, onClick }) {
-    // const [borderClassName, setBorderClassName] = useState("")
     let borderClassName = ""
     if (card.selected) {
         if (card.gold) {
