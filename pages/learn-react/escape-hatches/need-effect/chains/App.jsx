@@ -85,7 +85,12 @@ function Game() {
     }
 
     // ...
-    const cardIds = Array.from(Array(6).keys())
+
+    const [cards, setCards, newCards] = useContext(CardContext)
+    if (goldCardCount > 3) {
+        const shuffledCards = shuffleArray(newCards())
+        setCards(shuffledCards)
+    }
 
     return (
         <div>
@@ -96,8 +101,8 @@ function Game() {
             </div>
             <div className="flex justify-center">
                 <div className="grid grid-cols-3 grid-rows-2">
-                    {cardIds.map((i) => (
-                        <Card key={i} id={i} onClick={handlePlaceCard} goldCardCount={goldCardCount} />
+                    {cards.map((c) => (
+                        <Card key={c.id} id={c.id} onClick={handlePlaceCard} cards={cards} />
                     ))}
                 </div>
             </div>
@@ -123,9 +128,8 @@ function CardSpace({ children }) {
     )
 }
 
-function Card({ id, onClick, goldCardCount }) {
+function Card({ id, onClick, cards }) {
     const [borderClassName, setBorderClassName] = useState("")
-    const [cards, setCards, newCards] = useContext(CardContext)
     const card = cards.find(c => c.id === id)
     return (
         <CardSpace>
@@ -134,9 +138,6 @@ function Card({ id, onClick, goldCardCount }) {
                 onClick={() => {
                     if (card.gold) {
                         setBorderClassName("border-4 border-yellow-500")
-                        if (goldCardCount > 3) {
-                            setCards(newCards())
-                        }
                     }
                     onClick(card)
                 }}
