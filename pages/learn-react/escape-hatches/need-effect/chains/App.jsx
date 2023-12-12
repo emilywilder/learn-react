@@ -153,16 +153,6 @@ function Game() {
     )
 }
 
-function Blank() {
-    return (
-        <CardSpace>
-            <div className="h-full border-4 rounded-xl border-black flex items-center justify-center bg-base-100">
-                Place a card here.
-            </div>
-        </CardSpace>
-    )
-}
-
 function CardSpace({ children }) {
     return (
         <div className="w-48 h-128 m-4">
