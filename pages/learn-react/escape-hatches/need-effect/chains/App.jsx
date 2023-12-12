@@ -41,6 +41,16 @@ const cardList = [
         name: 'king of cups',
         img_url: '/images/king-of-cups-6686829_1280.jpg',
     },
+    {
+        id: 6,
+        name: 'temperance',
+        img_url: '/images/temperance-6016917_1280.jpg',
+    },
+    {
+        id: 7,
+        name: 'the fool',
+        img_url: '/images/the-fool-6016940_1280.jpg',
+    },
 ]
 
 function Game() {
