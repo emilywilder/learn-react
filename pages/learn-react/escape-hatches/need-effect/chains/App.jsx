@@ -125,12 +125,10 @@ function Game() {
                         <p className="font-bold">Round: {round}</p>
                         <p>Golden cards found: {goldCardCount}/{4}</p>
                     </div>
-                    <div className="flex justify-center">
-                        <div className="grid grid-cols-3 grid-rows-2">
-                            {cards.map((c) => (
-                                <Card key={c.id} card={c} onClick={handleClick} />
-                            ))}
-                        </div>
+                    <div className="flex flex-wrap justify-center">
+                        {cards.map((c) => (
+                            <Card key={c.id} card={c} onClick={handleClick} />
+                        ))}
                     </div>
                 </div>
             ) : (
@@ -155,7 +153,7 @@ function Game() {
 
 function CardSpace({ children }) {
     return (
-        <div className="w-48 h-128 m-4">
+        <div className="w-[140px] h-[250px] p-4">
             {children}
         </div>
     )
@@ -171,10 +169,10 @@ function Card({ card, onClick }) {
     return (
         <CardSpace>
             <button
-                className={`card shadow-xl place-items-center ${borderClassName}`}
+                className={`card h-full w-full shadow-xl place-items-center ${borderClassName}`}
                 onClick={() => onClick(card)}
             >
-                <Image width={720} height={1280} src={card.img_url} alt={card.name} />
+                <Image fill={true} src={card.img_url} alt={card.name} />
             </button>
         </CardSpace>
     )
