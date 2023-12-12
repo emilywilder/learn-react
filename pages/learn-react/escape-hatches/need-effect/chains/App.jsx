@@ -159,10 +159,14 @@ function Game() {
     )
 }
 
-function CardSpace({ highlight, children }) {
-    const hl_ClassName = highlight ? "border-4 rounded-xl border-yellow-500" : ""
+function CardSpace({ card, children }) {
+    let effectClassName = ""
+    if (card.selected) {
+        effectClassName = card.gold ? "sepia" : "grayscale"
+    }
+
     return (
-        <div className={`w-[140px] h-[250px] m-2 p-2 ${hl_ClassName}`}>
+        <div className={`w-[140px] h-[250px] m-2 p-2 rounded-xl bg-base-100 shadow-xl ${effectClassName}`}>
             {children}
         </div>
     )
@@ -170,9 +174,9 @@ function CardSpace({ highlight, children }) {
 
 function Card({ card, onClick }) {
     return (
-        <CardSpace highlight={card.selected && card.gold}>
+        <CardSpace card={card}>
             <button
-                className="card h-full w-full shadow-xl place-items-center"
+                className="card h-full w-full place-items-center"
                 onClick={() => onClick(card)}
             >
                 <Image fill={true} src={card.img_url} alt={card.name} />
