@@ -7,7 +7,6 @@ function shuffleArray(arr) {
         .map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value)
-
 }
 
 const cardList = [
@@ -121,7 +120,6 @@ function Game() {
                 }
             })
         }
-
         setCards(nextCards)
         handlePlaceCard(card)
     }
@@ -161,25 +159,20 @@ function Game() {
     )
 }
 
-function CardSpace({ children }) {
+function CardSpace({ highlight, children }) {
+    const hl_ClassName = highlight ? "border-4 rounded-xl border-yellow-500" : ""
     return (
-        <div className="w-[140px] h-[250px] p-4">
+        <div className={`w-[140px] h-[250px] m-2 p-2 ${hl_ClassName}`}>
             {children}
         </div>
     )
 }
 
 function Card({ card, onClick }) {
-    let borderClassName = ""
-    if (card.selected) {
-        if (card.gold) {
-            borderClassName = "border-4 border-yellow-500"
-        }
-    }
     return (
-        <CardSpace>
+        <CardSpace highlight={card.selected && card.gold}>
             <button
-                className={`card h-full w-full shadow-xl place-items-center ${borderClassName}`}
+                className="card h-full w-full shadow-xl place-items-center"
                 onClick={() => onClick(card)}
             >
                 <Image fill={true} src={card.img_url} alt={card.name} />
