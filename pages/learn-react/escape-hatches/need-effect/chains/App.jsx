@@ -136,12 +136,16 @@ function Game() {
             ) : (
                 <div className="h-96">
                     <div className="flex justify-center place-items-center h-full ">
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => setShowRound(true)}
-                        >
-                            Next Round!
-                        </button>
+                        {isGameOver ? (
+                            <p className="text-3xl">Thanks for playing!</p>
+                        ) : (
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => setShowRound(true)}
+                            >
+                                Next Round!
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
