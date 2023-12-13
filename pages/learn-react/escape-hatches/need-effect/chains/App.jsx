@@ -105,56 +105,62 @@ function Game() {
     }
 
     function handleClick(card) {
-        let nextCards
         if (goldCardCount == 3 && card.gold) {
-            nextCards = shuffleArray(newCards())
             setShowRound(false)
-        } else {
-            nextCards = cards.map((c) => {
-                if (c.id == card.id) {
-                    return {...card,
-                        selected: true
-                    }
-                } else {
-                    return c
-                }
-            })
         }
+        const nextCards = cards.map((c) => {
+            if (c.id == card.id) {
+                return {...card,
+                    selected: true
+                }
+            } else {
+                return c
+            }
+        })
         setCards(nextCards)
         handlePlaceCard(card)
     }
 
+    function handleNextRound() {
+        const nextCards = shuffleArray(newCards())
+        setCards(nextCards)
+        setShowRound(true)
+    }
+
     return (
         <div>
-            {showRound ? (
-                <div>
-                    <div className="flex flex-col items-center p-2">
-                        <div className="font-serif text-4xl p-4">Find the golden cards!</div>
+            <div className="flex flex-col items-center p-2 min-h-[150px]">
+                <div className="font-serif text-4xl p-4">Find the golden cards!</div>
+                {showRound && (
+                    <>
                         <p className="font-bold">Round: {round}</p>
                         <p>Golden cards found: {goldCardCount}/{4}</p>
-                    </div>
-                    <div className="flex flex-wrap justify-center">
-                        {cards.map((c) => (
-                            <Card key={c.id} card={c} onClick={handleClick} />
-                        ))}
-                    </div>
+                    </>
+                )}
+            </div>
+            <div className="relative">
+                <div className={`flex flex-wrap justify-center ${!showRound && "blur-sm"}`}>
+                    {cards.map((c) => (
+                        <Card key={c.id} card={c} onClick={handleClick} />
+                    ))}
                 </div>
-            ) : (
-                <div className="h-96">
-                    <div className="flex justify-center place-items-center h-full ">
-                        {isGameOver ? (
-                            <p className="text-3xl">Thanks for playing!</p>
-                        ) : (
-                            <button
-                                className="btn btn-primary"
-                                onClick={() => setShowRound(true)}
-                            >
-                                Next Round!
-                            </button>
-                        )}
+                {!showRound && (
+                    <div className="absolute left-0 top-0 h-full w-full">
+                        <div className="flex justify-center place-items-center h-full ">
+                            {isGameOver ? (
+                                <p className="text-3xl">Thanks for playing!</p>
+                            ) : (
+                                <button
+                                    className="p-8 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-xl"
+                                    onClick={() => handleNextRound()}
+                                >
+                                    Next Round!
+                                </button>
+                            )}
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     )
 }
