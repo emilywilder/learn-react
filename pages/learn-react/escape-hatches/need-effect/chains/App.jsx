@@ -187,7 +187,7 @@ function Card({ card, onClick }) {
                 className="card h-full w-full place-items-center"
                 onClick={() => onClick(card)}
             >
-                <Image fill={true} src={card.img_url} alt={card.name} />
+                <Image fill={true} src={card.img_url} alt={card.name} sizes="250px" />
             </button>
         </CardSpace>
     )
