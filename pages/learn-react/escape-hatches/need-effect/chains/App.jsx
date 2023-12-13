@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffleArray(arr) {
@@ -93,8 +93,19 @@ function Game() {
     // ...
     const [cards, setCards] = useState(newCards())
     const [showRound, setShowRound] = useState(true)
+    const [alertMsgs, setAlertMsgs] = useState([])
+    const alertId = useRef(0)
 
-    const alert = console.log
+    function alert(msg) {
+        const alertObj = {id: alertId.current, msg: msg }
+        console.log(alertObj)
+        setAlertMsgs([
+            ...alertMsgs,
+            // {id: alertId.current, msg: msg }
+            alertObj
+        ])
+        alertId.current++
+    }
 
     function newCards() {
         // add the gold and selected attributes to each card
@@ -162,6 +173,14 @@ function Game() {
                         </div>
                     </div>
                 )}
+            </div>
+            <div className="m-4 space-y-2">
+                {alertMsgs.map(alert => (
+                    <div key={alert.id} role="alert" className="alert shadow-md bg-base-100 p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>{alert.msg}</span>
+                    </div>
+                ))}
             </div>
         </div>
     )
