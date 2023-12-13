@@ -80,7 +80,7 @@ function Game() {
 
     useEffect(() => {
         alert('Good game!')
-    }, [isGameOver])
+    }, [isGameOver]) // eslint-disable-line
 
     function handlePlaceCard(nextCard) {
         if (isGameOver) {
@@ -93,7 +93,9 @@ function Game() {
     // ...
     const [cards, setCards] = useState(newCards())
     const [showRound, setShowRound] = useState(true)
-    
+
+    const alert = console.log
+
     function newCards() {
         // add the gold and selected attributes to each card
         let cards = (cardList.map((c) => {
