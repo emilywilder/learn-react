@@ -129,6 +129,11 @@ function GoodGame() {
     }
 
     // ...
+    const [alertMsgs, alert] = useContext(AlertContext)
+
+    return (
+        <RenderGame round={round} goldCardCount={goldCardCount} handlePlaceCard={handlePlaceCard} isGameOver={isGameOver} alertMsgs={alertMsgs} />
+    )
 }
 
 function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsgs }) {
@@ -272,7 +277,7 @@ export default function App() {
 
             <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-green-500 font-bold" aria-label="events" />
             <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
-                
+                <GameSpace Game={GoodGame} />
             </div>
         </div>
     )
