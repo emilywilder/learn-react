@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+
+const AlertContext = createContext()
 
 // taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffleArray(arr) {
@@ -91,21 +93,16 @@ function BadGame() {
     }
 
     // ...
+    const [alertMsgs, alert] = useContext(AlertContext)
+
+    return (
+        <RenderGame round={round} goldCardCount={goldCardCount} handlePlaceCard={handlePlaceCard} isGameOver={isGameOver} alertMsgs={alertMsgs} />
+    )
+}
+
+function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsgs }) {
     const [cards, setCards] = useState(newCards())
     const [showRound, setShowRound] = useState(true)
-    const [alertMsgs, setAlertMsgs] = useState([])
-    const alertId = useRef(0)
-
-    function alert(msg) {
-        const alertObj = {id: alertId.current, msg: msg }
-        console.log(alertObj)
-        setAlertMsgs([
-            ...alertMsgs,
-            // {id: alertId.current, msg: msg }
-            alertObj
-        ])
-        alertId.current++
-    }
 
     function newCards() {
         // add the gold and selected attributes to each card
@@ -212,16 +209,39 @@ function Card({ card, onClick }) {
     )
 }
 
+function GameSpace({ Game }) {
+    const [alertMsgs, setAlertMsgs] = useState([])
+    const alertId = useRef(0)
+
+    function alert(msg) {
+        const alertObj = {id: alertId.current, msg: msg }
+        console.log(alertObj)
+        setAlertMsgs([
+            ...alertMsgs,
+            // {id: alertId.current, msg: msg }
+            alertObj
+        ])
+        alertId.current++
+    }
+
+    return (
+        <AlertContext.Provider value={[alertMsgs, alert]}>
+            <Game />
+        </AlertContext.Provider>
+    )
+}
+
 export default function App() {
     return (
         <div role="tablist" className="tabs tabs-lifted">
             <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-red-500 font-bold" aria-label="useEffect" checked />
             <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
-                <BadGame />
+                <GameSpace Game={BadGame} />
             </div>
 
             <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-green-500 font-bold" aria-label="events" />
             <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+                
             </div>
         </div>
     )
