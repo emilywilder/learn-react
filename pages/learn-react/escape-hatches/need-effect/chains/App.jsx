@@ -52,7 +52,7 @@ const cardList = [
     },
 ]
 
-function Game() {
+function BadGame() {
     const [card, setCard] = useState(null)
     const [goldCardCount, setGoldCardCount] = useState(0)
     const [round, setRound] = useState(1)
@@ -214,8 +214,15 @@ function Card({ card, onClick }) {
 
 export default function App() {
     return (
-        <div className="bg-base-200 h-screen">
-            <Game />
+        <div role="tablist" className="tabs tabs-lifted">
+            <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-red-500 font-bold" aria-label="useEffect" checked />
+            <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+                <BadGame />
+            </div>
+
+            <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-green-500 font-bold" aria-label="events" />
+            <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+            </div>
         </div>
     )
 }
