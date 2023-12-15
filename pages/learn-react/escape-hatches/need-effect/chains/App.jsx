@@ -246,7 +246,8 @@ function CardSpace({ card, children }) {
     }
 
     return (
-        <div className={`w-[140px] h-[250px] m-2 p-2 rounded-xl bg-base-100 shadow-xl ${effectClassName}`}>
+        // 14:25 aspect ratio
+        <div className={`w-[112px] h-[200px] m-2 p-2 rounded-xl bg-base-100 shadow-xl ${effectClassName}`}>
             {children}
         </div>
     )
@@ -259,7 +260,7 @@ function Card({ card, onClick }) {
                 className="card h-full w-full place-items-center"
                 onClick={() => onClick(card)}
             >
-                <Image fill={true} src={card.img_url} alt={card.name} sizes="250px" />
+                <Image fill={true} src={card.img_url} alt={card.name} sizes="112px" />
             </button>
         </CardSpace>
     )
