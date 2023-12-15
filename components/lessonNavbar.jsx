@@ -1,8 +1,13 @@
+import { useRouter } from 'next/router'
+
 import { useState } from "react"
+import { HiOutlineHome } from "react-icons/hi2";
 
 import Blank from "@/components/blank"
 
 export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
+    const router = useRouter()
+
     const [selectedSublessonId, setSelectedSublessonId] = useState(defaultSelectedId)
 
     const selectedSublesson = sublessons.find((sl) => sl.id === selectedSublessonId)
@@ -21,6 +26,10 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
         loseFocus()
     }
 
+    function handleHomeClick() {
+        router.push('/')
+    }
+
     const listSublessons = (
         sublessons.map((sl) => (
             <li key={sl.id}>
@@ -35,7 +44,7 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
     
     return (
         <>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-100 space-x-0">
                 <div className="flex-none">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn m-1 btn-ghost">
@@ -48,6 +57,14 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
                 </div>
                 <div className="flex-1 breadcrumbs ml-2">
                     <ul>
+                        <li>
+                            <button
+                                className='btn btn-ghost'
+                                onClick={() => handleHomeClick()}
+                            >
+                                <HiOutlineHome className="h-5 w-5" />
+                            </button>
+                        </li>
                         <li className="normal-case text-xl">You Might Not Need an Effect</li>
                         <li>{selectedSublesson.title}</li>
                     </ul>
