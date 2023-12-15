@@ -48,7 +48,7 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
     return (
         <>
             <div className="navbar bg-base-100 space-x-0">
-                <div className="flex-1 breadcrumbs ml-2">
+                <div className="flex-1 breadcrumbs">
                     <ul>
                         <li>
                             <button
