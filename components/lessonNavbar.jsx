@@ -48,21 +48,11 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
     return (
         <>
             <div className="navbar bg-base-100 space-x-0">
-                <div className="flex-none">
-                    <div className="dropdown">
-                        <label tabIndex={0} className="btn m-1 btn-ghost">
-                            <RxHamburgerMenu className='h-5 w-5 ' />
-                        </label>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96">
-                            {listSublessons}
-                        </ul>
-                    </div>
-                </div>
                 <div className="flex-1 breadcrumbs ml-2">
                     <ul>
                         <li>
                             <button
-                                className='btn btn-ghost'
+                                className='btn btn-ghost btn-square'
                                 onClick={() => handleHomeClick()}
                             >
                                 <HiOutlineHome className="h-5 w-5" />
@@ -71,6 +61,16 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
                         <li className="normal-case text-xl">You Might Not Need an Effect</li>
                         <li>{selectedSublesson.title}</li>
                     </ul>
+                </div>
+                <div className="flex-none">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn m-1 btn-ghost">
+                            <RxHamburgerMenu className="h-5 w-5" />
+                        </label>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96">
+                            {listSublessons}
+                        </ul>
+                    </div>
                 </div>
             </div>
             {/* disable tailwind for components made before its inclusion
