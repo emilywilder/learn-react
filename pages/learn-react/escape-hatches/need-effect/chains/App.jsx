@@ -216,7 +216,9 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
                     <div className="absolute left-0 top-0 h-full w-full">
                         <div className="flex justify-center place-items-center h-full ">
                             {isGameOver ? (
-                                <p className="text-3xl">Thanks for playing!</p>
+                                <p className="text-3xl w-full rounded text-center py-8 glass text-white bg-transparent/20">
+                                    Thanks for playing!
+                                </p>
                             ) : (
                                 <button
                                     className="btn btn-lg btn-outline bg-transparent/50 text-white"
