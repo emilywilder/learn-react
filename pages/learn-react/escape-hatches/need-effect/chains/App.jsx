@@ -250,11 +250,9 @@ function GameSpace({ Game }) {
     const alertId = useRef(0)
 
     function alert(msg) {
-        const alertObj = {id: alertId.current, msg: msg }
         setAlertMsgs([
             ...alertMsgs,
-            // {id: alertId.current, msg: msg }
-            alertObj
+            {id: alertId.current, msg: msg }
         ])
         alertId.current++
     }
