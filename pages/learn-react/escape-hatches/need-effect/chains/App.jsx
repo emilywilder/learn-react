@@ -3,14 +3,6 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 const AlertContext = createContext()
 
-// taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-function shuffleArray(arr) {
-    return arr
-        .map(value => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-}
-
 const cardList = [
     {
         id: 0,
@@ -161,13 +153,24 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
     const [showRound, setShowRound] = useState(true)
 
     function newCards() {
+        // taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        function shuffleArray(arr) {
+            return arr
+                .map(value => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value)
+        }
+
         // add the gold and selected attributes to each card
         let cards = (cardList.map((c) => {
             return {...c, gold: false, selected: false}
         }))
+
         // set 4 random cards to be golden
         shuffleArray(cards).slice(0,5).map(c => c.gold = true)
-        return cards
+
+        // return a shuffled deck of cards
+        return shuffleArray(cards)
     }
 
     function handleClick(card) {
@@ -188,8 +191,7 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
     }
 
     function handleNextRound() {
-        const nextCards = shuffleArray(newCards())
-        setCards(nextCards)
+        setCards(newCards())
         setShowRound(true)
     }
 
