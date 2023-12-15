@@ -146,12 +146,12 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
             return {...c, gold: false, selected: false}
         }))
         // set 4 random cards to be golden
-        shuffleArray(cards).slice(0,4).map(c => c.gold = true)
+        shuffleArray(cards).slice(0,5).map(c => c.gold = true)
         return cards
     }
 
     function handleClick(card) {
-        if (goldCardCount == 3 && card.gold) {
+        if (goldCardCount == 4 && card.gold) {
             setShowRound(false)
         }
         const nextCards = cards.map((c) => {
@@ -180,7 +180,7 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
                 {showRound && (
                     <>
                         <p className="font-bold">Round: {round}</p>
-                        <p>Golden cards found: {goldCardCount}/{4}</p>
+                        <p>Golden cards found: {goldCardCount}/{5}</p>
                     </>
                 )}
             </div>
@@ -251,7 +251,6 @@ function GameSpace({ Game }) {
 
     function alert(msg) {
         const alertObj = {id: alertId.current, msg: msg }
-        console.log(alertObj)
         setAlertMsgs([
             ...alertMsgs,
             // {id: alertId.current, msg: msg }
