@@ -52,6 +52,26 @@ const cardList = [
         name: 'the fool',
         img_url: '/images/the-fool-6016940_1280.jpg',
     },
+    {
+        id: 8,
+        name: 'knight of cups',
+        img_url: '/images/knight-of-cups-6686830_1280.jpg',
+    },
+    {
+        id: 9,
+        name: 'page of cups',
+        img_url: '/images/page-of-cups-6686831_1280.jpg',
+    },
+    {
+        id: 10,
+        name: 'three of cups',
+        img_url: '/images/three-of-cups-6686834_1280.jpg',
+    },
+    {
+        id: 11,
+        name: 'two of cups',
+        img_url: '/images/two-of-cups-6686833_1280.jpg',
+    },
 ]
 
 function BadGame() {
