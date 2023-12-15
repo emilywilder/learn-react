@@ -217,7 +217,7 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
                                 <p className="text-3xl">Thanks for playing!</p>
                             ) : (
                                 <button
-                                    className="p-8 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-xl"
+                                    className="btn btn-lg btn-outline bg-transparent/50 text-white"
                                     onClick={() => handleNextRound()}
                                 >
                                     Next Round!
