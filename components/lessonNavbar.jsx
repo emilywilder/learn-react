@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router'
 
 import { useState } from "react"
+
 import { HiOutlineHome } from "react-icons/hi2";
+import { MdErrorOutline } from "react-icons/md";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 import Blank from "@/components/blank"
 
@@ -36,7 +39,7 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
                 <a className={sl.id === selectedSublessonId ? 'active' : undefined}
                     onClick={() => handleMenuClick(sl.id)}
                 >
-                {sl.title} <p className="flex justify-end">{!sl.component ? '⚠' : undefined}</p>
+                {sl.title} <p className="flex justify-end">{!sl.component ? <MdErrorOutline /> : undefined}</p>
                 </a>
             </li>
         ))
@@ -48,7 +51,7 @@ export default function LessonNavbar({ sublessons, defaultSelectedId=0 }) {
                 <div className="flex-none">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn m-1 btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            <RxHamburgerMenu className='h-5 w-5 ' />
                         </label>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96">
                             {listSublessons}
