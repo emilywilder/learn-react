@@ -292,12 +292,17 @@ function GameSpace({ Game }) {
 export default function App() {
     return (
         <div role="tablist" className="tabs tabs-lifted">
-            <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-red-500 font-bold" aria-label="useEffect" defaultChecked />
+            <input type="radio" name="my_tabs_2" role="tab" aria-label="useEffect"
+                className="tab [--tab-bg:theme(colors.base-200)] text-red-500 font-bold"
+            />
             <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
                 <GameSpace Game={BadGame} />
             </div>
 
-            <input type="radio" name="my_tabs_2" role="tab" className="tab [--tab-bg:theme(colors.base-200)] text-green-500 font-bold" aria-label="events" />
+            <input type="radio" name="my_tabs_2" role="tab" aria-label="events"
+                className="tab [--tab-bg:theme(colors.base-200)] text-green-500 font-bold"
+                defaultChecked
+            />
             <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
                 <GameSpace Game={GoodGame} />
             </div>
