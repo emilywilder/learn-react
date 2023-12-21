@@ -42,18 +42,6 @@ function GlobalVarApp() {
     // ...
 }
 
-function ModuleApp() {
-    const [loadUseEffectApp, setLoadUseEffectApp] = useState(false)
-    const [loadGobalVarApp, setLoadGlobalVarApp] = useState(false)
-
-    return (
-        <div>
-            <LoadUnloadApp stateVar={loadUseEffectApp} setStateVar={setLoadUseEffectApp} App={UseEffectApp} />
-            <LoadUnloadApp stateVar={loadGobalVarApp} setStateVar={setLoadGlobalVarApp} App={GlobalVarApp} />
-        </div>
-    )
-}
-
 if (typeof window !== 'undefined') { // Check if we're running in the browser.
     // ✅ Only runs once per app load
    checkAuthToken()
@@ -72,11 +60,13 @@ function LoadUnloadApp({ stateVar, setStateVar, App }) {
 }
 
 export default function App() {
-    const [loadModuleApp, setLoadModuleApp] = useState(false)
+    const [loadUseEffectApp, setLoadUseEffectApp] = useState(false)
+    const [loadGobalVarApp, setLoadGlobalVarApp] = useState(false)
 
     return (
         <div>
-            <LoadUnloadApp stateVar={loadModuleApp} setStateVar={setLoadModuleApp} App={ModuleApp} />
+            <LoadUnloadApp stateVar={loadUseEffectApp} setStateVar={setLoadUseEffectApp} App={UseEffectApp} />
+            <LoadUnloadApp stateVar={loadGobalVarApp} setStateVar={setLoadGlobalVarApp} App={GlobalVarApp} />
         </div>
     )
 }
