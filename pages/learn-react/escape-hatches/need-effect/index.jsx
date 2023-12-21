@@ -10,11 +10,12 @@ import Adjusting from './adjusting/App'
 import Sharing from './sharing/App'
 import Post from './post/App'
 import Chains from './chains/App'
+import Initializing from './initializing/App'
 
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={6} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={7} />
         </StrictMode>
     )
 }
@@ -65,7 +66,7 @@ const sublessons = [
     {
         id: 7,
         title: "Initializing the application",
-        component: null, // Initializing
+        component: Initializing,
         usesTailwind: true
     }, 
     {
