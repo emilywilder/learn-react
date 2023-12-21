@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
+import Toastify from 'toastify-js'
+import 'toastify-js/src/toastify.css'
 
 let didInit = false
 
+function toast(message) {
+    Toastify({
+        text: message,
+        duration: 2000,
+        gravity: 'top',
+        position: 'right',
+    }).showToast()
+}
+
 function loadDataFromLocalStorage() {
-    console.log('loading data from storage')
+    toast('Loading data from storage')
 }
 
 function checkAuthToken() {
-    console.log('checking auth token')
+    toast('Checking auth token')
 }
 
 function UseEffectApp() {
@@ -30,8 +41,6 @@ function GlobalVarApp() {
     }, [])
     // ...
 }
-
-
 
 function ModuleApp() {
     const [loadUseEffectApp, setLoadUseEffectApp] = useState(false)
