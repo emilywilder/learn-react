@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 let didInit = false
 
@@ -11,7 +11,6 @@ function checkAuthToken() {
 }
 
 function UseEffectApp() {
-    console.log(`${UseEffectApp.name} init`)
     // 🔴 Avoid: Effects with logic that should only ever run once
     useEffect(() => {
         loadDataFromLocalStorage()
@@ -32,21 +31,43 @@ function GlobalVarApp() {
     // ...
 }
 
+
+
+function ModuleApp() {
+    const [loadUseEffectApp, setLoadUseEffectApp] = useState(false)
+    const [loadGobalVarApp, setLoadGlobalVarApp] = useState(false)
+
+    return (
+        <div>
+            <LoadUnloadApp stateVar={loadUseEffectApp} setStateVar={setLoadUseEffectApp} App={UseEffectApp} />
+            <LoadUnloadApp stateVar={loadGobalVarApp} setStateVar={setLoadGlobalVarApp} App={GlobalVarApp} />
+        </div>
+    )
+}
+
 if (typeof window !== 'undefined') { // Check if we're running in the browser.
     // ✅ Only runs once per app load
    checkAuthToken()
    loadDataFromLocalStorage()
 }
 
-function ModuleApp() {
+function LoadUnloadApp({ stateVar, setStateVar, App }) {
+    return (
+        <div className="m-4">
+            <button className="btn" onClick={() => setStateVar(!stateVar)}>
+                {stateVar ? "Unload" : "Load"} {App.name}
+            </button>
+            {stateVar && <App /> }
+        </div>
+    )
 }
 
 export default function App() {
+    const [loadModuleApp, setLoadModuleApp] = useState(false)
+
     return (
-        <>
-            <UseEffectApp />
-            <GlobalVarApp />
-            <ModuleApp />
-        </>
+        <div>
+            <LoadUnloadApp stateVar={loadModuleApp} setStateVar={setLoadModuleApp} App={ModuleApp} />
+        </div>
     )
 }
