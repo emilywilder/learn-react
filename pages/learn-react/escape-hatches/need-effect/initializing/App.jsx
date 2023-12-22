@@ -10,6 +10,9 @@ function toast(message) {
         duration: 2000,
         gravity: 'top',
         position: 'right',
+        offset: {
+            y: 90
+        }
     }).showToast()
 }
 
@@ -64,7 +67,7 @@ export default function App() {
     const [loadGobalVarApp, setLoadGlobalVarApp] = useState(false)
 
     return (
-        <div className="m-4 w-1/2">
+        <div className="m-6 w-1/2">
             <div className="text-lg font-bold text-blue-500 mb-4">Demonstrate implementation differences in running initialization functions.</div>
             <p>
                 On page load the initialization functions run one time, prior to react component mounting.
