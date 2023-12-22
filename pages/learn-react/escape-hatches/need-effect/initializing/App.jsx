@@ -48,11 +48,11 @@ if (typeof window !== 'undefined') { // Check if we're running in the browser.
    loadDataFromLocalStorage()
 }
 
-function LoadUnloadApp({ stateVar, setStateVar, App }) {
+function LoadUnloadApp({ stateVar, setStateVar, App, label="" }) {
     return (
         <div className="m-4">
             <button className="btn" onClick={() => setStateVar(!stateVar)}>
-                {stateVar ? "Unload" : "Load"} {App.name}
+                {stateVar ? "Unload" : "Load"} {label ? label : App.name}
             </button>
             {stateVar && <App /> }
         </div>
@@ -64,9 +64,26 @@ export default function App() {
     const [loadGobalVarApp, setLoadGlobalVarApp] = useState(false)
 
     return (
-        <div>
-            <LoadUnloadApp stateVar={loadUseEffectApp} setStateVar={setLoadUseEffectApp} App={UseEffectApp} />
-            <LoadUnloadApp stateVar={loadGobalVarApp} setStateVar={setLoadGlobalVarApp} App={GlobalVarApp} />
+        <div className="m-4 w-1/2">
+            <div className="text-lg font-bold text-blue-500 mb-4">Demonstrate implementation differences in running initialization functions.</div>
+            <p>
+                On page load the initialization functions run one time, prior to react component mounting.
+            </p>
+            <div className="">
+                <p>
+                    This component runs the functions in a useEffect() call. Since useEffect() is run
+                    on mount, the functions inside are called every time the component is loaded.
+                </p>
+                <LoadUnloadApp stateVar={loadUseEffectApp} setStateVar={setLoadUseEffectApp}
+                    App={UseEffectApp} label="useEffect in component" />
+                <div>
+                    This component also runs the functions in a useEffect() call, but utilizes a global variable
+                    to keep track of whether the function has already been run. This results in the functions
+                    being run only once.
+                </div>
+                <LoadUnloadApp stateVar={loadGobalVarApp} setStateVar={setLoadGlobalVarApp}
+                    App={GlobalVarApp} label="useEffect with global variable" />
+            </div>
         </div>
     )
 }
