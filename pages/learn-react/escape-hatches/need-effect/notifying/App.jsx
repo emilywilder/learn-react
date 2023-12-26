@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 function UseEffectToggle({ onChange }) {
     const [isOn, setIsOn] = useState(false)
@@ -21,6 +21,14 @@ function UseEffectToggle({ onChange }) {
     }
 
     // ...
+    return (
+        <AbstractToggle
+            isOn={isOn}
+            handleClick={handleClick}
+            handleDragEnd={handleDragEnd}
+            name={UseEffectToggle.name}
+        />
+    )
 }
 
 function FunctionToggle({ onChange }) {
@@ -45,6 +53,14 @@ function FunctionToggle({ onChange }) {
     }
 
     // ...
+    return (
+        <AbstractToggle
+            isOn={isOn}
+            handleClick={handleClick}
+            handleDragEnd={handleDragEnd}
+            name={FunctionToggle.name}
+        />
+    )
 }
 
 // ✅ Also good: the component is fully controlled by its parent
@@ -62,6 +78,46 @@ function ParentToggle({ isOn, onChange }) {
     }
 
     // ...
+    return (
+        <AbstractToggle
+            isOn={isOn}
+            handleClick={handleClick}
+            handleDragEnd={handleDragEnd}
+            name={ParentToggle.name}
+        />
+    )
 }
 
-export default function App() {}
+function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
+    return (
+        <label>
+            {name}
+            <input
+                className="radio"
+                type="radio"
+                checked={isOn}
+                onClick={handleClick}
+                onDragEnd={handleDragEnd}
+            />
+        </label>
+    )
+}
+
+export default function App() {
+    const [parentIsOn, setParentIsOn] = useState(false)
+
+    function handleChange() {}
+
+    function handleParentChange() {
+        setParentIsOn(!parentIsOn)
+        handleChange()
+    }
+
+    return (
+        <div className="flex flex-col m-4">
+            <UseEffectToggle onChange={handleChange} />
+            <FunctionToggle onChange={handleChange} />
+            <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
+        </div>
+    )
+}
