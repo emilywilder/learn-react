@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import Draggable from "react-draggable"
 
 function isCloserToRightEdge(e) {
     return true
@@ -94,24 +95,27 @@ function ParentToggle({ isOn, onChange }) {
 
 function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
-                <h2 className="card-title">{name}</h2>
-                <p>
-                    The amazing feature you requested is: {isOn ? "on" : "off"}
-                </p>
-                <div className="card-actions justify-end">
-                    <label className="label cursor-pointer">
-                        <input
-                            type="checkbox"
-                            className="toggle"
-                            checked={isOn}
-                            onChange={handleClick}
-                        />
-                    </label>
+        <Draggable>
+            <div className="card w-96 bg-base-100 shadow-xl">
+                <div className="card-body">
+                    <h2 className="card-title">{name}</h2>
+                    <p>
+                        The amazing feature you requested is:{" "}
+                        {isOn ? "on" : "off"}
+                    </p>
+                    <div className="card-actions justify-end">
+                        <label className="label cursor-pointer">
+                            <input
+                                type="checkbox"
+                                className="toggle"
+                                checked={isOn}
+                                onChange={handleClick}
+                            />
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Draggable>
     )
 }
 
