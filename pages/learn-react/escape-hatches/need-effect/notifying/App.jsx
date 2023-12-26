@@ -30,7 +30,7 @@ function UseEffectToggle({ onChange }) {
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
-            name={UseEffectToggle.name}
+            name="Toggle using useEffect"
         />
     )
 }
@@ -62,7 +62,7 @@ function FunctionToggle({ onChange }) {
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
-            name={FunctionToggle.name}
+            name="Toggle using a function"
         />
     )
 }
@@ -87,23 +87,30 @@ function ParentToggle({ isOn, onChange }) {
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
-            name={ParentToggle.name}
+            name="Toggle in parent"
         />
     )
 }
 
 function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
     return (
-        <div className="form-control w-44">
-            <label className="label cursor-pointer">
-                <span className="label-text">{name}</span>
-                <input
-                    type="checkbox"
-                    className="toggle"
-                    checked={isOn}
-                    onChange={handleClick}
-                />
-            </label>
+        <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="card-title">{name}</h2>
+                <p>
+                    The amazing feature you requested is: {isOn ? "on" : "off"}
+                </p>
+                <div className="card-actions justify-end">
+                    <label className="label cursor-pointer">
+                        <input
+                            type="checkbox"
+                            className="toggle"
+                            checked={isOn}
+                            onChange={handleClick}
+                        />
+                    </label>
+                </div>
+            </div>
         </div>
     )
 }
@@ -119,7 +126,7 @@ export default function App() {
     }
 
     return (
-        <div className="flex flex-col m-4">
+        <div className="flex flex-col m-4 space-y-4">
             <UseEffectToggle onChange={handleChange} />
             <FunctionToggle onChange={handleChange} />
             <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
