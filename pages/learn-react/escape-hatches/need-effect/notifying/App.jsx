@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react"
 
+function isCloserToRightEdge(e) {
+    return true
+}
+
 function UseEffectToggle({ onChange }) {
     const [isOn, setIsOn] = useState(false)
 
@@ -90,16 +94,17 @@ function ParentToggle({ isOn, onChange }) {
 
 function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
     return (
-        <label>
-            {name}
-            <input
-                className="radio"
-                type="radio"
-                checked={isOn}
-                onClick={handleClick}
-                onDragEnd={handleDragEnd}
-            />
-        </label>
+        <div className="form-control w-44">
+            <label className="label cursor-pointer">
+                <span className="label-text">{name}</span>
+                <input
+                    type="checkbox"
+                    className="toggle"
+                    checked={isOn}
+                    onChange={handleClick}
+                />
+            </label>
+        </div>
     )
 }
 
