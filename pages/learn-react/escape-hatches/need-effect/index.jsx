@@ -11,11 +11,12 @@ import Sharing from './sharing/App'
 import Post from './post/App'
 import Chains from './chains/App'
 import Initializing from './initializing/App'
+import Notifying from './notifying/App'
 
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={7} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={8} />
         </StrictMode>
     )
 }
@@ -72,7 +73,7 @@ const sublessons = [
     {
         id: 8,
         title: "Notifying parent components about state changes",
-        component: null, // Notifying
+        component: Notifying,
         usesTailwind: true
     },
     {
