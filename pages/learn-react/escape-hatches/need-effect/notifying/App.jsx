@@ -1,12 +1,4 @@
-import React, {
-    createContext,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from "react"
-
-const WindowContext = createContext()
+import React, { useEffect, useState } from "react"
 
 function UseEffectToggle({ onChange }) {
     const [isOn, setIsOn] = useState(false)
@@ -29,11 +21,9 @@ function UseEffectToggle({ onChange }) {
     }
 
     // ...
-    const windowRef = useContext(WindowContext)
-
     function isCloserToRightEdge(e) {
         const dropPosition = e.clientX
-        const windowWidth = windowRef.current.clientWidth
+        const windowWidth = e.target.parentElement.clientWidth
         if (dropPosition > windowWidth / 2) {
             return true
         } else {
@@ -137,7 +127,6 @@ function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
 
 export default function App() {
     const [parentIsOn, setParentIsOn] = useState(false)
-    const windowRef = useRef()
 
     function handleChange() {}
 
@@ -147,12 +136,10 @@ export default function App() {
     }
 
     return (
-        <WindowContext.Provider value={windowRef}>
-            <div ref={windowRef} className="flex flex-col m-4 space-y-4">
-                <UseEffectToggle onChange={handleChange} />
-                <FunctionToggle onChange={handleChange} />
-                <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
-            </div>
-        </WindowContext.Provider>
+        <div className="flex flex-col m-4 space-y-4">
+            <UseEffectToggle onChange={handleChange} />
+            <FunctionToggle onChange={handleChange} />
+            <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
+        </div>
     )
 }
