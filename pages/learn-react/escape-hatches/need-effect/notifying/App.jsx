@@ -119,6 +119,7 @@ function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
                                 className="toggle"
                                 checked={isOn}
                                 onChange={handleClick}
+                                onMouseDown={(e) => e.stopPropagation()}
                             />
                         </label>
                     </div>
@@ -141,7 +142,7 @@ export default function App() {
 
     function isCloserToRightEdge(e) {
         const dropPosition = e.clientX
-        const windowWidth = e.target.parentElement.clientWidth
+        const windowWidth = canvasRef.current.clientWidth
 
         console.debug(`dropPosition: ${dropPosition}`)
         console.debug(`windowWidth: ${windowWidth}`)
