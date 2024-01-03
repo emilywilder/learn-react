@@ -60,6 +60,9 @@ function FunctionToggle({ onChange }) {
     }
 
     // ...
+
+    const isCloserToRightEdge = useContext(CloserContext)
+
     return (
         <AbstractToggle
             isOn={isOn}
@@ -85,6 +88,9 @@ function ParentToggle({ isOn, onChange }) {
     }
 
     // ...
+
+    const isCloserToRightEdge = useContext(CloserContext)
+
     return (
         <AbstractToggle
             isOn={isOn}
