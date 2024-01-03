@@ -13,7 +13,6 @@ function droppedOnRightSide(x, width) {
 
 function UseEffectToggle({ onChange }) {
     const [isOn, setIsOn] = useState(false)
-    const [x, setX] = useState(0)
 
     // 🔴 Avoid: The onChange handler runs too late
     useEffect(() => {
@@ -33,15 +32,15 @@ function UseEffectToggle({ onChange }) {
     }
 
     // ...
-
+    const [x, setX] = useState(0)
+    const [toggleWidth, setToggleWidth] = useState()
     const canvasRef = useContext(CanvasContext)
 
     function isCloserToRightEdge(e) {
-        const dropPosition = x
-        const windowWidth = canvasRef.current.clientWidth
-        // debugger
+        const middlePosition = x + toggleWidth / 2
+        const canvasWidth = canvasRef.current.clientWidth
 
-        return droppedOnRightSide(dropPosition, windowWidth)
+        return droppedOnRightSide(middlePosition, canvasWidth)
     }
 
     return (
@@ -52,6 +51,7 @@ function UseEffectToggle({ onChange }) {
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
             name="Toggle using useEffect"
+            setToggleWidth={setToggleWidth}
         />
     )
 }
@@ -119,12 +119,21 @@ function ParentToggle({ isOn, onChange }) {
     )
 }
 
-function AbstractToggle({ isOn, handleClick, handleDragEnd, name, x, setX }) {
+function AbstractToggle({
+    isOn,
+    handleClick,
+    handleDragEnd,
+    name,
+    x,
+    setX,
+    setToggleWidth,
+}) {
     const nodeRef = React.useRef(null)
     return (
         <Draggable
             nodeRef={nodeRef}
             onStop={handleDragEnd}
+            onMouseDown={() => setToggleWidth(nodeRef.current.clientWidth)}
             onDrag={({ movementX }) => setX(x + movementX)}
         >
             <div ref={nodeRef} className="card w-96 bg-base-100 shadow-xl">
