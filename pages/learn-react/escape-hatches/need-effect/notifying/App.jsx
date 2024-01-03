@@ -46,6 +46,7 @@ function UseEffectToggle({ onChange }) {
             handleDragEnd={handleDragEnd}
             name="Toggle using useEffect"
             setToggleWidth={setToggleWidth}
+            isCloserToRightEdge={isCloserToRightEdge}
         />
     )
 }
@@ -90,6 +91,7 @@ function FunctionToggle({ onChange }) {
             handleDragEnd={handleDragEnd}
             name="Toggle using a function"
             setToggleWidth={setToggleWidth}
+            isCloserToRightEdge={isCloserToRightEdge}
         />
     )
 }
@@ -127,6 +129,7 @@ function ParentToggle({ isOn, onChange }) {
             handleDragEnd={handleDragEnd}
             name="Toggle in parent"
             setToggleWidth={setToggleWidth}
+            isCloserToRightEdge={isCloserToRightEdge}
         />
     )
 }
@@ -139,16 +142,34 @@ function AbstractToggle({
     x,
     setX,
     setToggleWidth,
+    isCloserToRightEdge,
 }) {
+    const [dragging, setDragging] = useState(false)
     const nodeRef = React.useRef(null)
+    let dragClassNames = ""
+
+    if (dragging) {
+        dragClassNames = isCloserToRightEdge()
+            ? "bg-gradient-to-r from-white to-green-100"
+            : "bg-gradient-to-l from-white to-red-100"
+    }
     return (
         <Draggable
             nodeRef={nodeRef}
-            onStop={handleDragEnd}
+            onStop={(e) => {
+                setDragging(false)
+                handleDragEnd(e)
+            }}
             onMouseDown={() => setToggleWidth(nodeRef.current.clientWidth)}
-            onDrag={({ movementX }) => setX(x + movementX)}
+            onDrag={({ movementX }) => {
+                setDragging(true)
+                setX(x + movementX)
+            }}
         >
-            <div ref={nodeRef} className="card w-96 bg-base-100 shadow-xl">
+            <div
+                ref={nodeRef}
+                className={`card w-96 bg-base-100 shadow-xl  ${dragClassNames}`}
+            >
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
                     <p>
@@ -178,7 +199,7 @@ export default function App() {
 
     function handleChange() {}
 
-    function handleParentChange() {
+    function handleParentChange(e) {
         setParentIsOn(!parentIsOn)
         handleChange()
     }
