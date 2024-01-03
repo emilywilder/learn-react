@@ -4,11 +4,8 @@ import Draggable from "react-draggable"
 
 const CanvasContext = createContext(null)
 
-function droppedOnRightSide(x, width) {
-    console.debug(`dropPosition: ${x}`)
-    console.debug(`windowWidth: ${width}`)
-
-    return x > width / 2
+function draggedToRightSide(x, toggleWidth, canvasWidth) {
+    return x + toggleWidth / 2 > canvasWidth / 2
 }
 
 function UseEffectToggle({ onChange }) {
@@ -37,10 +34,7 @@ function UseEffectToggle({ onChange }) {
     const canvasRef = useContext(CanvasContext)
 
     function isCloserToRightEdge(e) {
-        const middlePosition = x + toggleWidth / 2
-        const canvasWidth = canvasRef.current.clientWidth
-
-        return droppedOnRightSide(middlePosition, canvasWidth)
+        return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
     }
 
     return (
@@ -79,14 +73,23 @@ function FunctionToggle({ onChange }) {
 
     // ...
 
+    const [x, setX] = useState(0)
+    const [toggleWidth, setToggleWidth] = useState()
     const canvasRef = useContext(CanvasContext)
+
+    function isCloserToRightEdge(e) {
+        return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
+    }
 
     return (
         <AbstractToggle
+            x={x}
+            setX={setX}
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
             name="Toggle using a function"
+            setToggleWidth={setToggleWidth}
         />
     )
 }
@@ -107,14 +110,23 @@ function ParentToggle({ isOn, onChange }) {
 
     // ...
 
+    const [x, setX] = useState(0)
+    const [toggleWidth, setToggleWidth] = useState()
     const canvasRef = useContext(CanvasContext)
+
+    function isCloserToRightEdge(e) {
+        return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
+    }
 
     return (
         <AbstractToggle
+            x={x}
+            setX={setX}
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
             name="Toggle in parent"
+            setToggleWidth={setToggleWidth}
         />
     )
 }
