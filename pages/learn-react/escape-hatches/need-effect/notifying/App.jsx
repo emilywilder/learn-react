@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
+import { createRef } from "react"
 import Draggable from "react-draggable"
+
+const CloserContext = createContext(null)
 
 function UseEffectToggle({ onChange }) {
     const [isOn, setIsOn] = useState(false)
@@ -22,15 +25,8 @@ function UseEffectToggle({ onChange }) {
     }
 
     // ...
-    function isCloserToRightEdge(e) {
-        const dropPosition = e.clientX
-        const windowWidth = e.target.parentElement.clientWidth
-        if (dropPosition > windowWidth / 2) {
-            return true
-        } else {
-            return false
-        }
-    }
+
+    const isCloserToRightEdge = useContext(CloserContext)
 
     return (
         <AbstractToggle
@@ -102,7 +98,7 @@ function ParentToggle({ isOn, onChange }) {
 function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
     const nodeRef = React.useRef(null)
     return (
-        <Draggable onStop={handleDragEnd}>
+        <Draggable nodeRef={nodeRef} onStop={handleDragEnd}>
             <div ref={nodeRef} className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
@@ -128,6 +124,7 @@ function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
 
 export default function App() {
     const [parentIsOn, setParentIsOn] = useState(false)
+    const canvasRef = createRef()
 
     function handleChange() {}
 
@@ -136,11 +133,27 @@ export default function App() {
         handleChange()
     }
 
+    function isCloserToRightEdge(e) {
+        const dropPosition = e.clientX
+        const windowWidth = e.target.parentElement.clientWidth
+
+        console.debug(`dropPosition: ${dropPosition}`)
+        console.debug(`windowWidth: ${windowWidth}`)
+
+        if (dropPosition > windowWidth / 2) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     return (
-        <div className="flex flex-col m-4 space-y-4">
-            <UseEffectToggle onChange={handleChange} />
-            <FunctionToggle onChange={handleChange} />
-            <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
+        <div ref={canvasRef} className="flex flex-col m-4 space-y-4">
+            <CloserContext.Provider value={isCloserToRightEdge}>
+                <UseEffectToggle onChange={handleChange} />
+                <FunctionToggle onChange={handleChange} />
+                <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
+            </CloserContext.Provider>
         </div>
     )
 }
