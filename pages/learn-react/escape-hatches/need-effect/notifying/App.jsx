@@ -2,10 +2,18 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import { createRef } from "react"
 import Draggable from "react-draggable"
 
-const CloserContext = createContext(null)
+const CanvasContext = createContext(null)
+
+function droppedOnRightSide(x, width) {
+    console.debug(`dropPosition: ${x}`)
+    console.debug(`windowWidth: ${width}`)
+
+    return x > width / 2
+}
 
 function UseEffectToggle({ onChange }) {
     const [isOn, setIsOn] = useState(false)
+    const [x, setX] = useState(0)
 
     // 🔴 Avoid: The onChange handler runs too late
     useEffect(() => {
@@ -26,10 +34,20 @@ function UseEffectToggle({ onChange }) {
 
     // ...
 
-    const isCloserToRightEdge = useContext(CloserContext)
+    const canvasRef = useContext(CanvasContext)
+
+    function isCloserToRightEdge(e) {
+        const dropPosition = x
+        const windowWidth = canvasRef.current.clientWidth
+        // debugger
+
+        return droppedOnRightSide(dropPosition, windowWidth)
+    }
 
     return (
         <AbstractToggle
+            x={x}
+            setX={setX}
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
@@ -61,7 +79,7 @@ function FunctionToggle({ onChange }) {
 
     // ...
 
-    const isCloserToRightEdge = useContext(CloserContext)
+    const canvasRef = useContext(CanvasContext)
 
     return (
         <AbstractToggle
@@ -89,7 +107,7 @@ function ParentToggle({ isOn, onChange }) {
 
     // ...
 
-    const isCloserToRightEdge = useContext(CloserContext)
+    const canvasRef = useContext(CanvasContext)
 
     return (
         <AbstractToggle
@@ -101,10 +119,14 @@ function ParentToggle({ isOn, onChange }) {
     )
 }
 
-function AbstractToggle({ isOn, handleClick, handleDragEnd, name }) {
+function AbstractToggle({ isOn, handleClick, handleDragEnd, name, x, setX }) {
     const nodeRef = React.useRef(null)
     return (
-        <Draggable nodeRef={nodeRef} onStop={handleDragEnd}>
+        <Draggable
+            nodeRef={nodeRef}
+            onStop={handleDragEnd}
+            onDrag={({ movementX }) => setX(x + movementX)}
+        >
             <div ref={nodeRef} className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
@@ -140,27 +162,13 @@ export default function App() {
         handleChange()
     }
 
-    function isCloserToRightEdge(e) {
-        const dropPosition = e.clientX
-        const windowWidth = canvasRef.current.clientWidth
-
-        console.debug(`dropPosition: ${dropPosition}`)
-        console.debug(`windowWidth: ${windowWidth}`)
-
-        if (dropPosition > windowWidth / 2) {
-            return true
-        } else {
-            return false
-        }
-    }
-
     return (
         <div ref={canvasRef} className="flex flex-col m-4 space-y-4">
-            <CloserContext.Provider value={isCloserToRightEdge}>
+            <CanvasContext.Provider value={canvasRef}>
                 <UseEffectToggle onChange={handleChange} />
                 <FunctionToggle onChange={handleChange} />
                 <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
-            </CloserContext.Provider>
+            </CanvasContext.Provider>
         </div>
     )
 }
