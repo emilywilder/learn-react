@@ -38,7 +38,7 @@ function UseEffectToggle({ onChange }) {
     }
 
     return (
-        <AbstractToggle
+        <RenderToggle
             x={x}
             setX={setX}
             isOn={isOn}
@@ -83,7 +83,7 @@ function FunctionToggle({ onChange }) {
     }
 
     return (
-        <AbstractToggle
+        <RenderToggle
             x={x}
             setX={setX}
             isOn={isOn}
@@ -121,7 +121,7 @@ function ParentToggle({ isOn, onChange }) {
     }
 
     return (
-        <AbstractToggle
+        <RenderToggle
             x={x}
             setX={setX}
             isOn={isOn}
@@ -134,7 +134,7 @@ function ParentToggle({ isOn, onChange }) {
     )
 }
 
-function AbstractToggle({
+function RenderToggle({
     isOn,
     handleClick,
     handleDragEnd,
