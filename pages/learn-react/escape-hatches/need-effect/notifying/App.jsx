@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react"
 import { createRef } from "react"
 import Draggable from "react-draggable"
 
@@ -29,15 +35,10 @@ function UseEffectToggle({ onChange }) {
     }
 
     // ...
-    const isCloserToRightEdge = useContext(CardContext)
+    const [isCloserToRightEdge, onDragEndRef] = useContext(CardContext)
+    onDragEndRef.current = handleDragEnd
 
-    return (
-        <RenderToggle
-            isOn={isOn}
-            handleClick={handleClick}
-            handleDragEnd={handleDragEnd}
-        />
-    )
+    return <RenderToggle isOn={isOn} handleClick={handleClick} />
 }
 
 function FunctionToggle({ onChange }) {
@@ -62,15 +63,10 @@ function FunctionToggle({ onChange }) {
     }
 
     // ...
-    const isCloserToRightEdge = useContext(CardContext)
+    const [isCloserToRightEdge, onDragEndRef] = useContext(CardContext)
+    onDragEndRef.current = handleDragEnd
 
-    return (
-        <RenderToggle
-            isOn={isOn}
-            handleClick={handleClick}
-            handleDragEnd={handleDragEnd}
-        />
-    )
+    return <RenderToggle isOn={isOn} handleClick={handleClick} />
 }
 
 // ✅ Also good: the component is fully controlled by its parent
@@ -88,30 +84,23 @@ function ParentToggle({ isOn, onChange }) {
     }
 
     // ...
-    const isCloserToRightEdge = useContext(CardContext)
+    const [isCloserToRightEdge, onDragEndRef] = useContext(CardContext)
+    onDragEndRef.current = handleDragEnd
 
-    return (
-        <RenderToggle
-            isOn={isOn}
-            handleClick={handleClick}
-            handleDragEnd={handleDragEnd}
-        />
-    )
+    return <RenderToggle isOn={isOn} handleClick={handleClick} />
 }
 
-function RenderToggle({ isOn, handleClick, handleDragEnd }) {
+function RenderToggle({ isOn, handleClick }) {
     return (
-        <Draggable onStop={handleDragEnd}>
-            <label className="label cursor-pointer">
-                <input
-                    type="checkbox"
-                    className="toggle"
-                    checked={isOn}
-                    onChange={handleClick}
-                    onMouseDown={(e) => e.stopPropagation()}
-                />
-            </label>
-        </Draggable>
+        <label className="label cursor-pointer">
+            <input
+                type="checkbox"
+                className="toggle"
+                checked={isOn}
+                onChange={handleClick}
+                onMouseDown={(e) => e.stopPropagation()}
+            />
+        </label>
     )
 }
 
@@ -120,6 +109,12 @@ function Card({ Toggle, onChange, name, canvasRef, content }) {
     const nodeRef = React.useRef(null)
     const [toggleWidth, setToggleWidth] = useState()
     const [x, setX] = useState(0)
+    // const [onDragEnd, setOnDragEnd] = useState(() => (e) => {
+    //     console.error("No onDragEnd defined")
+    // })
+    const onDragEndRef = useRef((e) => {
+        console.error("No onDragEnd defined")
+    })
 
     function isCloserToRightEdge(e) {
         return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
@@ -137,6 +132,8 @@ function Card({ Toggle, onChange, name, canvasRef, content }) {
             nodeRef={nodeRef}
             onStop={(e) => {
                 setDragging(false)
+                // onDragEnd(e)
+                onDragEndRef.current()
             }}
             onMouseDown={() => setToggleWidth(nodeRef.current.clientWidth)}
             onDrag={({ movementX }) => {
@@ -156,7 +153,9 @@ function Card({ Toggle, onChange, name, canvasRef, content }) {
                         {/* {isOn ? "on" : "off"} */}
                     </p>
                     <div className="card-actions justify-end">
-                        <CardContext.Provider value={isCloserToRightEdge}>
+                        <CardContext.Provider
+                            value={[isCloserToRightEdge, onDragEndRef]}
+                        >
                             <Toggle onChange={onChange} />
                         </CardContext.Provider>
                     </div>
