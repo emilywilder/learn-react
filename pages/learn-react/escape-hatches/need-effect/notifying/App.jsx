@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import { createRef } from "react"
 import Draggable from "react-draggable"
 
-const CanvasContext = createContext(null)
+const CardContext = createContext(null)
 
 function draggedToRightSide(x, toggleWidth, canvasWidth) {
     return x + toggleWidth / 2 > canvasWidth / 2
@@ -29,24 +29,13 @@ function UseEffectToggle({ onChange }) {
     }
 
     // ...
-    const [x, setX] = useState(0)
-    const [toggleWidth, setToggleWidth] = useState()
-    const canvasRef = useContext(CanvasContext)
-
-    function isCloserToRightEdge(e) {
-        return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
-    }
+    const isCloserToRightEdge = useContext(CardContext)
 
     return (
         <RenderToggle
-            x={x}
-            setX={setX}
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
-            name="Toggle using useEffect"
-            setToggleWidth={setToggleWidth}
-            isCloserToRightEdge={isCloserToRightEdge}
         />
     )
 }
@@ -73,25 +62,13 @@ function FunctionToggle({ onChange }) {
     }
 
     // ...
-
-    const [x, setX] = useState(0)
-    const [toggleWidth, setToggleWidth] = useState()
-    const canvasRef = useContext(CanvasContext)
-
-    function isCloserToRightEdge(e) {
-        return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
-    }
+    const isCloserToRightEdge = useContext(CardContext)
 
     return (
         <RenderToggle
-            x={x}
-            setX={setX}
             isOn={isOn}
             handleClick={handleClick}
             handleDragEnd={handleDragEnd}
-            name="Toggle using a function"
-            setToggleWidth={setToggleWidth}
-            isCloserToRightEdge={isCloserToRightEdge}
         />
     )
 }
@@ -111,41 +88,43 @@ function ParentToggle({ isOn, onChange }) {
     }
 
     // ...
+    const isCloserToRightEdge = useContext(CardContext)
 
-    const [x, setX] = useState(0)
+    return (
+        <RenderToggle
+            isOn={isOn}
+            handleClick={handleClick}
+            handleDragEnd={handleDragEnd}
+        />
+    )
+}
+
+function RenderToggle({ isOn, handleClick, handleDragEnd }) {
+    return (
+        <Draggable onStop={handleDragEnd}>
+            <label className="label cursor-pointer">
+                <input
+                    type="checkbox"
+                    className="toggle"
+                    checked={isOn}
+                    onChange={handleClick}
+                    onMouseDown={(e) => e.stopPropagation()}
+                />
+            </label>
+        </Draggable>
+    )
+}
+
+function Card({ Toggle, onChange, name, canvasRef, content }) {
+    const [dragging, setDragging] = useState(false)
+    const nodeRef = React.useRef(null)
     const [toggleWidth, setToggleWidth] = useState()
-    const canvasRef = useContext(CanvasContext)
+    const [x, setX] = useState(0)
 
     function isCloserToRightEdge(e) {
         return draggedToRightSide(x, toggleWidth, canvasRef.current.clientWidth)
     }
 
-    return (
-        <RenderToggle
-            x={x}
-            setX={setX}
-            isOn={isOn}
-            handleClick={handleClick}
-            handleDragEnd={handleDragEnd}
-            name="Toggle in parent"
-            setToggleWidth={setToggleWidth}
-            isCloserToRightEdge={isCloserToRightEdge}
-        />
-    )
-}
-
-function RenderToggle({
-    isOn,
-    handleClick,
-    handleDragEnd,
-    name,
-    x,
-    setX,
-    setToggleWidth,
-    isCloserToRightEdge,
-}) {
-    const [dragging, setDragging] = useState(false)
-    const nodeRef = React.useRef(null)
     let dragClassNames = ""
 
     if (dragging) {
@@ -158,7 +137,6 @@ function RenderToggle({
             nodeRef={nodeRef}
             onStop={(e) => {
                 setDragging(false)
-                handleDragEnd(e)
             }}
             onMouseDown={() => setToggleWidth(nodeRef.current.clientWidth)}
             onDrag={({ movementX }) => {
@@ -168,24 +146,19 @@ function RenderToggle({
         >
             <div
                 ref={nodeRef}
-                className={`card w-96 bg-base-100 shadow-xl  ${dragClassNames}`}
+                className={`card w-96 bg-base-100 shadow-xl ${dragClassNames}`}
             >
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
                     <p>
-                        The amazing feature you requested is:{" "}
-                        {isOn ? "on" : "off"}
+                        {content}
+                        {/* The amazing feature you requested is:{" "} */}
+                        {/* {isOn ? "on" : "off"} */}
                     </p>
                     <div className="card-actions justify-end">
-                        <label className="label cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="toggle"
-                                checked={isOn}
-                                onChange={handleClick}
-                                onMouseDown={(e) => e.stopPropagation()}
-                            />
-                        </label>
+                        <CardContext.Provider value={isCloserToRightEdge}>
+                            <Toggle onChange={onChange} />
+                        </CardContext.Provider>
                     </div>
                 </div>
             </div>
@@ -193,24 +166,58 @@ function RenderToggle({
     )
 }
 
-export default function App() {
-    const [parentIsOn, setParentIsOn] = useState(false)
-    const canvasRef = createRef()
-
+function UseEffectCard({ canvasRef }) {
     function handleChange() {}
+    return (
+        <Card
+            Toggle={UseEffectToggle}
+            name={"Toggle using useEffect"}
+            onChange={handleChange}
+            canvasRef={canvasRef}
+        />
+    )
+}
 
-    function handleParentChange(e) {
-        setParentIsOn(!parentIsOn)
-        handleChange()
+function FunctionCard({ canvasRef }) {
+    function handleChange() {}
+    return (
+        <Card
+            Toggle={FunctionToggle}
+            name={"Toggle using a function"}
+            onChange={handleChange}
+            canvasRef={canvasRef}
+        />
+    )
+}
+
+function ParentCard({ canvasRef }) {
+    const [isOn, setIsOn] = useState(false)
+    const content = `The amazing feature you requested is ${
+        isOn ? "on" : "off"
+    }`
+
+    function handleChange() {
+        setIsOn(!isOn)
     }
+    return (
+        <Card
+            Toggle={ParentToggle}
+            name={"Toggle in parent"}
+            onChange={handleChange}
+            canvasRef={canvasRef}
+            content={content}
+        />
+    )
+}
+
+export default function App() {
+    const canvasRef = createRef()
 
     return (
         <div ref={canvasRef} className="flex flex-col m-4 space-y-4">
-            <CanvasContext.Provider value={canvasRef}>
-                <UseEffectToggle onChange={handleChange} />
-                <FunctionToggle onChange={handleChange} />
-                <ParentToggle onChange={handleParentChange} isOn={parentIsOn} />
-            </CanvasContext.Provider>
+            <UseEffectCard canvasRef={canvasRef} />
+            <FunctionCard canvasRef={canvasRef} />
+            <ParentCard canvasRef={canvasRef} />
         </div>
     )
 }
