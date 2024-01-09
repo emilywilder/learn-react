@@ -104,14 +104,11 @@ function RenderToggle({ isOn, handleClick }) {
     )
 }
 
-function Card({ Toggle, onChange, name, canvasRef, content }) {
+function Card({ Toggle, onChange, name, canvasRef, isOn }) {
     const [dragging, setDragging] = useState(false)
     const nodeRef = React.useRef(null)
     const [toggleWidth, setToggleWidth] = useState()
     const [x, setX] = useState(0)
-    // const [onDragEnd, setOnDragEnd] = useState(() => (e) => {
-    //     console.error("No onDragEnd defined")
-    // })
     const onDragEndRef = useRef((e) => {
         console.error("No onDragEnd defined")
     })
@@ -132,8 +129,7 @@ function Card({ Toggle, onChange, name, canvasRef, content }) {
             nodeRef={nodeRef}
             onStop={(e) => {
                 setDragging(false)
-                // onDragEnd(e)
-                onDragEndRef.current()
+                onDragEndRef.current(e)
             }}
             onMouseDown={() => setToggleWidth(nodeRef.current.clientWidth)}
             onDrag={({ movementX }) => {
@@ -148,15 +144,14 @@ function Card({ Toggle, onChange, name, canvasRef, content }) {
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
                     <p>
-                        {content}
-                        {/* The amazing feature you requested is:{" "} */}
-                        {/* {isOn ? "on" : "off"} */}
+                        The amazing feature you requested is:{" "}
+                        {isOn ? "on" : "off"}
                     </p>
                     <div className="card-actions justify-end">
                         <CardContext.Provider
                             value={[isCloserToRightEdge, onDragEndRef]}
                         >
-                            <Toggle onChange={onChange} />
+                            <Toggle onChange={onChange} isOn={isOn} />
                         </CardContext.Provider>
                     </div>
                 </div>
@@ -191,20 +186,18 @@ function FunctionCard({ canvasRef }) {
 
 function ParentCard({ canvasRef }) {
     const [isOn, setIsOn] = useState(false)
-    const content = `The amazing feature you requested is ${
-        isOn ? "on" : "off"
-    }`
 
     function handleChange() {
         setIsOn(!isOn)
     }
+
     return (
         <Card
             Toggle={ParentToggle}
             name={"Toggle in parent"}
             onChange={handleChange}
             canvasRef={canvasRef}
-            content={content}
+            isOn={isOn}
         />
     )
 }
