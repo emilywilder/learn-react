@@ -129,7 +129,7 @@ function Card({ Toggle, onChange, name, canvasRef, isOn }) {
             nodeRef={nodeRef}
             onStop={(e) => {
                 setDragging(false)
-                onDragEndRef.current(e)
+                if (dragging) onDragEndRef.current(e)
             }}
             onMouseDown={() => setToggleWidth(nodeRef.current.clientWidth)}
             onDrag={({ movementX }) => {
