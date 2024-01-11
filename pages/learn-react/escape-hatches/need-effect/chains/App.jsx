@@ -1,68 +1,68 @@
-import Image from "next/image";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import Image from "next/image"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 
 const AlertContext = createContext()
 
 const cardList = [
     {
         id: 0,
-        name: 'chariot',
-        img_url: '/images/chariot-6016921_1280.jpg',
+        name: "chariot",
+        img_url: "/images/chariot-6016921_1280.jpg",
     },
     {
         id: 1,
-        name: 'empress',
-        img_url: '/images/empress-6016923_1280.jpg',
+        name: "empress",
+        img_url: "/images/empress-6016923_1280.jpg",
     },
     {
         id: 2,
-        name: 'the hanged man',
-        img_url: '/images/hanged-man-6016939_1280.jpg',
+        name: "the hanged man",
+        img_url: "/images/hanged-man-6016939_1280.jpg",
     },
     {
         id: 3,
-        name: 'hermit',
-        img_url: '/images/hermit-6016941_1280.jpg',
+        name: "hermit",
+        img_url: "/images/hermit-6016941_1280.jpg",
     },
     {
         id: 4,
-        name: 'hierophant',
-        img_url: '/images/hierophant-6016942_1280.jpg',
+        name: "hierophant",
+        img_url: "/images/hierophant-6016942_1280.jpg",
     },
     {
         id: 5,
-        name: 'king of cups',
-        img_url: '/images/king-of-cups-6686829_1280.jpg',
+        name: "king of cups",
+        img_url: "/images/king-of-cups-6686829_1280.jpg",
     },
     {
         id: 6,
-        name: 'temperance',
-        img_url: '/images/temperance-6016917_1280.jpg',
+        name: "temperance",
+        img_url: "/images/temperance-6016917_1280.jpg",
     },
     {
         id: 7,
-        name: 'the fool',
-        img_url: '/images/the-fool-6016940_1280.jpg',
+        name: "the fool",
+        img_url: "/images/the-fool-6016940_1280.jpg",
     },
     {
         id: 8,
-        name: 'knight of cups',
-        img_url: '/images/knight-of-cups-6686830_1280.jpg',
+        name: "knight of cups",
+        img_url: "/images/knight-of-cups-6686830_1280.jpg",
     },
     {
         id: 9,
-        name: 'page of cups',
-        img_url: '/images/page-of-cups-6686831_1280.jpg',
+        name: "page of cups",
+        img_url: "/images/page-of-cups-6686831_1280.jpg",
     },
     {
         id: 10,
-        name: 'three of cups',
-        img_url: '/images/three-of-cups-6686834_1280.jpg',
+        name: "three of cups",
+        img_url: "/images/three-of-cups-6686834_1280.jpg",
     },
     {
         id: 11,
-        name: 'two of cups',
-        img_url: '/images/two-of-cups-6686833_1280.jpg',
+        name: "two of cups",
+        img_url: "/images/two-of-cups-6686833_1280.jpg",
     },
 ]
 
@@ -75,13 +75,13 @@ function BadGame() {
     // 🔴 Avoid: Chains of Effects that adjust the state solely to trigger each other
     useEffect(() => {
         if (card !== null && card.gold) {
-            setGoldCardCount(c => c + 1)
+            setGoldCardCount((c) => c + 1)
         }
     }, [card])
 
     useEffect(() => {
         if (goldCardCount > 3) {
-            setRound(r => r + 1)
+            setRound((r) => r + 1)
             setGoldCardCount(0)
         }
     }, [goldCardCount])
@@ -93,12 +93,12 @@ function BadGame() {
     }, [round])
 
     useEffect(() => {
-        alert('Good game!')
+        alert("Good game!")
     }, [isGameOver]) // eslint-disable-line
 
     function handlePlaceCard(nextCard) {
         if (isGameOver) {
-            throw Error('Game already ended.')
+            throw Error("Game already ended.")
         } else {
             setCard(nextCard)
         }
@@ -108,7 +108,13 @@ function BadGame() {
     const [alertMsgs, alert] = useContext(AlertContext)
 
     return (
-        <RenderGame round={round} goldCardCount={goldCardCount} handlePlaceCard={handlePlaceCard} isGameOver={isGameOver} alertMsgs={alertMsgs} />
+        <RenderGame
+            round={round}
+            goldCardCount={goldCardCount}
+            handlePlaceCard={handlePlaceCard}
+            isGameOver={isGameOver}
+            alertMsgs={alertMsgs}
+        />
     )
 }
 
@@ -116,15 +122,15 @@ function GoodGame() {
     const [card, setCard] = useState(null)
     const [goldCardCount, setGoldCardCount] = useState(0)
     const [round, setRound] = useState(1)
-  
+
     // ✅ Calculate what you can during rendering
     const isGameOver = round > 5
-  
+
     function handlePlaceCard(nextCard) {
         if (isGameOver) {
-            throw Error('Game already ended.')
+            throw Error("Game already ended.")
         }
-  
+
         // ✅ Calculate all the next state in the event handler
         setCard(nextCard)
         if (nextCard.gold) {
@@ -134,7 +140,7 @@ function GoodGame() {
                 setGoldCardCount(0)
                 setRound(round + 1)
                 if (round === 5) {
-                    alert('Good game!')
+                    alert("Good game!")
                 }
             }
         }
@@ -144,11 +150,23 @@ function GoodGame() {
     const [alertMsgs, alert] = useContext(AlertContext)
 
     return (
-        <RenderGame round={round} goldCardCount={goldCardCount} handlePlaceCard={handlePlaceCard} isGameOver={isGameOver} alertMsgs={alertMsgs} />
+        <RenderGame
+            round={round}
+            goldCardCount={goldCardCount}
+            handlePlaceCard={handlePlaceCard}
+            isGameOver={isGameOver}
+            alertMsgs={alertMsgs}
+        />
     )
 }
 
-function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsgs }) {
+function RenderGame({
+    round,
+    goldCardCount,
+    handlePlaceCard,
+    isGameOver,
+    alertMsgs,
+}) {
     const [cards, setCards] = useState(newCards())
     const [showRound, setShowRound] = useState(true)
 
@@ -156,18 +174,20 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
         // taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
         function shuffleArray(arr) {
             return arr
-                .map(value => ({ value, sort: Math.random() }))
+                .map((value) => ({ value, sort: Math.random() }))
                 .sort((a, b) => a.sort - b.sort)
                 .map(({ value }) => value)
         }
 
         // add the gold and selected attributes to each card
-        let cards = (cardList.map((c) => {
-            return {...c, gold: false, selected: false}
-        }))
+        let cards = cardList.map((c) => {
+            return { ...c, gold: false, selected: false }
+        })
 
         // set 4 random cards to be golden
-        shuffleArray(cards).slice(0,5).map(c => c.gold = true)
+        shuffleArray(cards)
+            .slice(0, 5)
+            .map((c) => (c.gold = true))
 
         // return a shuffled deck of cards
         return shuffleArray(cards)
@@ -179,9 +199,7 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
         }
         const nextCards = cards.map((c) => {
             if (c.id == card.id) {
-                return {...card,
-                    selected: true
-                }
+                return { ...card, selected: true }
             } else {
                 return c
             }
@@ -198,16 +216,24 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
     return (
         <div>
             <div className="flex flex-col items-center p-2 min-h-[150px]">
-                <div className="font-serif text-4xl p-4">Find the golden cards!</div>
+                <div className="font-serif text-4xl p-4">
+                    Find the golden cards!
+                </div>
                 {showRound && (
                     <>
                         <p className="font-bold">Round: {round}</p>
-                        <p>Golden cards found: {goldCardCount}/{5}</p>
+                        <p>
+                            Golden cards found: {goldCardCount}/{5}
+                        </p>
                     </>
                 )}
             </div>
             <div className="relative">
-                <div className={`flex flex-wrap justify-center ${!showRound && "blur-sm"}`}>
+                <div
+                    className={`flex flex-wrap justify-center ${
+                        !showRound && "blur-sm"
+                    }`}
+                >
                     {cards.map((c) => (
                         <Card key={c.id} card={c} onClick={handleClick} />
                     ))}
@@ -232,9 +258,25 @@ function RenderGame({round, goldCardCount, handlePlaceCard, isGameOver, alertMsg
                 )}
             </div>
             <div className="m-4 space-y-2">
-                {alertMsgs.map(alert => (
-                    <div key={alert.id} role="alert" className="alert shadow-md bg-base-100 p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                {alertMsgs.map((alert) => (
+                    <div
+                        key={alert.id}
+                        role="alert"
+                        className="alert shadow-md bg-base-100 p-2"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            className="stroke-info shrink-0 w-6 h-6"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
                         <span>{alert.msg}</span>
                     </div>
                 ))}
@@ -251,7 +293,9 @@ function CardSpace({ card, children }) {
 
     return (
         // 14:25 aspect ratio
-        <div className={`w-[112px] h-[200px] m-2 p-2 rounded-xl bg-base-100 shadow-xl ${effectClassName}`}>
+        <div
+            className={`w-[112px] h-[200px] m-2 p-2 rounded-xl bg-base-100 shadow-xl ${effectClassName}`}
+        >
             {children}
         </div>
     )
@@ -264,7 +308,12 @@ function Card({ card, onClick }) {
                 className="card h-full w-full place-items-center"
                 onClick={() => onClick(card)}
             >
-                <Image fill={true} src={card.img_url} alt={card.name} sizes="112px" />
+                <Image
+                    fill={true}
+                    src={card.img_url}
+                    alt={card.name}
+                    sizes="112px"
+                />
             </button>
         </CardSpace>
     )
@@ -275,10 +324,7 @@ function GameSpace({ Game }) {
     const alertId = useRef(0)
 
     function alert(msg) {
-        setAlertMsgs([
-            ...alertMsgs,
-            {id: alertId.current, msg: msg }
-        ])
+        setAlertMsgs([...alertMsgs, { id: alertId.current, msg: msg }])
         alertId.current++
     }
 
@@ -292,18 +338,32 @@ function GameSpace({ Game }) {
 export default function App() {
     return (
         <div role="tablist" className="tabs tabs-lifted">
-            <input type="radio" name="my_tabs_2" role="tab" aria-label="useEffect"
+            <input
+                type="radio"
+                name="my_tabs_2"
+                role="tab"
+                aria-label="useEffect"
                 className="tab [--tab-bg:theme(colors.base-200)] text-red-500 font-bold"
             />
-            <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+            <div
+                role="tabpanel"
+                className="tab-content bg-base-200 border-base-300 rounded-box p-6"
+            >
                 <GameSpace Game={BadGame} />
             </div>
 
-            <input type="radio" name="my_tabs_2" role="tab" aria-label="events"
+            <input
+                type="radio"
+                name="my_tabs_2"
+                role="tab"
+                aria-label="events"
                 className="tab [--tab-bg:theme(colors.base-200)] text-green-500 font-bold"
                 defaultChecked
             />
-            <div role="tabpanel" className="tab-content bg-base-200 border-base-300 rounded-box p-6">
+            <div
+                role="tabpanel"
+                className="tab-content bg-base-200 border-base-300 rounded-box p-6"
+            >
                 <GameSpace Game={GoodGame} />
             </div>
         </div>
