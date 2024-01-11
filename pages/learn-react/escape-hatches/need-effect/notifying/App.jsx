@@ -187,8 +187,8 @@ function FunctionCard({ canvasRef }) {
 function ParentCard({ canvasRef }) {
     const [isOn, setIsOn] = useState(false)
 
-    function handleChange() {
-        setIsOn(!isOn)
+    function handleChange(nextIsOn) {
+        setIsOn(nextIsOn)
     }
 
     return (
