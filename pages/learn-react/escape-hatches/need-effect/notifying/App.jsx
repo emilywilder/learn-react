@@ -104,7 +104,7 @@ function RenderToggle({ isOn, handleClick }) {
     )
 }
 
-function Card({ Toggle, onChange, name, canvasRef, isOn }) {
+function Card({ Toggle, onChange, name, canvasRef, isOn, children }) {
     const [dragging, setDragging] = useState(false)
     const nodeRef = React.useRef(null)
     const [toggleWidth, setToggleWidth] = useState()
@@ -143,10 +143,7 @@ function Card({ Toggle, onChange, name, canvasRef, isOn }) {
             >
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
-                    <p>
-                        The amazing feature you requested is:{" "}
-                        {isOn ? "on" : "off"}
-                    </p>
+                    {children}
                     <div className="card-actions justify-end">
                         <CardContext.Provider
                             value={[isCloserToRightEdge, onDragEndRef]}
@@ -161,26 +158,40 @@ function Card({ Toggle, onChange, name, canvasRef, isOn }) {
 }
 
 function UseEffectCard({ canvasRef }) {
-    function handleChange() {}
+    const [showMessage, setShowMessage] = useState(false)
+
+    function handleChange(bool) {
+        setShowMessage(bool)
+    }
+
     return (
         <Card
             Toggle={UseEffectToggle}
             name={"Toggle using useEffect"}
             onChange={handleChange}
             canvasRef={canvasRef}
-        />
+        >
+            {showMessage && <div className="text-sm ">Secret message</div>}
+        </Card>
     )
 }
 
 function FunctionCard({ canvasRef }) {
-    function handleChange() {}
+    const [showMessage, setShowMessage] = useState(false)
+
+    function handleChange(bool) {
+        setShowMessage(bool)
+    }
+
     return (
         <Card
             Toggle={FunctionToggle}
             name={"Toggle using a function"}
             onChange={handleChange}
             canvasRef={canvasRef}
-        />
+        >
+            {showMessage && <div className="text-sm ">Secret message</div>}
+        </Card>
     )
 }
 
@@ -198,7 +209,9 @@ function ParentCard({ canvasRef }) {
             onChange={handleChange}
             canvasRef={canvasRef}
             isOn={isOn}
-        />
+        >
+            {isOn && <div className="text-sm ">Secret message</div>}
+        </Card>
     )
 }
 
