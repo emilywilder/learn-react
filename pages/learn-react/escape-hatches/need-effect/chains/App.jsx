@@ -336,6 +336,7 @@ function GameSpace({ Game }) {
 }
 
 export default function App() {
+    // BUGFIX: cards can be selected more than once!
     return (
         <div role="tablist" className="tabs tabs-lifted">
             <input
