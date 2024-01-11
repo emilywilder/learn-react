@@ -92,15 +92,18 @@ function ParentToggle({ isOn, onChange }) {
 
 function RenderToggle({ isOn, handleClick }) {
     return (
-        <label className="label cursor-pointer">
-            <input
-                type="checkbox"
-                className="toggle"
-                checked={isOn}
-                onChange={handleClick}
-                onMouseDown={(e) => e.stopPropagation()}
-            />
-        </label>
+        <div className="form-control">
+            <label className="label cursor-pointer space-x-1">
+                <span className="label-text">Show</span>
+                <input
+                    type="checkbox"
+                    className="toggle"
+                    checked={isOn}
+                    onChange={handleClick}
+                    onMouseDown={(e) => e.stopPropagation()}
+                />
+            </label>
+        </div>
     )
 }
 
@@ -157,8 +160,25 @@ function Card({ Toggle, onChange, name, canvasRef, isOn, children }) {
     )
 }
 
+function SecretMessage({ message, show }) {
+    return (
+        <div className="flex space-x-1">
+            <div>The secret message is</div>
+            <div className="font-mono">
+                {show
+                    ? message
+                    : message
+                          .split("")
+                          .map((l) => "█")
+                          .join("")}
+            </div>
+        </div>
+    )
+}
+
 function UseEffectCard({ canvasRef }) {
     const [showMessage, setShowMessage] = useState(false)
+    const secretMessage = UseEffectCard.name
 
     function handleChange(bool) {
         setShowMessage(bool)
@@ -171,13 +191,14 @@ function UseEffectCard({ canvasRef }) {
             onChange={handleChange}
             canvasRef={canvasRef}
         >
-            {showMessage && <div className="text-sm ">Secret message</div>}
+            <SecretMessage message={secretMessage} show={showMessage} />
         </Card>
     )
 }
 
 function FunctionCard({ canvasRef }) {
     const [showMessage, setShowMessage] = useState(false)
+    const secretMessage = FunctionCard.name
 
     function handleChange(bool) {
         setShowMessage(bool)
@@ -190,13 +211,14 @@ function FunctionCard({ canvasRef }) {
             onChange={handleChange}
             canvasRef={canvasRef}
         >
-            {showMessage && <div className="text-sm ">Secret message</div>}
+            <SecretMessage message={secretMessage} show={showMessage} />
         </Card>
     )
 }
 
 function ParentCard({ canvasRef }) {
     const [isOn, setIsOn] = useState(false)
+    const secretMessage = ParentCard.name
 
     function handleChange(nextIsOn) {
         setIsOn(nextIsOn)
@@ -210,7 +232,7 @@ function ParentCard({ canvasRef }) {
             canvasRef={canvasRef}
             isOn={isOn}
         >
-            {isOn && <div className="text-sm ">Secret message</div>}
+            <SecretMessage message={secretMessage} show={isOn} />
         </Card>
     )
 }
@@ -219,7 +241,10 @@ export default function App() {
     const canvasRef = createRef()
 
     return (
-        <div ref={canvasRef} className="flex flex-col m-4 space-y-4">
+        <div
+            ref={canvasRef}
+            className="flex flex-col p-4 space-y-4 bg-base-200 w-full h-screen"
+        >
             <UseEffectCard canvasRef={canvasRef} />
             <FunctionCard canvasRef={canvasRef} />
             <ParentCard canvasRef={canvasRef} />
