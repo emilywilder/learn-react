@@ -12,11 +12,12 @@ import Post from "./post/App"
 import Chains from "./chains/App"
 import Initializing from "./initializing/App"
 import Notifying from "./notifying/App"
+import Passing from "./passing/App"
 
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={8} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={9} />
         </StrictMode>
     )
 }
@@ -79,7 +80,7 @@ const sublessons = [
     {
         id: 9,
         title: "Passing data to the parent",
-        component: null, // Passing
+        component: Passing,
         usesTailwind: true,
     },
     {
