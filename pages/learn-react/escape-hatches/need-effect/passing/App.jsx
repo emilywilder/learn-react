@@ -1,3 +1,9 @@
+import { useEffect, useState } from "react"
+
+function useSomeAPI() {
+    return { id: 0, name: "api_data" }
+}
+
 function UpstreamParent() {
     const [data, setData] = useState(null)
     // ...
@@ -13,6 +19,12 @@ function UpstreamChild({ onFetched }) {
         }
     }, [onFetched, data])
     // ...
+    return (
+        <div>
+            <h1>UpstreamChild</h1>
+            <p>{data.name}</p>
+        </div>
+    )
 }
 
 function DownstreamParent() {
@@ -24,6 +36,19 @@ function DownstreamParent() {
 
 function DownstreamChild({ data }) {
     // ...
+    return (
+        <div>
+            <h1>DownstreamChild</h1>
+            <p>{data.name}</p>
+        </div>
+    )
 }
 
-export default function App() {}
+export default function App() {
+    return (
+        <>
+            <UpstreamParent />
+            <DownstreamParent />
+        </>
+    )
+}
