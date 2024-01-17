@@ -4,10 +4,32 @@ function useSomeAPI() {
     return { id: 0, name: "api_data" }
 }
 
+function Card({ title, children }) {
+    return (
+        <div className="card">
+            <div className="card-title">{title}</div>
+            <div className="card-body">{children}</div>
+        </div>
+    )
+}
+
+function ShowData({ data, count }) {
+    return (
+        <div>
+            <p>API data: {JSON.stringify(data)}</p>
+            <p>Run {count} times.</p>
+        </div>
+    )
+}
+
 function UpstreamParent() {
     const [data, setData] = useState(null)
     // ...
-    return <UpstreamChild onFetched={setData} />
+    return (
+        <Card title={UpstreamParent.name}>
+            <UpstreamChild onFetched={setData} />
+        </Card>
+    )
 }
 
 function UpstreamChild({ onFetched }) {
@@ -26,20 +48,18 @@ function UpstreamChild({ onFetched }) {
         countRef.current++
     }, [])
 
-    return (
-        <div>
-            <h1>UpstreamChild</h1>
-            <p>data: {JSON.stringify(data)}</p>
-            <p>Run {countRef.current} times.</p>
-        </div>
-    )
+    return <ShowData data={data} count={countRef.current} />
 }
 
 function DownstreamParent() {
     const data = useSomeAPI()
     // ...
     // ✅ Good: Passing data down to the child
-    return <DownstreamChild data={data} />
+    return (
+        <Card title={DownstreamParent.name}>
+            <DownstreamChild data={data} />
+        </Card>
+    )
 }
 
 function DownstreamChild({ data }) {
@@ -51,13 +71,7 @@ function DownstreamChild({ data }) {
         countRef.current++
     }, [])
 
-    return (
-        <div>
-            <h1>DownstreamChild</h1>
-            <p>data: {JSON.stringify(data)}</p>
-            <p>Run {countRef.current} times.</p>
-        </div>
-    )
+    return <ShowData data={data} count={countRef.current} />
 }
 
 export default function App() {
