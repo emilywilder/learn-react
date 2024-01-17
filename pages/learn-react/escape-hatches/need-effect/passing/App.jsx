@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 function useSomeAPI() {
     return { id: 0, name: "api_data" }
@@ -19,10 +19,18 @@ function UpstreamChild({ onFetched }) {
         }
     }, [onFetched, data])
     // ...
+
+    const countRef = useRef(0)
+
+    useEffect(() => {
+        countRef.current++
+    }, [])
+
     return (
         <div>
             <h1>UpstreamChild</h1>
-            <p>{data.name}</p>
+            <p>data: {JSON.stringify(data)}</p>
+            <p>Run {countRef.current} times.</p>
         </div>
     )
 }
@@ -36,10 +44,18 @@ function DownstreamParent() {
 
 function DownstreamChild({ data }) {
     // ...
+
+    const countRef = useRef(0)
+
+    useEffect(() => {
+        countRef.current++
+    }, [])
+
     return (
         <div>
             <h1>DownstreamChild</h1>
-            <p>{data.name}</p>
+            <p>data: {JSON.stringify(data)}</p>
+            <p>Run {countRef.current} times.</p>
         </div>
     )
 }
