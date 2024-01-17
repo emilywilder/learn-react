@@ -6,9 +6,11 @@ function useSomeAPI() {
 
 function Card({ title, children }) {
     return (
-        <div className="card">
-            <div className="card-title">{title}</div>
-            <div className="card-body">{children}</div>
+        <div className="card w-96 bg-base-100 shadow-lg m-4">
+            <div className="card-body">
+                <div className="card-title">{title}</div>
+                {children}
+            </div>
         </div>
     )
 }
@@ -26,7 +28,7 @@ function UpstreamParent() {
     const [data, setData] = useState(null)
     // ...
     return (
-        <Card title={UpstreamParent.name}>
+        <Card title="Upstream method">
             <UpstreamChild onFetched={setData} />
         </Card>
     )
@@ -56,7 +58,7 @@ function DownstreamParent() {
     // ...
     // ✅ Good: Passing data down to the child
     return (
-        <Card title={DownstreamParent.name}>
+        <Card title="Downstream method">
             <DownstreamChild data={data} />
         </Card>
     )
@@ -76,9 +78,9 @@ function DownstreamChild({ data }) {
 
 export default function App() {
     return (
-        <>
+        <div className="w-full h-screen bg-base-200 p-4">
             <UpstreamParent />
             <DownstreamParent />
-        </>
+        </div>
     )
 }
