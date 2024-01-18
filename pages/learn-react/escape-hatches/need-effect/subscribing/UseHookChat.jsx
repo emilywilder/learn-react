@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from "react"
+
 function subscribe(callback) {
     window.addEventListener("online", callback)
     window.addEventListener("offline", callback)
