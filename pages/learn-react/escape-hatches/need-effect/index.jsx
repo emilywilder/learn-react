@@ -13,11 +13,12 @@ import Chains from "./chains/App"
 import Initializing from "./initializing/App"
 import Notifying from "./notifying/App"
 import Passing from "./passing/App"
+import Subscribing from "./subscribing/App"
 
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={9} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={10} />
         </StrictMode>
     )
 }
@@ -86,7 +87,7 @@ const sublessons = [
     {
         id: 10,
         title: "Subscribing to an external store",
-        component: null, // Subscribing
+        component: Subscribing,
         usesTailwind: true,
     },
     {
