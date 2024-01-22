@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import ChatBox from "./Chat"
 
 function useOnlineStatus() {
     // Not ideal: Manual store subscription in an Effect
@@ -23,6 +24,7 @@ function useOnlineStatus() {
 function ChatIndicator() {
     const isOnline = useOnlineStatus()
     // ...
+    return <ChatBox title={"UseEffect Chat!"} isOnline={isOnline} />
 }
 
 export default ChatIndicator

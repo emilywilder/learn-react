@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react"
+import ChatBox from "./Chat"
 
 function subscribe(callback) {
     window.addEventListener("online", callback)
@@ -21,6 +22,7 @@ function useOnlineStatus() {
 function ChatIndicator() {
     const isOnline = useOnlineStatus()
     // ...
+    return <ChatBox title={"UseHook Chat!"} isOnline={isOnline} />
 }
 
 export default ChatIndicator
