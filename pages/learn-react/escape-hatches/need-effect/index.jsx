@@ -14,11 +14,12 @@ import Initializing from "./initializing/App"
 import Notifying from "./notifying/App"
 import Passing from "./passing/App"
 import Subscribing from "./subscribing/App"
+import Fetching from "./fetching/App"
 
 export default function Home() {
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={10} />
+            <LessonNavbar sublessons={sublessons} defaultSelectedId={11} />
         </StrictMode>
     )
 }
@@ -93,7 +94,7 @@ const sublessons = [
     {
         id: 11,
         title: "Fetching data",
-        component: null, // Fetching
+        component: Fetching,
         usesTailwind: true,
     },
 ]
