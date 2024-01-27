@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react"
-import { fetchResults } from "./utilities"
-
-const fetch = fetchResults
 
 function SearchResults({ query }) {
     const [page, setPage] = useState(1)
