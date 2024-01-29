@@ -1,3 +1,4 @@
 export async function fetchResults(query, page) {
-    console.log(query)
+    const params = new URLSearchParams({ query, page })
+    console.log(params)
 }
