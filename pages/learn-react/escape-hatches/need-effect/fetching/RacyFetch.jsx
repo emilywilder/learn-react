@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchResults } from "./utilities"
+import SearchCard from "./SearchCard"
 
 function SearchResults({ query }) {
     const [results, setResults] = useState([])
@@ -17,6 +18,7 @@ function SearchResults({ query }) {
     }
     // ...
     console.log(`RacyFetch::SearchResults(): ${JSON.stringify(results)}`)
+    return <SearchCard name={"RacyFetch"} results={results} page={page} />
 }
 
 export default SearchResults
