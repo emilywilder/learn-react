@@ -9,6 +9,7 @@ function SearchResults({ query }) {
         setPage(page + 1)
     }
     // ...
+    console.log(`HookFetch::SearchResults(): ${results}`)
 }
 
 function useData(url) {

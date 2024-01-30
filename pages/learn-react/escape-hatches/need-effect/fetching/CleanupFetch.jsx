@@ -20,6 +20,7 @@ function SearchResults({ query }) {
         setPage(page + 1)
     }
     // ...
+    console.log(`CleanupFetch::SearchResults(): ${results}`)
 }
 
 export default SearchResults

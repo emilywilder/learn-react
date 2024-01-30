@@ -1,15 +1,20 @@
 import { createServer } from "miragejs"
 
+export const PARAMS_STRING =
+    "sublesson=fetching&lesson=need-effect&topic=escape-hatches"
+
 createServer({
     routes() {
         // namespace issue resolution taken from
         // https://github.com/miragejs/miragejs/issues/651#issuecomment-713283963
         this.namespace = "api"
         this.get("/search", (schema, request) => {
-            const page = request.queryParams.page
-            const query = request.queryParams.query
-            const queryObj = Object.fromEntries(new URLSearchParams(query))
-            return queryObj
+            // Leaving this here for reference
+            // const queryObj = Object.fromEntries(new URLSearchParams(query))
+            return fetchResults(
+                request.queryParams.query,
+                request.queryParams.page
+            )
         })
         this.namespace = ""
         this.passthrough()
@@ -17,6 +22,10 @@ createServer({
 })
 
 export async function fetchResults(query, page) {
-    const params = new URLSearchParams({ query, page })
-    console.log(params)
+    console.debug(`fetchResults(): ${query}`)
+    if (query === PARAMS_STRING) {
+        return page
+    } else {
+        throw Error(`Unknown query: ${query}`)
+    }
 }

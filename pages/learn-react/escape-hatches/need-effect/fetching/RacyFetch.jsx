@@ -16,6 +16,7 @@ function SearchResults({ query }) {
         setPage(page + 1)
     }
     // ...
+    console.log(`RacyFetch::SearchResults(): ${results}`)
 }
 
 export default SearchResults
