@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import SearchCard from "./SearchCard"
+import BooksCard from "./BooksCard"
 
 function SearchResults({ query }) {
     const [page, setPage] = useState(1)
@@ -11,7 +11,7 @@ function SearchResults({ query }) {
     }
     // ...
     console.log(`HookFetch::SearchResults(): ${JSON.stringify(results)}`)
-    return <SearchCard name={"HookFetch"} results={results} page={page} />
+    return <BooksCard name={"HookFetch"} results={results} page={page} />
 }
 
 function useData(url) {

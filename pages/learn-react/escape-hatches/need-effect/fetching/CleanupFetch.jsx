@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchResults } from "./utilities"
-import SearchCard from "./SearchCard"
+import BooksCard from "./BooksCard"
 
 function SearchResults({ query }) {
     const [results, setResults] = useState([])
@@ -22,7 +22,7 @@ function SearchResults({ query }) {
     }
     // ...
     console.log(`CleanupFetch::SearchResults(): ${JSON.stringify(results)}`)
-    return <SearchCard name={"CleanupFetch"} results={results} page={page} />
+    return <BooksCard name={"CleanupFetch"} results={results} page={page} />
 }
 
 export default SearchResults
