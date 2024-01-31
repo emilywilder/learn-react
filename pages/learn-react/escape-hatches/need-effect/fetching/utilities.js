@@ -20,6 +20,8 @@ const BOOK_CATALOGUE = [
     { id: 12, title: "Twelveth Book", author: "Twelve Twelveischer" },
 ]
 
+export const NUM_PAGES = BOOK_CATALOGUE.length / PAGE_SIZE
+
 createServer({
     routes() {
         // namespace issue resolution taken from
@@ -41,7 +43,7 @@ createServer({
 export async function fetchResults(query, page) {
     console.debug(`fetchResults(): ${query}`)
     if (query === PARAMS_STRING) {
-        return BOOK_CATALOGUE.slice(0, PAGE_SIZE)
+        return BOOK_CATALOGUE.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
     } else {
         throw Error(`Unknown query: ${query}`)
     }

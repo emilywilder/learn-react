@@ -11,7 +11,14 @@ function SearchResults({ query }) {
     }
     // ...
     console.log(`HookFetch::SearchResults(): ${JSON.stringify(results)}`)
-    return <BooksCard name={"HookFetch"} results={results} page={page} />
+    return (
+        <BooksCard
+            name={"HookFetch"}
+            results={results}
+            page={page}
+            onNextPageClick={handleNextPageClick}
+        />
+    )
 }
 
 function useData(url) {

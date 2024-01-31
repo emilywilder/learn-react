@@ -18,7 +18,14 @@ function SearchResults({ query }) {
     }
     // ...
     console.log(`RacyFetch::SearchResults(): ${JSON.stringify(results)}`)
-    return <BooksCard name={"RacyFetch"} results={results} page={page} />
+    return (
+        <BooksCard
+            name={"RacyFetch"}
+            results={results}
+            page={page}
+            onNextPageClick={handleNextPageClick}
+        />
+    )
 }
 
 export default SearchResults
