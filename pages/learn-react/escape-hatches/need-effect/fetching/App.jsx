@@ -8,10 +8,10 @@ export default function Fetching() {
         <div className="flex flex-col items-center">
             <BookSearch name={"RacySearch"} SearchResults={RacySearchResults} />
             <BookSearch
-                name={"RacySearch"}
+                name={"CleanupSearch"}
                 SearchResults={CleanupSearchResults}
             />
-            <BookSearch name={"RacySearch"} SearchResults={HookSearchResults} />
+            <BookSearch name={"HookSearch"} SearchResults={HookSearchResults} />
         </div>
     )
 }
