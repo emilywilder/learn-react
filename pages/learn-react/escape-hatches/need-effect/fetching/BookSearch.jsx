@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { getNumPages } from "./utilities"
 
 export default function BookSearch({ name, SearchResults }) {
     const [searchText, setSearchText] = useState("")
@@ -31,13 +30,22 @@ export default function BookSearch({ name, SearchResults }) {
     )
 }
 
+function getKeyFromResults(results, key) {
+    return results
+        ? Object.keys(results).includes(key)
+            ? results[key]
+            : []
+        : []
+}
+
 export function SearchResultsRender({ results, children }) {
+    const books = getKeyFromResults(results, "books")
     return (
         <div className="mt-2">
-            {!Array.isArray(results) || !results.length ? (
+            {!Array.isArray(books) || !books ? (
                 <div>No books found</div>
             ) : (
-                results.map((book) => <Book key={book.id} book={book} />)
+                books.map((book) => <Book key={book.id} book={book} />)
             )}
             {children}
         </div>
@@ -45,9 +53,11 @@ export function SearchResultsRender({ results, children }) {
 }
 
 export function Pagination({ results, page, onNextPageClick }) {
-    const numRecords = results ? results.length : 0
-    const numPages = getNumPages(numRecords)
-    console.debug(`Pagination::numPages = ${numPages}`)
+    const books = getKeyFromResults(results, "books")
+    const pages = getKeyFromResults(results, "pages")
+    const numRecords = books.length
+
+    console.debug(`Pagination::pages = ${pages}`)
     return (
         <div className="card-actions justify-end items-center">
             {numRecords > 0 ? (
@@ -56,7 +66,7 @@ export function Pagination({ results, page, onNextPageClick }) {
                     <button
                         className="btn"
                         onClick={onNextPageClick}
-                        disabled={page >= numPages}
+                        disabled={page >= pages}
                     >
                         {"Next"}
                     </button>
