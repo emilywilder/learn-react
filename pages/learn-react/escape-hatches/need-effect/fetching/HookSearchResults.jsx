@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import BooksCard from "./BooksCard"
+import { Pagination, SearchResultsRender } from "./BookSearch"
 
-function SearchResults({ query }) {
+export default function SearchResults({ query }) {
     const [page, setPage] = useState(1)
     const params = new URLSearchParams({ query, page })
     const results = useData(`/api/search?${params}`)
@@ -12,12 +12,13 @@ function SearchResults({ query }) {
     // ...
     console.log(`HookFetch::SearchResults(): ${JSON.stringify(results)}`)
     return (
-        <BooksCard
-            name={"HookFetch"}
-            results={results}
-            page={page}
-            onNextPageClick={handleNextPageClick}
-        />
+        <SearchResultsRender results={results}>
+            <Pagination
+                results={results}
+                page={page}
+                onNextPageClick={handleNextPageClick}
+            />
+        </SearchResultsRender>
     )
 }
 
@@ -38,5 +39,3 @@ function useData(url) {
     }, [url])
     return data
 }
-
-export default SearchResults

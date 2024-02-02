@@ -1,14 +1,17 @@
-import RacyFetch from "./RacyFetch"
-import CleanupFetch from "./CleanupFetch"
-import HookFetch from "./HookFetch"
-import { PARAMS_STRING } from "./utilities"
+import BookSearch from "./BookSearch"
+import RacySearchResults from "./RacySearchResults"
+import CleanupSearchResults from "./CleanupSearchResults"
+import HookSearchResults from "./HookSearchResults"
 
 export default function Fetching() {
     return (
         <div className="flex flex-col items-center">
-            <RacyFetch query={PARAMS_STRING} />
-            <CleanupFetch query={PARAMS_STRING} />
-            <HookFetch query={PARAMS_STRING} />
+            <BookSearch name={"RacySearch"} SearchResults={RacySearchResults} />
+            <BookSearch
+                name={"RacySearch"}
+                SearchResults={CleanupSearchResults}
+            />
+            <BookSearch name={"RacySearch"} SearchResults={HookSearchResults} />
         </div>
     )
 }

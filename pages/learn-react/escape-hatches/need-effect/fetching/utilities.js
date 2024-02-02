@@ -42,9 +42,10 @@ createServer({
 
 export async function fetchResults(query, page) {
     console.debug(`fetchResults(): ${query}`)
-    if (query === PARAMS_STRING) {
-        return BOOK_CATALOGUE.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-    } else {
-        throw Error(`Unknown query: ${query}`)
+    const author = new URLSearchParams(query).get("author")
+    if (author) {
+        const books = BOOK_CATALOGUE.filter((b) => b.author.includes(author))
+        // return BOOK_CATALOGUE.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+        return books.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
     }
 }

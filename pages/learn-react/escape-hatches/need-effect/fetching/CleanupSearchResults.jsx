@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { fetchResults } from "./utilities"
-import BooksCard from "./BooksCard"
+import { Pagination, SearchResultsRender } from "./BookSearch"
 
-function SearchResults({ query }) {
+export default function SearchResults({ query }) {
     const [results, setResults] = useState([])
     const [page, setPage] = useState(1)
     useEffect(() => {
@@ -23,15 +23,12 @@ function SearchResults({ query }) {
     // ...
     console.log(`CleanupFetch::SearchResults(): ${JSON.stringify(results)}`)
     return (
-        <>
-            <BooksCard
-                name={"CleanupFetch"}
+        <SearchResultsRender results={results}>
+            <Pagination
                 results={results}
                 page={page}
                 onNextPageClick={handleNextPageClick}
             />
-        </>
+        </SearchResultsRender>
     )
 }
-
-export default SearchResults
