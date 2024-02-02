@@ -1,8 +1,5 @@
 import { createServer } from "miragejs"
 
-export const PARAMS_STRING =
-    "sublesson=fetching&lesson=need-effect&topic=escape-hatches"
-
 const PAGE_SIZE = 4
 
 const BOOK_CATALOGUE = [
@@ -20,7 +17,10 @@ const BOOK_CATALOGUE = [
     { id: 12, title: "Twelveth Book", author: "Twelve Twelveischer" },
 ]
 
-export const NUM_PAGES = BOOK_CATALOGUE.length / PAGE_SIZE
+export function getNumPages(recordCount) {
+    console.debug(`getNumPages::recordCount = ${recordCount}`)
+    return recordCount / PAGE_SIZE
+}
 
 createServer({
     routes() {
@@ -45,7 +45,6 @@ export async function fetchResults(query, page) {
     const author = new URLSearchParams(query).get("author")
     if (author) {
         const books = BOOK_CATALOGUE.filter((b) => b.author.includes(author))
-        // return BOOK_CATALOGUE.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
         return books.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
     }
 }

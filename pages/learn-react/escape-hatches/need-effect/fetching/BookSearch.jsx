@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NUM_PAGES } from "./utilities"
+import { getNumPages } from "./utilities"
 
 export default function BookSearch({ name, SearchResults }) {
     const [searchText, setSearchText] = useState("")
@@ -46,6 +46,8 @@ export function SearchResultsRender({ results, children }) {
 
 export function Pagination({ results, page, onNextPageClick }) {
     const numRecords = results ? results.length : 0
+    const numPages = getNumPages(numRecords)
+    console.debug(`Pagination::numPages = ${numPages}`)
     return (
         <div className="card-actions justify-end items-center">
             {numRecords > 0 ? (
@@ -54,7 +56,7 @@ export function Pagination({ results, page, onNextPageClick }) {
                     <button
                         className="btn"
                         onClick={onNextPageClick}
-                        disabled={page >= NUM_PAGES}
+                        disabled={page >= numPages}
                     >
                         {"Next"}
                     </button>
