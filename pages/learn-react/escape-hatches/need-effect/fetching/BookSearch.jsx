@@ -30,7 +30,7 @@ export default function BookSearch({ name, SearchResults }) {
     )
 }
 
-function getKeyFromResults(results, key) {
+function getValueFromResults(results, key) {
     return results
         ? Object.keys(results).includes(key)
             ? results[key]
@@ -39,7 +39,7 @@ function getKeyFromResults(results, key) {
 }
 
 export function SearchResultsRender({ results, children }) {
-    const books = getKeyFromResults(results, "books")
+    const books = getValueFromResults(results, "books")
     return (
         <div className="mt-2">
             {!Array.isArray(books) || !books ? (
@@ -53,8 +53,8 @@ export function SearchResultsRender({ results, children }) {
 }
 
 export function Pagination({ results, page, onNextPageClick }) {
-    const books = getKeyFromResults(results, "books")
-    const pages = getKeyFromResults(results, "pages")
+    const books = getValueFromResults(results, "books")
+    const pages = getValueFromResults(results, "pages")
     const numRecords = books.length
 
     console.debug(`Pagination::pages = ${pages}`)
