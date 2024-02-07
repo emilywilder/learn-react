@@ -52,17 +52,29 @@ export function SearchResultsRender({ results, children }) {
     )
 }
 
-export function Pagination({ results, page, onNextPageClick }) {
+export function Pagination({
+    results,
+    page,
+    onPrevPageClick,
+    onNextPageClick,
+}) {
     const books = getValueFromResults(results, "books")
     const pages = getValueFromResults(results, "pages")
     const numRecords = books.length
 
     console.debug(`Pagination::pages = ${pages}`)
     return (
-        <div className="card-actions justify-end items-center">
+        <div className="card-actions justify-end items-center m-2">
             {numRecords > 0 ? (
                 <>
-                    <div className="mr-2">Page {page}</div>
+                    <button
+                        className="btn"
+                        onClick={onPrevPageClick}
+                        disabled={page <= 1}
+                    >
+                        {"Prev"}
+                    </button>
+                    <div className="mx-2">Page {page}</div>
                     <button
                         className="btn"
                         onClick={onNextPageClick}

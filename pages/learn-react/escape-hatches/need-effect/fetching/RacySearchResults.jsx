@@ -17,12 +17,17 @@ export default function SearchResults({ query }) {
         setPage(page + 1)
     }
     // ...
+    function handlePrevPageClick() {
+        setPage(page - 1)
+    }
+
     console.log(`RacyFetch::SearchResults(): ${JSON.stringify(results)}`)
     return (
         <SearchResultsRender results={results}>
             <Pagination
                 results={results}
                 page={page}
+                onPrevPageClick={handlePrevPageClick}
                 onNextPageClick={handleNextPageClick}
             />
         </SearchResultsRender>
