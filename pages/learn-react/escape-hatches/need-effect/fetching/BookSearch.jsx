@@ -1,5 +1,4 @@
 import { useState, Fragment } from "react"
-import { capitalize } from "./utilities"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 
