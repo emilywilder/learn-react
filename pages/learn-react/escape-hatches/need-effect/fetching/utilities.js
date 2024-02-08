@@ -3,6 +3,8 @@ import BOOK_CATALOGUE from "./books.json"
 
 const PAGE_SIZE = 4
 
+export const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1)
+
 // const BOOK_CATALOGUE = [
 //     { id: 1, title: "First Book", author: "One Oneington" },
 //     { id: 2, title: "Second Book", author: "Two Twostone" },
