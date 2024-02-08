@@ -2,10 +2,19 @@ import { useState } from "react"
 
 export default function BookSearch({ name, SearchResults }) {
     const [searchText, setSearchText] = useState("")
+    const [searchBy, setSearchBy] = useState("author")
+    const searchByOptions = ["author", "title"]
 
     function handleChange(e) {
         setSearchText(e.target.value)
     }
+
+    function handleSelect(e) {
+        setSearchBy(e.target.value)
+    }
+
+    console.debug(`searchBy: ${searchBy}`)
+    console.debug(`searchText: ${searchText}`)
 
     return (
         <div className="card shadow-xl w-3/4  m-4 p-4">
@@ -13,9 +22,16 @@ export default function BookSearch({ name, SearchResults }) {
                 <h1 className="card-title">{name}</h1>
                 <label className="form-control w-full max-w-xs">
                     <div className="label">
-                        <span className="label-text">
-                            Search for a book by author
-                        </span>
+                        <span className="label-text">Search for a book by</span>
+                        <select
+                            className="select select-ghost"
+                            onChange={handleSelect}
+                        >
+                            <option value="author" defaultValue>
+                                Author
+                            </option>
+                            <option value="title">Title</option>
+                        </select>
                     </div>
                     <input
                         type="text"
@@ -24,7 +40,7 @@ export default function BookSearch({ name, SearchResults }) {
                         onChange={handleChange}
                     />
                 </label>
-                <SearchResults query={`author=${searchText}`} />
+                <SearchResults query={`${searchBy}=${searchText}`} />
             </div>
         </div>
     )

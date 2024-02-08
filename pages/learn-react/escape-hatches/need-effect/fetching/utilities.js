@@ -43,12 +43,19 @@ createServer({
 
 export async function fetchResults(query, page) {
     console.debug(`fetchResults(): ${query}`)
-    const author = new URLSearchParams(query).get("author")
-    const bookCatalogue = BOOK_CATALOGUE
-    if (author) {
-        const books = bookCatalogue.filter((b) => b.author.includes(author))
-        const pages = getNumPages(books.length)
-        const pagedBooks = books.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-        return { pages: pages, books: pagedBooks }
-    }
+    const params = new URLSearchParams(query)
+    const books = new Set()
+    params.forEach((value, key) => {
+        if (value) {
+            BOOK_CATALOGUE.filter((b) => b[key].includes(value)).forEach((i) =>
+                books.add(i)
+            )
+        }
+    })
+    const pages = getNumPages(books.size)
+    const pagedBooks = Array.from(books).slice(
+        (page - 1) * PAGE_SIZE,
+        page * PAGE_SIZE
+    )
+    return { pages: pages, books: pagedBooks }
 }
