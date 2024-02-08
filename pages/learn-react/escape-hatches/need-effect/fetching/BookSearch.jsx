@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { capitalize } from "./utilities"
 
 export default function BookSearch({ name, SearchResults }) {
     const [searchText, setSearchText] = useState("")
@@ -27,10 +28,15 @@ export default function BookSearch({ name, SearchResults }) {
                             className="select select-ghost"
                             onChange={handleSelect}
                         >
-                            <option value="author" defaultValue>
-                                Author
-                            </option>
-                            <option value="title">Title</option>
+                            {searchByOptions.map((option) => (
+                                <option
+                                    key={option}
+                                    value={option}
+                                    defaultValue={option === searchBy}
+                                >
+                                    {capitalize(option)}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <input
