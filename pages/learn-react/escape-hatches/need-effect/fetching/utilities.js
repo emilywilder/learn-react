@@ -41,18 +41,32 @@ createServer({
     },
 })
 
+function intersection(a, b) {
+    return new Set([...a].filter((x) => b.has(x)))
+}
+
 export async function fetchResults(query, page) {
     console.debug(`fetchResults(): ${query}`)
     const params = new URLSearchParams(query)
-    const books = new Set()
-    params.forEach((value, key) => {
-        if (value) {
-            BOOK_CATALOGUE.filter((b) => b[key].includes(value)).forEach((i) =>
-                books.add(i)
-            )
-        }
-    })
-    const pages = getNumPages(books.size)
+    // BOOK_CATALOGUE isn't avaliable in the debugger unless defined locally
+    const bookCatalogue = BOOK_CATALOGUE
+    const paramsKeys = Array.from(params.keys())
+    const bookshelf = paramsKeys
+        // has a value
+        .filter((key) => params.get(key))
+        // map into a list of books that match this particular query term
+        .map((key) =>
+            bookCatalogue.filter((b) => b[key].includes(params.get(key)))
+        )
+    // reduce into a unique list of books that match all query terms
+    const books =
+        // if the bookshelf is empty, there's nothing to reduce
+        bookshelf.length > 0
+            ? bookshelf.reduce((result, value) =>
+                  intersection(new Set(result), new Set(value))
+              )
+            : []
+    const pages = getNumPages(books.length)
     const pagedBooks = Array.from(books).slice(
         (page - 1) * PAGE_SIZE,
         page * PAGE_SIZE
