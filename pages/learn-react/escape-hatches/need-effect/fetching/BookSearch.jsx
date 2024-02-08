@@ -53,30 +53,37 @@ function SearchOptionsPicker({ options, selectedOption, onChange }) {
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
                     </span>
                 </Listbox.Button>
-                <Listbox.Options className="absolute rounded shadow-lg w-full mt-1 py-2 bg-white">
-                    {options.map((option) => (
-                        <Listbox.Option
-                            key={option.id}
-                            value={option}
-                            className={({ active }) =>
-                                `relative py-2 pl-10 pr-4 ${
-                                    active && "bg-blue-300 text-white"
-                                }`
-                            }
-                        >
-                            {({ selected }) => (
-                                <>
-                                    <span>{option.name}</span>
-                                    {selected && (
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                            <CheckIcon className="h-5 w-5" />
-                                        </span>
-                                    )}
-                                </>
-                            )}
-                        </Listbox.Option>
-                    ))}
-                </Listbox.Options>
+                <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <Listbox.Options className="absolute rounded shadow-lg w-full mt-1 py-2 bg-white">
+                        {options.map((option) => (
+                            <Listbox.Option
+                                key={option.id}
+                                value={option}
+                                className={({ active }) =>
+                                    `relative py-2 pl-10 pr-4 ${
+                                        active && "bg-blue-300 text-white"
+                                    }`
+                                }
+                            >
+                                {({ selected }) => (
+                                    <>
+                                        <span>{option.name}</span>
+                                        {selected && (
+                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                <CheckIcon className="h-5 w-5" />
+                                            </span>
+                                        )}
+                                    </>
+                                )}
+                            </Listbox.Option>
+                        ))}
+                    </Listbox.Options>
+                </Transition>
             </div>
         </Listbox>
     )
