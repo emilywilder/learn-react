@@ -47,8 +47,10 @@ function SearchOptionsPicker({ options, selectedOption, onChange }) {
     return (
         <Listbox value={selectedOption} by="id" onChange={onChange}>
             <div className="relative w-40">
-                <Listbox.Button className="relative shadow-md rounded-lg py-2 pl-3 pr-10 w-full text-left">
-                    <span>{selectedOption.name}</span>
+                <Listbox.Button className="relative shadow-md rounded-lg py-2 pl-3 pr-10 w-full text-left sm:text-sm">
+                    <span className="block truncate text-sm">
+                        {selectedOption.name}
+                    </span>
                     <span className="absolute flex items-center inset-y-0 right-0 pr-2">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
                     </span>
@@ -72,7 +74,9 @@ function SearchOptionsPicker({ options, selectedOption, onChange }) {
                             >
                                 {({ selected }) => (
                                     <>
-                                        <span>{option.name}</span>
+                                        <span className="block truncate text-sm">
+                                            {option.name}
+                                        </span>
                                         {selected && (
                                             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                 <CheckIcon className="h-5 w-5" />
