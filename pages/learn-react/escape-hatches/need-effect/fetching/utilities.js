@@ -47,6 +47,10 @@ function intersection(a, b) {
     return new Set([...a].filter((x) => b.has(x)))
 }
 
+function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 export async function fetchResults(query, page) {
     console.debug(`fetchResults(): ${query}`)
     const params = new URLSearchParams(query)
@@ -73,5 +77,6 @@ export async function fetchResults(query, page) {
         (page - 1) * PAGE_SIZE,
         page * PAGE_SIZE
     )
+    await delay(Math.floor(Math.random() * 5000))
     return { pages: pages, books: pagedBooks }
 }
