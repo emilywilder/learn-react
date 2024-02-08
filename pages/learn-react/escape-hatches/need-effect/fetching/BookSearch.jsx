@@ -2,7 +2,7 @@ import { useState, Fragment } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 
-export default function BookSearch({ name, SearchResults }) {
+export default function BookSearch({ SearchResultsComponent, children }) {
     const searchByOptions = [
         { id: 0, name: "Author", token: "author" },
         { id: 1, name: "Title", token: "title" },
@@ -19,7 +19,7 @@ export default function BookSearch({ name, SearchResults }) {
     return (
         <div className="card shadow-xl w-3/4  m-4 p-4">
             <div className="card-body w-full">
-                <h1 className="card-title">{name}</h1>
+                {children}
                 <div className="label flex">
                     <span className="label-text">Search for a book by</span>
                     <SearchOptionsPicker
@@ -36,7 +36,9 @@ export default function BookSearch({ name, SearchResults }) {
                         onChange={handleChange}
                     />
                 </label>
-                <SearchResults query={`${searchBy.token}=${searchText}`} />
+                <SearchResultsComponent
+                    query={`${searchBy.token}=${searchText}`}
+                />
             </div>
         </div>
     )
