@@ -25,7 +25,6 @@ export default function SearchResults({ query }) {
         setPage(page - 1)
     }
 
-    console.log(`CleanupFetch::SearchResults(): ${JSON.stringify(results)}`)
     return (
         <SearchResultsRender results={results}>
             <Pagination

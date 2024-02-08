@@ -13,7 +13,6 @@ export default function SearchResults({ query }) {
     function handlePrevPageClick() {
         setPage(page - 1)
     }
-    console.log(`HookFetch::SearchResults(): ${JSON.stringify(results)}`)
     return (
         <SearchResultsRender results={results}>
             <Pagination

@@ -21,7 +21,6 @@ export default function SearchResults({ query }) {
         setPage(page - 1)
     }
 
-    console.log(`RacyFetch::SearchResults(): ${JSON.stringify(results)}`)
     return (
         <SearchResultsRender results={results}>
             <Pagination
