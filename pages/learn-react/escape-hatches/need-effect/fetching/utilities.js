@@ -62,7 +62,9 @@ export async function fetchResults(query, page) {
         .filter((key) => params.get(key))
         // map into a list of books that match this particular query term
         .map((key) =>
-            bookCatalogue.filter((b) => b[key].includes(params.get(key)))
+            bookCatalogue.filter((b) =>
+                b[key].toUpperCase().includes(params.get(key).toUpperCase())
+            )
         )
     // reduce into a unique list of books that match all query terms
     const books =
