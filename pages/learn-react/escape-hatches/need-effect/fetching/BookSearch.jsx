@@ -1,54 +1,84 @@
-import { useState } from "react"
+import { useState, Fragment } from "react"
 import { capitalize } from "./utilities"
+import { Listbox, Transition } from "@headlessui/react"
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 
 export default function BookSearch({ name, SearchResults }) {
+    const searchByOptions = [
+        { id: 0, name: "Author", token: "author" },
+        { id: 1, name: "Title", token: "title" },
+    ]
     const [searchText, setSearchText] = useState("")
-    const [searchBy, setSearchBy] = useState("author")
-    const searchByOptions = ["author", "title"]
+    const [searchBy, setSearchBy] = useState(
+        searchByOptions.find((x) => x.token === "author")
+    )
 
     function handleChange(e) {
         setSearchText(e.target.value)
     }
 
-    function handleSelect(e) {
-        setSearchBy(e.target.value)
-    }
-
-    console.debug(`searchBy: ${searchBy}`)
-    console.debug(`searchText: ${searchText}`)
-
     return (
         <div className="card shadow-xl w-3/4  m-4 p-4">
-            <div className="card-body">
+            <div className="card-body w-full">
                 <h1 className="card-title">{name}</h1>
-                <label className="form-control w-full max-w-xs">
-                    <div className="label">
+                <label className="form-control w-full">
+                    <div className="label flex">
                         <span className="label-text">Search for a book by</span>
-                        <select
-                            className="select select-ghost"
-                            onChange={handleSelect}
-                        >
-                            {searchByOptions.map((option) => (
-                                <option
-                                    key={option}
-                                    value={option}
-                                    defaultValue={option === searchBy}
-                                >
-                                    {capitalize(option)}
-                                </option>
-                            ))}
-                        </select>
+                        <SearchOptionsPicker
+                            options={searchByOptions}
+                            selectedOption={searchBy}
+                            onChange={setSearchBy}
+                        />
                     </div>
                     <input
                         type="text"
                         placeholder="Type here"
-                        className="input input-bordered w-full max-w-xs"
+                        className="input input-bordered w-full"
                         onChange={handleChange}
                     />
                 </label>
-                <SearchResults query={`${searchBy}=${searchText}`} />
+                <SearchResults query={`${searchBy.token}=${searchText}`} />
             </div>
         </div>
+    )
+}
+
+function SearchOptionsPicker({ options, selectedOption, onChange }) {
+    return (
+        <Listbox value={selectedOption} by="id" onChange={onChange}>
+            <div className="relative w-40">
+                <Listbox.Button className="relative shadow-md rounded-lg py-2 pl-3 pr-10 w-full text-left">
+                    <span>{selectedOption.name}</span>
+                    <span className="absolute flex items-center inset-y-0 right-0 pr-2">
+                        <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
+                    </span>
+                </Listbox.Button>
+                <Listbox.Options className="absolute rounded shadow-lg w-full mt-1 py-2 bg-white">
+                    {options.map((option) => (
+                        <Listbox.Option
+                            key={option.id}
+                            value={option}
+                            className={({ active }) =>
+                                `relative py-2 pl-10 pr-4 ${
+                                    active && "bg-blue-300 text-white"
+                                }`
+                            }
+                        >
+                            {({ selected }) => (
+                                <>
+                                    <span>{option.name}</span>
+                                    {selected && (
+                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                            <CheckIcon className="h-5 w-5" />
+                                        </span>
+                                    )}
+                                </>
+                            )}
+                        </Listbox.Option>
+                    ))}
+                </Listbox.Options>
+            </div>
+        </Listbox>
     )
 }
 
