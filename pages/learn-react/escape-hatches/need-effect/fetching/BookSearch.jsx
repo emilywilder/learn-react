@@ -21,15 +21,15 @@ export default function BookSearch({ name, SearchResults }) {
         <div className="card shadow-xl w-3/4  m-4 p-4">
             <div className="card-body w-full">
                 <h1 className="card-title">{name}</h1>
+                <div className="label flex">
+                    <span className="label-text">Search for a book by</span>
+                    <SearchOptionsPicker
+                        options={searchByOptions}
+                        selectedOption={searchBy}
+                        onChange={setSearchBy}
+                    />
+                </div>
                 <label className="form-control w-full">
-                    <div className="label flex">
-                        <span className="label-text">Search for a book by</span>
-                        <SearchOptionsPicker
-                            options={searchByOptions}
-                            selectedOption={searchBy}
-                            onChange={setSearchBy}
-                        />
-                    </div>
                     <input
                         type="text"
                         placeholder="Type here"
