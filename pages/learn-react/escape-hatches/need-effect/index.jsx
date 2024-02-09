@@ -17,9 +17,17 @@ import Subscribing from "./subscribing/App"
 import Fetching from "./fetching/App"
 
 export default function Home() {
+    const mostRecentSublesson = sublessons
+        .filter((x) => x.component)
+        .reduce((previous, current) =>
+            current.id > previous.id ? current : previous
+        )
     return (
         <StrictMode>
-            <LessonNavbar sublessons={sublessons} defaultSelectedId={11} />
+            <LessonNavbar
+                sublessons={sublessons}
+                defaultSelectedId={mostRecentSublesson.id}
+            />
         </StrictMode>
     )
 }
@@ -95,6 +103,30 @@ const sublessons = [
         id: 11,
         title: "Fetching data",
         component: Fetching,
+        usesTailwind: true,
+    },
+    {
+        id: 12,
+        title: "Challenge 1: Transform data without Effects",
+        component: null, // Challenge1
+        usesTailwind: true,
+    },
+    {
+        id: 13,
+        title: "Challenge 2: Cache a calculation without Effects",
+        component: null, // Challenge2
+        usesTailwind: true,
+    },
+    {
+        id: 14,
+        title: "Challenge 3: Reset state without Effects",
+        component: null, // Challenge3
+        usesTailwind: true,
+    },
+    {
+        id: 15,
+        title: "Challenge 4: Submit a form without Effects",
+        component: null, // Challenge4
         usesTailwind: true,
     },
 ]
