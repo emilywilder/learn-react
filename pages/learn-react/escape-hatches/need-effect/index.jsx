@@ -16,6 +16,7 @@ import Passing from "./passing/App"
 import Subscribing from "./subscribing/App"
 import Fetching from "./fetching/App"
 import Challenge1 from "./challenge1/index"
+import Challenge2 from "./challenge2/index"
 
 export default function Home() {
     const mostRecentSublesson = sublessons
@@ -115,8 +116,8 @@ const sublessons = [
     {
         id: 13,
         title: "Challenge 2: Cache a calculation without Effects",
-        component: null, // Challenge2
-        usesTailwind: true,
+        component: Challenge2,
+        usesTailwind: false,
     },
     {
         id: 14,
