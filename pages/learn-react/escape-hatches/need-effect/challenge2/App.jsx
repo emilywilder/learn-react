@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useMemo } from "react"
 import { initialTodos, createTodo, getVisibleTodos } from "./todos.js"
 
 export default function TodoList() {
@@ -7,7 +7,7 @@ export default function TodoList() {
     const [text, setText] = useState("")
     const [visibleTodos, setVisibleTodos] = useState([])
 
-    useEffect(() => {
+    useMemo(() => {
         setVisibleTodos(getVisibleTodos(todos, showActive))
     }, [todos, showActive])
 
