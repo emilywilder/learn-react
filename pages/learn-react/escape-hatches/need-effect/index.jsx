@@ -15,6 +15,7 @@ import Notifying from "./notifying/App"
 import Passing from "./passing/App"
 import Subscribing from "./subscribing/App"
 import Fetching from "./fetching/App"
+import Challenge1 from "./challenge1/index"
 
 export default function Home() {
     const mostRecentSublesson = sublessons
@@ -108,8 +109,8 @@ const sublessons = [
     {
         id: 12,
         title: "Challenge 1: Transform data without Effects",
-        component: null, // Challenge1
-        usesTailwind: true,
+        component: Challenge1,
+        usesTailwind: false,
     },
     {
         id: 13,
