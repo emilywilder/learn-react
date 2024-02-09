@@ -17,6 +17,7 @@ import Subscribing from "./subscribing/App"
 import Fetching from "./fetching/App"
 import Challenge1 from "./challenge1/index"
 import Challenge2 from "./challenge2/index"
+import Challenge3 from "./challenge3/index"
 
 export default function Home() {
     const mostRecentSublesson = sublessons
@@ -122,8 +123,8 @@ const sublessons = [
     {
         id: 14,
         title: "Challenge 3: Reset state without Effects",
-        component: null, // Challenge3
-        usesTailwind: true,
+        component: Challenge3,
+        usesTailwind: false,
     },
     {
         id: 15,
