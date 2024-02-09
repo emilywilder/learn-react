@@ -64,6 +64,6 @@ export async function fetchResults(query, page) {
         (page - 1) * PAGE_SIZE,
         page * PAGE_SIZE
     )
-    await delay(Math.floor(Math.random() * 5000))
+    await delay(Math.floor(Math.random() * 2000))
     return { pages: pages, books: pagedBooks }
 }
