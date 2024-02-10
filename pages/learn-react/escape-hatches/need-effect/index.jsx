@@ -29,6 +29,7 @@ export default function Home() {
     return (
         <StrictMode>
             <LessonNavbar
+                lessonName="You Might Not Need an Effect"
                 sublessons={sublessons}
                 defaultSelectedId={mostRecentSublesson.id}
             />

@@ -8,7 +8,11 @@ import { RxHamburgerMenu } from "react-icons/rx"
 
 import Blank from "@/components/blank"
 
-export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
+export default function LessonNavbar({
+    lessonName,
+    sublessons,
+    defaultSelectedId = 0,
+}) {
     const [selectedSublessonId, setSelectedSublessonId] =
         useState(defaultSelectedId)
 
@@ -38,9 +42,7 @@ export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
                         <li>
                             <HomeButton />
                         </li>
-                        <li className="normal-case text-xl">
-                            You Might Not Need an Effect
-                        </li>
+                        <li className="normal-case text-xl">{lessonName}</li>
                         {selectedSublesson && (
                             <li>{selectedSublesson.title}</li>
                         )}
