@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 export default function Form() {
-    const [showForm, setShowForm] = useState(true)
+    const [showForm, setShowForm] = useState(false)
     const [message, setMessage] = useState("")
 
     useEffect(() => {
