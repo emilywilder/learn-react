@@ -41,7 +41,9 @@ export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
                         <li className="normal-case text-xl">
                             You Might Not Need an Effect
                         </li>
-                        <li>{selectedSublesson.title}</li>
+                        {selectedSublesson && (
+                            <li>{selectedSublesson.title}</li>
+                        )}
                     </ul>
                 </div>
                 <SublessonMenu
@@ -88,19 +90,23 @@ function SublessonMenu({ sublessons, selectedSublessonId, onMenuClick }) {
     ))
 
     return (
-        <div className="flex-none">
-            <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn m-1 btn-ghost">
-                    <RxHamburgerMenu className="h-5 w-5" />
-                </label>
-                <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96"
-                >
-                    {listSublessons}
-                </ul>
-            </div>
-        </div>
+        <>
+            {Array.isArray(sublessons) && sublessons.length > 0 ? (
+                <div className="flex-none">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn m-1 btn-ghost">
+                            <RxHamburgerMenu className="h-5 w-5" />
+                        </label>
+                        <ul
+                            tabIndex={0}
+                            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96"
+                        >
+                            {listSublessons}
+                        </ul>
+                    </div>
+                </div>
+            ) : null}
+        </>
     )
 }
 
@@ -111,10 +117,18 @@ function Sublesson({ sublesson }) {
         when tailwind is not used.
     */
     return (
-        <div
-            className={!sublesson.usesTailwind ? "notailwind ml-4" : undefined}
-        >
-            {sublesson.component ? <sublesson.component /> : <Blank />}
-        </div>
+        <>
+            {sublesson ? (
+                <div
+                    className={
+                        !sublesson.usesTailwind ? "notailwind ml-4" : undefined
+                    }
+                >
+                    {sublesson.component ? <sublesson.component /> : <Blank />}
+                </div>
+            ) : (
+                <Blank />
+            )}
+        </>
     )
 }
