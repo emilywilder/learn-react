@@ -1,6 +1,4 @@
-import Image from "next/image"
-
-export default function Blank() {
+export default function Blank({ text = "This app is yet to be defined." }) {
     return (
         <div className="pt-10 flex justify-center">
             <div className="card shadow-xl overflow-hidden">
@@ -9,7 +7,7 @@ export default function Blank() {
                     <h2 className="card-title justify-center">
                         Oh hai ≽^•⩊•^≼
                     </h2>
-                    <p>This app is yet to be defined.</p>
+                    <p>{text}</p>
                 </div>
             </div>
         </div>
