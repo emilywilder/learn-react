@@ -9,8 +9,6 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import Blank from "@/components/blank"
 
 export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
-    const router = useRouter()
-
     const [selectedSublessonId, setSelectedSublessonId] =
         useState(defaultSelectedId)
 
@@ -32,15 +30,54 @@ export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
         loseFocus()
     }
 
+    return (
+        <>
+            <div className="navbar bg-base-100 space-x-0">
+                <div className="flex-1 breadcrumbs">
+                    <ul>
+                        <li>
+                            <HomeButton />
+                        </li>
+                        <li className="normal-case text-xl">
+                            You Might Not Need an Effect
+                        </li>
+                        <li>{selectedSublesson.title}</li>
+                    </ul>
+                </div>
+                <SublessonMenu
+                    sublessons={sublessons}
+                    selectedSublessonId={selectedSublessonId}
+                    onMenuClick={handleMenuClick}
+                />
+            </div>
+            <Sublesson sublesson={selectedSublesson} />
+        </>
+    )
+}
+
+function HomeButton() {
+    const router = useRouter()
+
     function handleHomeClick() {
         router.push("/")
     }
 
+    return (
+        <button
+            className="btn btn-ghost btn-square"
+            onClick={() => handleHomeClick()}
+        >
+            <HiOutlineHome className="h-5 w-5" />
+        </button>
+    )
+}
+
+function SublessonMenu({ sublessons, selectedSublessonId, onMenuClick }) {
     const listSublessons = sublessons.map((sl) => (
         <li key={sl.id}>
             <a
                 className={sl.id === selectedSublessonId ? "active" : undefined}
-                onClick={() => handleMenuClick(sl.id)}
+                onClick={() => onMenuClick(sl.id)}
             >
                 {sl.title}{" "}
                 <p className="flex justify-end">
@@ -51,40 +88,19 @@ export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
     ))
 
     return (
-        <>
-            <div className="navbar bg-base-100 space-x-0">
-                <div className="flex-1 breadcrumbs">
-                    <ul>
-                        <li>
-                            <button
-                                className="btn btn-ghost btn-square"
-                                onClick={() => handleHomeClick()}
-                            >
-                                <HiOutlineHome className="h-5 w-5" />
-                            </button>
-                        </li>
-                        <li className="normal-case text-xl">
-                            You Might Not Need an Effect
-                        </li>
-                        <li>{selectedSublesson.title}</li>
-                    </ul>
-                </div>
-                <div className="flex-none">
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn m-1 btn-ghost">
-                            <RxHamburgerMenu className="h-5 w-5" />
-                        </label>
-                        <ul
-                            tabIndex={0}
-                            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96"
-                        >
-                            {listSublessons}
-                        </ul>
-                    </div>
-                </div>
+        <div className="flex-none">
+            <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn m-1 btn-ghost">
+                    <RxHamburgerMenu className="h-5 w-5" />
+                </label>
+                <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96"
+                >
+                    {listSublessons}
+                </ul>
             </div>
-            <Sublesson sublesson={selectedSublesson} />
-        </>
+        </div>
     )
 }
 
