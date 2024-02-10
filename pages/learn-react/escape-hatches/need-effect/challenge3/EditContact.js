@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 export default function EditContact({ savedContact, onSave }) {
     const [name, setName] = useState(savedContact.name)
     const [email, setEmail] = useState(savedContact.email)
 
-    useEffect(() => {
+    const [prevContact, setPrevContact] = useState(savedContact)
+    if (savedContact !== prevContact) {
+        setPrevContact(savedContact)
         setName(savedContact.name)
         setEmail(savedContact.email)
-    }, [savedContact])
+    }
 
     return (
         <section>
