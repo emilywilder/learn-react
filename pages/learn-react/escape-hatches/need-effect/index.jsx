@@ -18,6 +18,7 @@ import Fetching from "./fetching/App"
 import Challenge1 from "./challenge1/index"
 import Challenge2 from "./challenge2/index"
 import Challenge3 from "./challenge3/index"
+import Challenge4 from "./challenge4/index"
 
 export default function Home() {
     const mostRecentSublesson = sublessons
@@ -129,7 +130,7 @@ const sublessons = [
     {
         id: 15,
         title: "Challenge 4: Submit a form without Effects",
-        component: null, // Challenge4
-        usesTailwind: true,
+        component: Challenge4,
+        usesTailwind: false,
     },
 ]
