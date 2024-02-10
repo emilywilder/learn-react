@@ -1,5 +1,7 @@
 import Lesson from "@/components/Lesson"
 
+import EffectLifecycle from "./effectLifecycle/App"
+
 export default function Home() {
     return (
         <Lesson name="Lifecycle of Reactive Effects" sublessons={sublessons} />
@@ -10,7 +12,7 @@ const sublessons = [
     {
         id: 0,
         title: "The lifecycle of an Effect",
-        component: null, // EffectLifecycle
+        component: EffectLifecycle,
     },
     {
         id: 1,
