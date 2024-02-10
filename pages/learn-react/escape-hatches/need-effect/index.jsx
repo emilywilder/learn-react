@@ -1,7 +1,4 @@
-import { StrictMode } from "react"
-
-import "@/app/globals.css"
-import LessonNavbar from "@/components/lessonNavbar"
+import Lesson from "@/components/Lesson"
 
 import Updating from "./updating/App"
 import Caching from "./caching/App"
@@ -21,19 +18,8 @@ import Challenge3 from "./challenge3/index"
 import Challenge4 from "./challenge4/index"
 
 export default function Home() {
-    const mostRecentSublesson = sublessons
-        .filter((x) => x.component)
-        .reduce((previous, current) =>
-            current.id > previous.id ? current : previous
-        )
     return (
-        <StrictMode>
-            <LessonNavbar
-                lessonName="You Might Not Need an Effect"
-                sublessons={sublessons}
-                defaultSelectedId={mostRecentSublesson.id}
-            />
-        </StrictMode>
+        <Lesson name="You Might Not Need an Effect" sublessons={sublessons} />
     )
 }
 
