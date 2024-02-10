@@ -58,7 +58,8 @@
                         { "name": "Referencing Values with Refs", "location": "/learn-react/escape-hatches/refs" },
                         { "name": "Manipulating the DOM with Refs", "location": "/learn-react/escape-hatches/refs-dom" },
                         { "name": "Synchronizing with Effects", "location": "/learn-react/escape-hatches/effects" },
-                        { "name": "You Might Not Need an Effect", "location": "/learn-react/escape-hatches/need-effect" }
+                        { "name": "You Might Not Need an Effect", "location": "/learn-react/escape-hatches/need-effect" },
+                        { "name": "Lifecycle of Reactive Effects", "location": "/learn-react/escape-hatches/lifecycle" }
                     ]
                 }
             ]
