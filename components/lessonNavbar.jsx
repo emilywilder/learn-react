@@ -83,22 +83,22 @@ export default function LessonNavbar({ sublessons, defaultSelectedId = 0 }) {
                     </div>
                 </div>
             </div>
-            {/* disable tailwind for components made before its inclusion
-                and set a default margain as the content is too left adjusted
-                when tailwind is not used. */}
-            <div
-                className={
-                    !selectedSublesson.usesTailwind
-                        ? "notailwind ml-4"
-                        : undefined
-                }
-            >
-                {selectedSublesson.component ? (
-                    <selectedSublesson.component />
-                ) : (
-                    <Blank />
-                )}
-            </div>
+            <Sublesson sublesson={selectedSublesson} />
         </>
+    )
+}
+
+function Sublesson({ sublesson }) {
+    /*
+        disable tailwind for components made before its inclusion
+        and set a default margain as the content is too left adjusted
+        when tailwind is not used.
+    */
+    return (
+        <div
+            className={!sublesson.usesTailwind ? "notailwind ml-4" : undefined}
+        >
+            {sublesson.component ? <sublesson.component /> : <Blank />}
+        </div>
     )
 }
