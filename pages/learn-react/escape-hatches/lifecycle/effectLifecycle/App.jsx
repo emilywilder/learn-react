@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
+
+const ChatContext = createContext()
 
 function createConnection(serverUrl, roomId) {
     const identifier = `${serverUrl}:${roomId}`
@@ -22,10 +24,25 @@ function ChatRoom({ roomId }) {
         }
     }, [roomId])
     // ...
+
+    // not in example start
+    const toggleShowChatroom = useContext(ChatContext)
+
     return (
-        <div className="card shadow-xl m-4">
+        <div className="card shadow-xl w-full h-full">
             <div className="card-body">
-                <div className="card-title">Chatroom #{roomId}</div>
+                <div className="flex justify-between">
+                    <div className="card-title order-first">
+                        Chatroom #{roomId}
+                    </div>
+                    <button
+                        className="btn btn-sm order-last"
+                        onClick={() => toggleShowChatroom(roomId)}
+                    >
+                        Hide
+                    </button>
+                </div>
+
                 <p>Welcome to Chat!</p>
                 <input
                     className="input input-bordered"
@@ -34,28 +51,69 @@ function ChatRoom({ roomId }) {
             </div>
         </div>
     )
+    // not in example end
 }
 
 // Example end
 
 export default function EffectLifecycle() {
     const [chatrooms, setChatrooms] = useState([])
+
     const maxRoomId = chatrooms.reduce(
         (r, prev) => (r.id > prev.id ? r.id : prev.id),
         0
     )
 
     function addChatroom() {
-        const nextRoom = { id: maxRoomId + 1 }
+        const nextRoom = { id: maxRoomId + 1, visible: true }
         setChatrooms([...chatrooms, nextRoom])
+    }
+
+    function toggleShowChatroom(roomId) {
+        const nextChatrooms = chatrooms.map((r) => {
+            if (r.id === roomId) {
+                return { ...r, visible: !r.visible }
+            } else {
+                return r
+            }
+        })
+        setChatrooms(nextChatrooms)
+    }
+
+    function removeChatroom(roomId) {
+        setChatrooms(chatrooms.filter((r) => r.id !== roomId))
     }
 
     return (
         <div className="m-4">
-            <div className="flex flex-wrap">
-                {chatrooms.map((r) => (
-                    <ChatRoom key={r.id} roomId={r.id} />
-                ))}
+            <div className="flex flex-wrap gap-4">
+                <ChatContext.Provider value={toggleShowChatroom}>
+                    {chatrooms.map((r) => (
+                        <div key={r.id} className="w-72 h-72">
+                            <div
+                                className={`w-full h-full ${
+                                    !r.visible &&
+                                    " rounded-xl hover:ring-1 hover:ring-yellow-500"
+                                }`}
+                            >
+                                {r.visible ? (
+                                    <ChatRoom roomId={r.id} />
+                                ) : (
+                                    <div className="flex justify-center items-center h-full">
+                                        <button
+                                            className="btn"
+                                            onClick={() =>
+                                                toggleShowChatroom(r.id)
+                                            }
+                                        >
+                                            {"Show"}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </ChatContext.Provider>
             </div>
             <div className="fixed bottom-10 right-10">
                 <div>
