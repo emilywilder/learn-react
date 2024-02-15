@@ -100,14 +100,24 @@ export default function EffectLifecycle() {
                                     <ChatRoom roomId={r.id} />
                                 ) : (
                                     <div className="flex justify-center items-center h-full">
-                                        <button
-                                            className="btn"
-                                            onClick={() =>
-                                                toggleShowChatroom(r.id)
-                                            }
-                                        >
-                                            {"Show"}
-                                        </button>
+                                        <div className="flex gap-2">
+                                            <button
+                                                className="btn"
+                                                onClick={() =>
+                                                    toggleShowChatroom(r.id)
+                                                }
+                                            >
+                                                {"Show"}
+                                            </button>
+                                            <button
+                                                className="btn"
+                                                onClick={() =>
+                                                    removeChatroom(r.id)
+                                                }
+                                            >
+                                                {"Delete"}
+                                            </button>
+                                        </div>
                                     </div>
                                 )}
                             </div>
