@@ -110,7 +110,7 @@ export default function EffectLifecycle() {
                                                 {"Show"}
                                             </button>
                                             <button
-                                                className="btn"
+                                                className="btn btn-error text-white"
                                                 onClick={() =>
                                                     removeChatroom(r.id)
                                                 }
