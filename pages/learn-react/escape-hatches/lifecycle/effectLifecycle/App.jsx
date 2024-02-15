@@ -57,7 +57,7 @@ function ChatRoom({ roomId }) {
 // Example end
 
 export default function EffectLifecycle() {
-    const [chatrooms, setChatrooms] = useState([])
+    const [chatrooms, setChatrooms] = useState([{ id: 1, visible: true }])
 
     const maxRoomId = chatrooms.reduce(
         (r, prev) => (r.id > prev.id ? r.id : prev.id),
