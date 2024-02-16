@@ -1,17 +1,7 @@
 import { useEffect, useState } from "react"
-
-function createConnection(serverUrl, roomId) {
-    const identifier = `${serverUrl}:${roomId}`
-
-    const connect = () => console.log(`connect to ${identifier}`)
-    const disconnect = () => console.log(`disconnect from ${identifier}`)
-
-    return { connect: connect, disconnect: disconnect }
-}
+import { createConnection, serverUrl } from "./net"
 
 // Example start
-
-const serverUrl = "https://localhost:1234"
 
 function ChatRoom({ roomId }) {
     useEffect(() => {
