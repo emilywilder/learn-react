@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { createConnection, serverUrl } from "./net"
+import { createConnection, serverUrl, useOnlineStatus } from "./net"
 
 // Example start
 
@@ -36,11 +36,19 @@ function ChatCard({
     removeChatroom,
 }) {
     const room = findRoomById(roomId)
+    const isOnline = useOnlineStatus(roomId)
 
     return (
         <div className="w-72 h-72">
             <div className="w-full h-full">
-                <div className="card shadow-xl w-full h-full">
+                <div className="card shadow-xl w-full h-full indicator">
+                    <span
+                        className={`indicator-item ${
+                            isOnline
+                                ? "badge badge-success"
+                                : "badge badge-error"
+                        }`}
+                    ></span>
                     <div className="card-body">
                         <div className="flex justify-between">
                             <div className="card-title order-first">
