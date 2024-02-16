@@ -39,6 +39,49 @@ function ChatRoom({ roomId }) {
 
 // Example end
 
+function ChatCard({
+    roomId,
+    findRoomById,
+    toggleShowChatroom,
+    removeChatroom,
+}) {
+    const room = findRoomById(roomId)
+
+    return (
+        <div className="w-72 h-72">
+            <div className="w-full h-full">
+                <div className="card shadow-xl w-full h-full">
+                    <div className="card-body">
+                        <div className="flex justify-between">
+                            <div className="card-title order-first">
+                                Chatroom #{room.id}
+                            </div>
+                            <button
+                                className="btn btn-sm order-last w-16"
+                                onClick={() => toggleShowChatroom(room.id)}
+                            >
+                                {room.visible ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                        {room.visible ? (
+                            <ChatRoom roomId={room.id} />
+                        ) : (
+                            <div className="relative flex justify-center items-center h-full">
+                                <button
+                                    className="btn btn-error text-white"
+                                    onClick={() => removeChatroom(room.id)}
+                                >
+                                    {"Delete"}
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 export default function EffectLifecycle() {
     const [chatrooms, setChatrooms] = useState([{ id: 1, visible: true }])
 
@@ -47,9 +90,8 @@ export default function EffectLifecycle() {
         0
     )
 
-    function addChatroom() {
-        const nextRoom = { id: maxRoomId + 1, visible: true }
-        setChatrooms([...chatrooms, nextRoom])
+    function findRoomById(roomId) {
+        return chatrooms.find((r) => r.id === roomId)
     }
 
     function toggleShowChatroom(roomId) {
@@ -67,50 +109,22 @@ export default function EffectLifecycle() {
         setChatrooms(chatrooms.filter((r) => r.id !== roomId))
     }
 
+    function addChatroom() {
+        const nextRoom = { id: maxRoomId + 1, visible: true }
+        setChatrooms([...chatrooms, nextRoom])
+    }
+
     return (
         <div className="m-4">
             <div className="flex flex-wrap gap-4">
                 {chatrooms.map((r) => (
-                    <div key={r.id} className="w-72 h-72">
-                        <div
-                            className={`w-full h-full ${
-                                !r.visible &&
-                                " rounded-xl hover:ring-1 hover:ring-yellow-500"
-                            }`}
-                        >
-                            <div className="card shadow-xl w-full h-full">
-                                <div className="card-body">
-                                    <div className="flex justify-between">
-                                        <div className="card-title order-first">
-                                            Chatroom #{r.id}
-                                        </div>
-                                        <button
-                                            className="btn btn-sm order-last w-16"
-                                            onClick={() =>
-                                                toggleShowChatroom(r.id)
-                                            }
-                                        >
-                                            {r.visible ? "Hide" : "Show"}
-                                        </button>
-                                    </div>
-                                    {r.visible ? (
-                                        <ChatRoom roomId={r.id} />
-                                    ) : (
-                                        <div className="relative flex justify-center items-center h-full">
-                                            <button
-                                                className="btn btn-error text-white"
-                                                onClick={() =>
-                                                    removeChatroom(r.id)
-                                                }
-                                            >
-                                                {"Delete"}
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <ChatCard
+                        key={r.id}
+                        roomId={r.id}
+                        findRoomById={findRoomById}
+                        removeChatroom={removeChatroom}
+                        toggleShowChatroom={toggleShowChatroom}
+                    />
                 ))}
             </div>
             <div className="fixed bottom-10 right-10">
