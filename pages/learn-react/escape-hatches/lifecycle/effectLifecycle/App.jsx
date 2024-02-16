@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
-const ChatContext = createContext()
-
 function createConnection(serverUrl, roomId) {
     const identifier = `${serverUrl}:${roomId}`
 
@@ -26,30 +24,15 @@ function ChatRoom({ roomId }) {
     // ...
 
     // not in example start
-    const toggleShowChatroom = useContext(ChatContext)
 
     return (
-        <div className="card shadow-xl w-full h-full">
-            <div className="card-body">
-                <div className="flex justify-between">
-                    <div className="card-title order-first">
-                        Chatroom #{roomId}
-                    </div>
-                    <button
-                        className="btn btn-sm order-last"
-                        onClick={() => toggleShowChatroom(roomId)}
-                    >
-                        Hide
-                    </button>
-                </div>
-
-                <p>Welcome to Chat!</p>
-                <input
-                    className="input input-bordered"
-                    placeholder="Type here..."
-                ></input>
-            </div>
-        </div>
+        <>
+            <p>Welcome to Chat!</p>
+            <input
+                className="input input-bordered"
+                placeholder="Type here..."
+            ></input>
+        </>
     )
     // not in example end
 }
@@ -87,28 +70,33 @@ export default function EffectLifecycle() {
     return (
         <div className="m-4">
             <div className="flex flex-wrap gap-4">
-                <ChatContext.Provider value={toggleShowChatroom}>
-                    {chatrooms.map((r) => (
-                        <div key={r.id} className="w-72 h-72">
-                            <div
-                                className={`w-full h-full ${
-                                    !r.visible &&
-                                    " rounded-xl hover:ring-1 hover:ring-yellow-500"
-                                }`}
-                            >
-                                {r.visible ? (
-                                    <ChatRoom roomId={r.id} />
-                                ) : (
-                                    <div className="flex justify-center items-center h-full">
-                                        <div className="flex gap-2">
-                                            <button
-                                                className="btn"
-                                                onClick={() =>
-                                                    toggleShowChatroom(r.id)
-                                                }
-                                            >
-                                                {"Show"}
-                                            </button>
+                {chatrooms.map((r) => (
+                    <div key={r.id} className="w-72 h-72">
+                        <div
+                            className={`w-full h-full ${
+                                !r.visible &&
+                                " rounded-xl hover:ring-1 hover:ring-yellow-500"
+                            }`}
+                        >
+                            <div className="card shadow-xl w-full h-full">
+                                <div className="card-body">
+                                    <div className="flex justify-between">
+                                        <div className="card-title order-first">
+                                            Chatroom #{r.id}
+                                        </div>
+                                        <button
+                                            className="btn btn-sm order-last w-16"
+                                            onClick={() =>
+                                                toggleShowChatroom(r.id)
+                                            }
+                                        >
+                                            {r.visible ? "Hide" : "Show"}
+                                        </button>
+                                    </div>
+                                    {r.visible ? (
+                                        <ChatRoom roomId={r.id} />
+                                    ) : (
+                                        <div className="relative flex justify-center items-center h-full">
                                             <button
                                                 className="btn btn-error text-white"
                                                 onClick={() =>
@@ -118,16 +106,16 @@ export default function EffectLifecycle() {
                                                 {"Delete"}
                                             </button>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    ))}
-                </ChatContext.Provider>
+                    </div>
+                ))}
             </div>
             <div className="fixed bottom-10 right-10">
                 <div>
-                    <button className="btn" onClick={addChatroom}>
+                    <button className="btn btn-primary" onClick={addChatroom}>
                         Add
                     </button>
                 </div>
