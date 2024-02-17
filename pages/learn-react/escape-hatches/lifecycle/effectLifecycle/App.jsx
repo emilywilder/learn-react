@@ -29,6 +29,18 @@ function ChatRoom({ roomId }) {
 
 // Example end
 
+function OnlineIndicator({ roomId }) {
+    const isOnline = useOnlineStatus(roomId)
+
+    return (
+        <div
+            className={`badge badge-sm ${
+                isOnline ? "badge-success" : "badge-error"
+            }`}
+        />
+    )
+}
+
 function ChatCard({
     roomId,
     findRoomById,
@@ -36,23 +48,18 @@ function ChatCard({
     removeChatroom,
 }) {
     const room = findRoomById(roomId)
-    const isOnline = useOnlineStatus(roomId)
 
     return (
         <div className="w-72 h-72">
             <div className="w-full h-full">
-                <div className="card shadow-xl w-full h-full indicator">
-                    <span
-                        className={`indicator-item ${
-                            isOnline
-                                ? "badge badge-success"
-                                : "badge badge-error"
-                        }`}
-                    ></span>
-                    <div className="card-body">
-                        <div className="flex justify-between">
+                <div className="card shadow-xl w-full h-full">
+                    <div className="card-body relative">
+                        <div className="flex justify-between items-center">
                             <div className="card-title order-first">
-                                Chatroom #{room.id}
+                                <div className="flex items-center gap-2">
+                                    <OnlineIndicator roomId={room.id} />
+                                    <div>Chatroom {room.id}</div>
+                                </div>
                             </div>
                             <button
                                 className="btn btn-sm order-last w-16"
