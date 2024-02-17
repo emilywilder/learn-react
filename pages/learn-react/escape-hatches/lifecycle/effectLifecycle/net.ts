@@ -32,18 +32,16 @@ export function subscribe(cb: () => void): () => void {
     }
 }
 
-export function useOnlineStatus(roomId: number): boolean {
+export function useConnectionStore(roomId: number): boolean {
     function getSnapshot(): boolean {
         return CHAT_CONNECTIONS.find((x) => x === roomId) ? true : false
     }
 
-    const store = useSyncExternalStore(
+    return useSyncExternalStore(
         subscribe,
         getSnapshot, // client
         () => true // server
     )
-
-    return store
 }
 
 interface ConnectionType {

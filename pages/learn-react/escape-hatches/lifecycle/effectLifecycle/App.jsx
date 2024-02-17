@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { createConnection, serverUrl, useOnlineStatus } from "./net"
+import { createConnection, serverUrl, useConnectionStore } from "./net"
 
 // Example start
 
@@ -29,10 +29,10 @@ function ChatRoom({ roomId }) {
 
 // Example end
 
-function OnlineIndicator({ roomId }) {
-    const isOnline = useOnlineStatus(roomId)
-    const tooltipText = isOnline ? "Connected" : "Disconnected"
-    const badgeColor = isOnline ? "badge-success" : "badge-error"
+function ConnectionIndicator({ roomId }) {
+    const isConnected = useConnectionStore(roomId)
+    const tooltipText = isConnected ? "Connected" : "Disconnected"
+    const badgeColor = isConnected ? "badge-success" : "badge-error"
 
     return (
         <div className="tooltip" data-tip={tooltipText}>
@@ -57,7 +57,7 @@ function ChatCard({
                         <div className="flex justify-between items-center">
                             <div className="card-title order-first">
                                 <div className="flex items-center gap-2">
-                                    <OnlineIndicator roomId={room.id} />
+                                    <ConnectionIndicator roomId={room.id} />
                                     <div>Chatroom {room.id}</div>
                                 </div>
                             </div>
