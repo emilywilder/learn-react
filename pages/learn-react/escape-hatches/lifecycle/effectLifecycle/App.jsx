@@ -31,13 +31,13 @@ function ChatRoom({ roomId }) {
 
 function OnlineIndicator({ roomId }) {
     const isOnline = useOnlineStatus(roomId)
+    const tooltipText = isOnline ? "Connected" : "Disconnected"
+    const badgeColor = isOnline ? "badge-success" : "badge-error"
 
     return (
-        <div
-            className={`badge badge-sm ${
-                isOnline ? "badge-success" : "badge-error"
-            }`}
-        />
+        <div className="tooltip" data-tip={tooltipText}>
+            <div className={`badge badge-sm ${badgeColor}`} />
+        </div>
     )
 }
 
