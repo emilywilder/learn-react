@@ -22,13 +22,15 @@ function ChatRoom({ roomId }) {
     const [addChatMessage, findMessagesByRoomId, findUserById] =
         useContext(MessagesContext)
 
-    function sendMessage(text) {
-        addChatMessage(roomId, 1, text)
-        setText("")
+    function handleClick(text) {
+        if (text) {
+            addChatMessage(roomId, 1, text)
+            setText("")
+        }
     }
 
     function handleKeyDown(e) {
-        e.keyCode === 13 && sendMessage(text)
+        e.keyCode === 13 && handleClick(text)
     }
 
     const messages = findMessagesByRoomId(roomId)
@@ -56,7 +58,7 @@ function ChatRoom({ roomId }) {
                 <button
                     className="btn"
                     onClick={() => {
-                        text && sendMessage(text)
+                        handleClick(text)
                     }}
                 >
                     Send
