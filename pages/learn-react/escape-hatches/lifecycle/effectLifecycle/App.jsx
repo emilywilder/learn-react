@@ -18,7 +18,7 @@ function ChatRoom({ roomId }) {
 
     // not in example start
 
-    const [text, setText] = useState()
+    const [text, setText] = useState("")
     const [addChatMessage, findMessagesByRoomId, findUserById] =
         useContext(MessagesContext)
 
