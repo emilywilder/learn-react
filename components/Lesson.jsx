@@ -1,7 +1,7 @@
 import { StrictMode } from "react"
 
 import "@/app/globals.css"
-import LessonNavbar from "@/components/lessonNavbar"
+import LessonNavbar from "@/components/LessonNavbar"
 
 export default function Lesson({ name, sublessons }) {
     const mostRecentSublesson = sublessons

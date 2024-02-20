@@ -6,7 +6,7 @@ import { HiOutlineHome } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
 
-import Blank from "@/components/blank"
+import Blank from "@/components/Blank"
 
 export default function LessonNavbar({
     lessonName,
