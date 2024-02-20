@@ -26,6 +26,11 @@ function ChatRoom({ roomId }) {
         addChatMessage(roomId, 1, text)
         setText("")
     }
+
+    function handleKeyDown(e) {
+        e.keyCode === 13 && sendMessage(text)
+    }
+
     const messages = findMessagesByRoomId(roomId)
 
     return (
@@ -45,6 +50,7 @@ function ChatRoom({ roomId }) {
                 placeholder="Type here..."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
+                onKeyDown={handleKeyDown}
             />
             <div className="flex justify-end">
                 <button
