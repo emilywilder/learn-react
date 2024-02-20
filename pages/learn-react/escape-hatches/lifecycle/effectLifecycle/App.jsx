@@ -31,13 +31,15 @@ function ChatRoom({ roomId }) {
     return (
         <>
             <p>Welcome to Chat!</p>
-            {messages.map((msg) => (
-                <ChatMessage
-                    key={msg.id}
-                    message={msg}
-                    findUserById={findUserById}
-                />
-            ))}
+            <div className="max-h-40 overflow-auto">
+                {messages.map((msg) => (
+                    <ChatMessage
+                        key={msg.id}
+                        message={msg}
+                        findUserById={findUserById}
+                    />
+                ))}
+            </div>
             <input
                 className="input input-bordered"
                 placeholder="Type here..."
