@@ -130,15 +130,8 @@ function ChatCard({
 }
 
 export default function EffectLifecycle() {
-    const [chatrooms, setChatrooms] = useState([{ id: 1, visible: true }])
-    const [messages, setMessages] = useState([
-        {
-            id: 0,
-            roomId: 1,
-            userId: 0,
-            message: "Hello!",
-        },
-    ])
+    const [chatrooms, setChatrooms] = useState([])
+    const [messages, setMessages] = useState([])
     const users = [
         { id: 0, name: "Chatbot" },
         { id: 1, name: "Guest" },
@@ -198,6 +191,10 @@ export default function EffectLifecycle() {
                 message: message,
             },
         ])
+    }
+
+    if (!(chatrooms.length > 0)) {
+        addChatroom()
     }
 
     return (
