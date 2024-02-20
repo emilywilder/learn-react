@@ -47,7 +47,7 @@ function ChatRoom({ roomId }) {
                 <button
                     className="btn"
                     onClick={() => {
-                        sendMessage(text)
+                        text && sendMessage(text)
                     }}
                 >
                     Send
@@ -62,7 +62,6 @@ function ChatRoom({ roomId }) {
 
 function ChatMessage({ message, findUserById }) {
     const user = findUserById(message.userId)
-    console.debug(message)
     return (
         <ChatBubble end={user.id === 0 ? false : true}>
             <ChatBubble.Header>{user.name}</ChatBubble.Header>
