@@ -26,11 +26,12 @@ function ChatRoom({ roomId }) {
         addChatMessage(roomId, 1, text)
         setText("")
     }
+    const messages = findMessagesByRoomId(roomId)
 
     return (
         <>
             <p>Welcome to Chat!</p>
-            {findMessagesByRoomId(roomId).map((msg) => (
+            {messages.map((msg) => (
                 <ChatMessage
                     key={msg.id}
                     message={msg}
@@ -181,7 +182,9 @@ export default function EffectLifecycle() {
     }
 
     function addChatroom() {
-        const nextRoom = { id: maxRoomId + 1, visible: true }
+        const nextRoomId = maxRoomId + 1
+        const nextRoom = { id: nextRoomId, visible: true }
+        addChatMessage(nextRoomId, 0, "Hello!")
         setChatrooms([...chatrooms, nextRoom])
     }
 
