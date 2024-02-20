@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { createConnection, serverUrl, useConnectionStore } from "./net"
+
+const MessagesContext = createContext(null)
 
 // Example start
 
@@ -15,19 +17,57 @@ function ChatRoom({ roomId }) {
 
     // not in example start
 
+    const [text, setText] = useState()
+    const [addChatMessage, findMessagesByRoomId, findUserById] =
+        useContext(MessagesContext)
+
+    function sendMessage(text) {
+        addChatMessage(roomId, 1, text)
+        setText("")
+    }
+
     return (
         <>
             <p>Welcome to Chat!</p>
+            {findMessagesByRoomId(roomId).map((msg) => (
+                <ChatMessage
+                    key={msg.id}
+                    message={msg}
+                    findUserById={findUserById}
+                />
+            ))}
             <input
                 className="input input-bordered"
                 placeholder="Type here..."
-            ></input>
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+            />
+            <div className="flex justify-end">
+                <button
+                    className="btn"
+                    onClick={() => {
+                        sendMessage(text)
+                    }}
+                >
+                    Send
+                </button>
+            </div>
         </>
     )
     // not in example end
 }
 
 // Example end
+
+function ChatMessage({ message, findUserById }) {
+    const user = findUserById(message.userId)
+    return (
+        <div className={`chat chat-${user.id === 0 ? "start" : "end"}`}>
+            <div className="chat-header">{user.name}</div>
+            <div className="chat-bubble">{message.message}</div>
+        </div>
+    )
+}
 
 function ConnectionIndicator({ roomId }) {
     const isConnected = useConnectionStore(roomId)
@@ -50,7 +90,7 @@ function ChatCard({
     const room = findRoomById(roomId)
 
     return (
-        <div className="w-72 h-72">
+        <div className="w-72">
             <div className="w-full h-full">
                 <div className="card shadow-xl w-full h-full">
                     <div className="card-body relative">
@@ -89,11 +129,36 @@ function ChatCard({
 
 export default function EffectLifecycle() {
     const [chatrooms, setChatrooms] = useState([{ id: 1, visible: true }])
+    const [messages, setMessages] = useState([
+        {
+            id: 0,
+            roomId: 1,
+            userId: 0,
+            message: "Hello!",
+        },
+    ])
+    const users = [
+        { id: 0, name: "Chatbot" },
+        { id: 1, name: "Guest" },
+    ]
 
     const maxRoomId = chatrooms.reduce(
         (r, prev) => (r.id > prev.id ? r.id : prev.id),
         0
     )
+
+    const maxMessageId = messages.reduce(
+        (m, prev) => (m.id > prev.id ? m.id : prev.id),
+        0
+    )
+
+    function findMessagesByRoomId(roomId) {
+        return messages.filter((r) => r.roomId === roomId)
+    }
+
+    function findUserById(userId) {
+        return users.find((x) => x.id === userId)
+    }
 
     function findRoomById(roomId) {
         return chatrooms.find((r) => r.id === roomId)
@@ -119,18 +184,34 @@ export default function EffectLifecycle() {
         setChatrooms([...chatrooms, nextRoom])
     }
 
+    function addChatMessage(roomId, userId, message) {
+        setMessages([
+            ...messages,
+            {
+                id: maxMessageId + 1,
+                roomId: roomId,
+                userId: userId,
+                message: message,
+            },
+        ])
+    }
+
     return (
         <div className="m-4">
             <div className="flex flex-wrap gap-4">
-                {chatrooms.map((r) => (
-                    <ChatCard
-                        key={r.id}
-                        roomId={r.id}
-                        findRoomById={findRoomById}
-                        removeChatroom={removeChatroom}
-                        toggleShowChatroom={toggleShowChatroom}
-                    />
-                ))}
+                <MessagesContext.Provider
+                    value={[addChatMessage, findMessagesByRoomId, findUserById]}
+                >
+                    {chatrooms.map((r) => (
+                        <ChatCard
+                            key={r.id}
+                            roomId={r.id}
+                            findRoomById={findRoomById}
+                            removeChatroom={removeChatroom}
+                            toggleShowChatroom={toggleShowChatroom}
+                        />
+                    ))}
+                </MessagesContext.Provider>
             </div>
             <div className="fixed bottom-10 right-10">
                 <div>
