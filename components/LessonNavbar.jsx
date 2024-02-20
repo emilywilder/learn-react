@@ -123,7 +123,9 @@ function Sublesson({ sublesson }) {
             {sublesson ? (
                 <div
                     className={
-                        !sublesson.usesTailwind ? "notailwind ml-4" : undefined
+                        "usesTailwind" in sublesson && !sublesson.usesTailwind
+                            ? "notailwind ml-4"
+                            : undefined
                     }
                 >
                     {sublesson.component ? <sublesson.component /> : <Blank />}
