@@ -1,14 +1,6 @@
-import {
-    createContext,
-    createRef,
-    useContext,
-    useEffect,
-    useState,
-} from "react"
+import { createRef, useEffect, useState } from "react"
 import { createConnection, serverUrl, useConnectionStore } from "./net"
 import { ChatBubble } from "react-daisyui"
-
-const MessagesContext = createContext(null)
 
 // Example start
 
@@ -25,15 +17,43 @@ function ChatRoom({ roomId }) {
     // not in example start
 
     const [text, setText] = useState("")
-    const [addChatMessage, findMessagesByRoomId, findUserById] =
-        useContext(MessagesContext)
+    const [messages, setMessages] = useState([])
+    const users = [
+        { id: 0, name: "Chatbot" },
+        { id: 1, name: "Guest" },
+    ]
+
     const scrollRef = createRef(null)
 
-    useEffect(() => scrollToBottom())
+    const maxMessageId = messages.reduce(
+        (m, prev) => (m.id > prev.id ? m.id : prev.id),
+        0
+    )
+
+    function addChatMessage(userId, message) {
+        setMessages([
+            ...messages,
+            {
+                id: maxMessageId + 1,
+                userId: userId,
+                message: message,
+            },
+        ])
+    }
+
+    function findUserById(userId) {
+        return users.find((x) => x.id === userId)
+    }
+
+    useEffect(() => {
+        scrollRef.current.scrollIntoView({
+            behavior: "smooth",
+        })
+    }, [scrollRef, messages])
 
     function handleClick(text) {
         if (text) {
-            addChatMessage(roomId, 1, text)
+            addChatMessage(1, text)
             setText("")
         }
     }
@@ -42,12 +62,8 @@ function ChatRoom({ roomId }) {
         e.keyCode === 13 && handleClick(text)
     }
 
-    const messages = findMessagesByRoomId(roomId)
-
-    function scrollToBottom() {
-        scrollRef.current.scrollIntoView({
-            behavior: "smooth",
-        })
+    if (!(messages.length > 0)) {
+        addChatMessage(0, "Hello!")
     }
 
     return (
@@ -155,29 +171,11 @@ function ChatCard({
 
 export default function EffectLifecycle() {
     const [chatrooms, setChatrooms] = useState([])
-    const [messages, setMessages] = useState([])
-    const users = [
-        { id: 0, name: "Chatbot" },
-        { id: 1, name: "Guest" },
-    ]
 
     const maxRoomId = chatrooms.reduce(
         (r, prev) => (r.id > prev.id ? r.id : prev.id),
         0
     )
-
-    const maxMessageId = messages.reduce(
-        (m, prev) => (m.id > prev.id ? m.id : prev.id),
-        0
-    )
-
-    function findMessagesByRoomId(roomId) {
-        return messages.filter((r) => r.roomId === roomId)
-    }
-
-    function findUserById(userId) {
-        return users.find((x) => x.id === userId)
-    }
 
     function findRoomById(roomId) {
         return chatrooms.find((r) => r.id === roomId)
@@ -201,20 +199,7 @@ export default function EffectLifecycle() {
     function addChatroom() {
         const nextRoomId = maxRoomId + 1
         const nextRoom = { id: nextRoomId, visible: true }
-        addChatMessage(nextRoomId, 0, "Hello!")
         setChatrooms([...chatrooms, nextRoom])
-    }
-
-    function addChatMessage(roomId, userId, message) {
-        setMessages([
-            ...messages,
-            {
-                id: maxMessageId + 1,
-                roomId: roomId,
-                userId: userId,
-                message: message,
-            },
-        ])
     }
 
     if (!(chatrooms.length > 0)) {
@@ -224,19 +209,15 @@ export default function EffectLifecycle() {
     return (
         <div className="m-4">
             <div className="flex flex-wrap gap-4">
-                <MessagesContext.Provider
-                    value={[addChatMessage, findMessagesByRoomId, findUserById]}
-                >
-                    {chatrooms.map((r) => (
-                        <ChatCard
-                            key={r.id}
-                            roomId={r.id}
-                            findRoomById={findRoomById}
-                            removeChatroom={removeChatroom}
-                            toggleShowChatroom={toggleShowChatroom}
-                        />
-                    ))}
-                </MessagesContext.Provider>
+                {chatrooms.map((r) => (
+                    <ChatCard
+                        key={r.id}
+                        roomId={r.id}
+                        findRoomById={findRoomById}
+                        removeChatroom={removeChatroom}
+                        toggleShowChatroom={toggleShowChatroom}
+                    />
+                ))}
             </div>
             <div className="fixed bottom-10 right-10">
                 <div>
