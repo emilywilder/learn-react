@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import {
+    createContext,
+    createRef,
+    useContext,
+    useEffect,
+    useState,
+} from "react"
 import { createConnection, serverUrl, useConnectionStore } from "./net"
 import { ChatBubble } from "react-daisyui"
 
@@ -21,6 +27,9 @@ function ChatRoom({ roomId }) {
     const [text, setText] = useState("")
     const [addChatMessage, findMessagesByRoomId, findUserById] =
         useContext(MessagesContext)
+    const scrollRef = createRef(null)
+
+    useEffect(() => scrollToBottom())
 
     function handleClick(text) {
         if (text) {
@@ -35,6 +44,12 @@ function ChatRoom({ roomId }) {
 
     const messages = findMessagesByRoomId(roomId)
 
+    function scrollToBottom() {
+        scrollRef.current.scrollIntoView({
+            behavior: "smooth",
+        })
+    }
+
     return (
         <>
             <p>Welcome to Chat!</p>
@@ -46,6 +61,7 @@ function ChatRoom({ roomId }) {
                         findUserById={findUserById}
                     />
                 ))}
+                <div ref={scrollRef} />
             </div>
             <input
                 className="input input-bordered"
