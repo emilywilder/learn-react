@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { createConnection, serverUrl, useConnectionStore } from "./net"
+import { ChatBubble } from "react-daisyui"
 
 const MessagesContext = createContext(null)
 
@@ -61,11 +62,12 @@ function ChatRoom({ roomId }) {
 
 function ChatMessage({ message, findUserById }) {
     const user = findUserById(message.userId)
+    console.debug(message)
     return (
-        <div className={`chat chat-${user.id === 0 ? "start" : "end"}`}>
-            <div className="chat-header">{user.name}</div>
-            <div className="chat-bubble">{message.message}</div>
-        </div>
+        <ChatBubble end={user.id === 0 ? false : true}>
+            <ChatBubble.Header>{user.name}</ChatBubble.Header>
+            <ChatBubble.Message>{message.message}</ChatBubble.Message>
+        </ChatBubble>
     )
 }
 
