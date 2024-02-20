@@ -103,36 +103,34 @@ function ChatCard({
 
     return (
         <div className="w-72">
-            <div className="w-full h-full">
-                <div className="card shadow-xl w-full h-full">
-                    <div className="card-body relative">
-                        <div className="flex justify-between items-center">
-                            <div className="card-title order-first">
-                                <div className="flex items-center gap-2">
-                                    <ConnectionIndicator roomId={room.id} />
-                                    <div>Chatroom {room.id}</div>
-                                </div>
+            <div className="card shadow-xl">
+                <div className="card-body">
+                    <div className="flex justify-between items-center relative">
+                        <div className="card-title order-first">
+                            <div className="flex items-center gap-2">
+                                <ConnectionIndicator roomId={room.id} />
+                                <div>Chatroom {room.id}</div>
                             </div>
+                        </div>
+                        <button
+                            className="btn btn-sm order-last w-16"
+                            onClick={() => toggleShowChatroom(room.id)}
+                        >
+                            {room.visible ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                    {room.visible ? (
+                        <ChatRoom roomId={room.id} />
+                    ) : (
+                        <div className="relative flex justify-center items-center h-full">
                             <button
-                                className="btn btn-sm order-last w-16"
-                                onClick={() => toggleShowChatroom(room.id)}
+                                className="btn btn-error text-white"
+                                onClick={() => removeChatroom(room.id)}
                             >
-                                {room.visible ? "Hide" : "Show"}
+                                {"Delete"}
                             </button>
                         </div>
-                        {room.visible ? (
-                            <ChatRoom roomId={room.id} />
-                        ) : (
-                            <div className="relative flex justify-center items-center h-full">
-                                <button
-                                    className="btn btn-error text-white"
-                                    onClick={() => removeChatroom(room.id)}
-                                >
-                                    {"Delete"}
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
