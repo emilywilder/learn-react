@@ -202,22 +202,24 @@ export default function EffectLifecycle() {
         setChatrooms([...chatrooms, nextRoom])
     }
 
-    if (!(chatrooms.length > 0)) {
-        addChatroom()
-    }
-
     return (
         <div className="m-4">
             <div className="flex flex-wrap gap-4">
-                {chatrooms.map((r) => (
-                    <ChatCard
-                        key={r.id}
-                        roomId={r.id}
-                        findRoomById={findRoomById}
-                        removeChatroom={removeChatroom}
-                        toggleShowChatroom={toggleShowChatroom}
-                    />
-                ))}
+                {chatrooms.length > 0 ? (
+                    chatrooms.map((r) => (
+                        <ChatCard
+                            key={r.id}
+                            roomId={r.id}
+                            findRoomById={findRoomById}
+                            removeChatroom={removeChatroom}
+                            toggleShowChatroom={toggleShowChatroom}
+                        />
+                    ))
+                ) : (
+                    <div className="flex items-center justify-center h-[80vh] w-screen">
+                        <p className="text-xl">Add a chatroom!</p>
+                    </div>
+                )}
             </div>
             <div className="fixed bottom-10 right-10">
                 <div>
