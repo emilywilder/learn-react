@@ -27,7 +27,7 @@ function ChatRoom({ roomId }) {
     // not in example start
 
     const [text, setText] = useState("")
-    const [msgIds, addChatMessage] = useContext(ChatRoomContext)
+    const [msgIds, addChatMessage, setGetReply] = useContext(ChatRoomContext)
     const scrollRef = createRef(null)
 
     useEffect(() => {
@@ -40,6 +40,7 @@ function ChatRoom({ roomId }) {
         if (text) {
             addChatMessage(1, text)
             setText("")
+            setGetReply(true)
         }
     }
 
@@ -113,6 +114,7 @@ function ChatCard({
     toggleShowChatroom,
     removeChatroom,
 }) {
+    const [getReply, setGetReply] = useState(false)
     const room = findRoomById(roomId)
     const [messages, setMessages] = useState([])
     const users = [
@@ -137,6 +139,15 @@ function ChatCard({
         ])
     }
 
+    function getApiReply() {
+        setTimeout(async () => {
+            const res = await fetch("/api/magicEightBallChatbot")
+            const json = await res.json()
+
+            addChatMessage(0, json.text)
+        }, 1000)
+    }
+
     function findUserById(userId) {
         return users.find((x) => x.id === userId)
     }
@@ -153,6 +164,11 @@ function ChatCard({
 
     if (!(messages.length > 0)) {
         addChatMessage(0, "Hello!")
+    }
+
+    if (getReply) {
+        getApiReply()
+        setGetReply(false)
     }
 
     return (
@@ -175,7 +191,7 @@ function ChatCard({
                     </div>
                     {room.visible ? (
                         <ChatRoomContext.Provider
-                            value={[msgIds, addChatMessage]}
+                            value={[msgIds, addChatMessage, setGetReply]}
                         >
                             <ChatMessageContext.Provider
                                 value={[
