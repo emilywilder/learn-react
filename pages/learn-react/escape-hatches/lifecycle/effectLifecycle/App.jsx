@@ -1,7 +1,16 @@
-import { createRef, useEffect, useState } from "react"
+import {
+    createContext,
+    createRef,
+    useContext,
+    useEffect,
+    useState,
+} from "react"
 import { createConnection, serverUrl, useConnectionStore } from "./net"
 import { ChatBubble } from "react-daisyui"
 import { useSpring, animated } from "@react-spring/web"
+
+const ChatMessageContext = createContext()
+const ChatRoomContext = createContext()
 
 // Example start
 
@@ -18,39 +27,14 @@ function ChatRoom({ roomId }) {
     // not in example start
 
     const [text, setText] = useState("")
-    const [messages, setMessages] = useState([])
-    const users = [
-        { id: 0, name: "Chatbot" },
-        { id: 1, name: "Guest" },
-    ]
-
+    const [msgIds, addChatMessage] = useContext(ChatRoomContext)
     const scrollRef = createRef(null)
-
-    const maxMessageId = messages.reduce(
-        (m, prev) => (m.id > prev.id ? m.id : prev.id),
-        0
-    )
-
-    function addChatMessage(userId, message) {
-        setMessages([
-            ...messages,
-            {
-                id: maxMessageId + 1,
-                userId: userId,
-                message: message,
-            },
-        ])
-    }
-
-    function findUserById(userId) {
-        return users.find((x) => x.id === userId)
-    }
 
     useEffect(() => {
         scrollRef.current.scrollIntoView({
             behavior: "smooth",
         })
-    }, [scrollRef, messages])
+    }, [scrollRef, msgIds])
 
     function handleClick() {
         if (text) {
@@ -63,27 +47,12 @@ function ChatRoom({ roomId }) {
         e.keyCode === 13 && handleClick()
     }
 
-    if (!(messages.length > 0)) {
-        addChatMessage(0, "Hello!")
-    }
-
-    function messageInGroup(msgId) {
-        const message = messages.find((m) => m.id === msgId)
-        const prev = messages.find((m) => m.id === msgId - 1) || {}
-        return message.userId === prev.userId
-    }
-
     return (
         <>
             <p>Welcome to Chat!</p>
             <div className="max-h-40 overflow-auto">
-                {messages.map((msg) => (
-                    <ChatMessage
-                        key={msg.id}
-                        message={msg}
-                        findUserById={findUserById}
-                        messageInGroup={messageInGroup}
-                    />
+                {msgIds.map((msgId) => (
+                    <ChatMessage key={msgId} msgId={msgId} />
                 ))}
                 <div ref={scrollRef} />
             </div>
@@ -111,7 +80,11 @@ function ChatRoom({ roomId }) {
 
 // Example end
 
-function ChatMessage({ message, findUserById, messageInGroup }) {
+function ChatMessage({ msgId }) {
+    const [findMessageById, findUserById, messageInGroup] =
+        useContext(ChatMessageContext)
+
+    const message = findMessageById(msgId)
     const user = findUserById(message.userId)
     const isInGroup = messageInGroup(message.id)
     return (
@@ -141,6 +114,46 @@ function ChatCard({
     removeChatroom,
 }) {
     const room = findRoomById(roomId)
+    const [messages, setMessages] = useState([])
+    const users = [
+        { id: 0, name: "Chatbot" },
+        { id: 1, name: "Guest" },
+    ]
+    const msgIds = messages.map((msg) => msg.id)
+
+    const maxMessageId = messages.reduce(
+        (m, prev) => (m.id > prev.id ? m.id : prev.id),
+        0
+    )
+
+    function addChatMessage(userId, message) {
+        setMessages([
+            ...messages,
+            {
+                id: maxMessageId + 1,
+                userId: userId,
+                message: message,
+            },
+        ])
+    }
+
+    function findUserById(userId) {
+        return users.find((x) => x.id === userId)
+    }
+
+    function findMessageById(msgId) {
+        return messages.find((x) => x.id === msgId)
+    }
+
+    function messageInGroup(msgId) {
+        const message = messages.find((m) => m.id === msgId)
+        const prev = messages.find((m) => m.id === msgId - 1) || {}
+        return message.userId === prev.userId
+    }
+
+    if (!(messages.length > 0)) {
+        addChatMessage(0, "Hello!")
+    }
 
     return (
         <div className="w-72">
@@ -161,7 +174,19 @@ function ChatCard({
                         </button>
                     </div>
                     {room.visible ? (
-                        <ChatRoom roomId={room.id} />
+                        <ChatRoomContext.Provider
+                            value={[msgIds, addChatMessage]}
+                        >
+                            <ChatMessageContext.Provider
+                                value={[
+                                    findMessageById,
+                                    findUserById,
+                                    messageInGroup,
+                                ]}
+                            >
+                                <ChatRoom roomId={room.id} />
+                            </ChatMessageContext.Provider>
+                        </ChatRoomContext.Provider>
                     ) : (
                         <div className="relative flex justify-center items-center h-full">
                             <button
