@@ -67,6 +67,12 @@ function ChatRoom({ roomId }) {
         addChatMessage(0, "Hello!")
     }
 
+    function messageInGroup(msgId) {
+        const message = messages.find((m) => m.id === msgId)
+        const prev = messages.find((m) => m.id === msgId - 1) || {}
+        return message.userId === prev.userId
+    }
+
     return (
         <>
             <p>Welcome to Chat!</p>
@@ -76,6 +82,7 @@ function ChatRoom({ roomId }) {
                         key={msg.id}
                         message={msg}
                         findUserById={findUserById}
+                        messageInGroup={messageInGroup}
                     />
                 ))}
                 <div ref={scrollRef} />
@@ -104,11 +111,12 @@ function ChatRoom({ roomId }) {
 
 // Example end
 
-function ChatMessage({ message, findUserById }) {
+function ChatMessage({ message, findUserById, messageInGroup }) {
     const user = findUserById(message.userId)
+    const isInGroup = messageInGroup(message.id)
     return (
         <ChatBubble end={user.id === 0 ? false : true}>
-            <ChatBubble.Header>{user.name}</ChatBubble.Header>
+            {!isInGroup && <ChatBubble.Header>{user.name}</ChatBubble.Header>}
             <ChatBubble.Message>{message.message}</ChatBubble.Message>
         </ChatBubble>
     )
