@@ -52,7 +52,7 @@ function ChatRoom({ roomId }) {
         })
     }, [scrollRef, messages])
 
-    function handleClick(text) {
+    function handleClick() {
         if (text) {
             addChatMessage(1, text)
             setText("")
@@ -60,7 +60,7 @@ function ChatRoom({ roomId }) {
     }
 
     function handleKeyDown(e) {
-        e.keyCode === 13 && handleClick(text)
+        e.keyCode === 13 && handleClick()
     }
 
     if (!(messages.length > 0)) {
@@ -97,8 +97,8 @@ function ChatRoom({ roomId }) {
             <div className="flex justify-end">
                 <button
                     className="btn"
-                    onClick={() => {
-                        handleClick(text)
+                    onClick={(e) => {
+                        handleClick()
                     }}
                 >
                     Send
