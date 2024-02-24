@@ -36,16 +36,11 @@ function ChatRoom({ roomId }) {
         })
     }, [scrollRef, msgIds])
 
-    function handleClick() {
-        if (text) {
-            addChatMessage(1, text)
-            setText("")
-            setGetReply(true)
-        }
-    }
-
-    function handleKeyDown(e) {
-        e.keyCode === 13 && handleClick()
+    function handleClick(e) {
+        e.preventDefault()
+        addChatMessage(1, text)
+        setText("")
+        setGetReply(true)
     }
 
     return (
@@ -57,23 +52,20 @@ function ChatRoom({ roomId }) {
                 ))}
                 <div ref={scrollRef} />
             </div>
-            <input
-                className="input input-bordered"
-                placeholder="Type here..."
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                onKeyDown={handleKeyDown}
-            />
-            <div className="flex justify-end">
-                <button
-                    className="btn"
-                    onClick={(e) => {
-                        handleClick()
-                    }}
-                >
-                    Send
-                </button>
-            </div>
+            <form className="space-y-4" onSubmit={(e) => handleClick(e)}>
+                <input
+                    className="input input-bordered"
+                    placeholder="Type here..."
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    required
+                />
+                <div className="flex justify-end">
+                    <button type="submit" className="btn">
+                        Send
+                    </button>
+                </div>
+            </form>
         </>
     )
     // not in example end
@@ -172,48 +164,46 @@ function ChatCard({
     }
 
     return (
-        <div className="w-72">
-            <div className="card shadow-xl hover:ring-2">
-                <div className="card-body">
-                    <div className="flex justify-between items-center relative">
-                        <div className="card-title order-first">
-                            <div className="flex items-center gap-2">
-                                <ConnectionIndicator roomId={room.id} />
-                                <div>Chatroom {room.id}</div>
-                            </div>
+        <div className="card shadow-xl hover:ring-2">
+            <div className="card-body">
+                <div className="flex justify-between items-center relative">
+                    <div className="card-title order-first">
+                        <div className="flex items-center gap-2">
+                            <ConnectionIndicator roomId={room.id} />
+                            <div>Chatroom {room.id}</div>
                         </div>
-                        <button
-                            className="btn btn-sm order-last w-16"
-                            onClick={() => toggleShowChatroom(room.id)}
+                    </div>
+                    <button
+                        className="btn btn-sm order-last w-16"
+                        onClick={() => toggleShowChatroom(room.id)}
+                    >
+                        {room.visible ? "Hide" : "Show"}
+                    </button>
+                </div>
+                {room.visible ? (
+                    <ChatRoomContext.Provider
+                        value={[msgIds, addChatMessage, setGetReply]}
+                    >
+                        <ChatMessageContext.Provider
+                            value={[
+                                findMessageById,
+                                findUserById,
+                                messageInGroup,
+                            ]}
                         >
-                            {room.visible ? "Hide" : "Show"}
+                            <ChatRoom roomId={room.id} />
+                        </ChatMessageContext.Provider>
+                    </ChatRoomContext.Provider>
+                ) : (
+                    <div className="relative flex justify-center items-center h-full">
+                        <button
+                            className="btn btn-error text-white"
+                            onClick={() => removeChatroom(room.id)}
+                        >
+                            {"Delete"}
                         </button>
                     </div>
-                    {room.visible ? (
-                        <ChatRoomContext.Provider
-                            value={[msgIds, addChatMessage, setGetReply]}
-                        >
-                            <ChatMessageContext.Provider
-                                value={[
-                                    findMessageById,
-                                    findUserById,
-                                    messageInGroup,
-                                ]}
-                            >
-                                <ChatRoom roomId={room.id} />
-                            </ChatMessageContext.Provider>
-                        </ChatRoomContext.Provider>
-                    ) : (
-                        <div className="relative flex justify-center items-center h-full">
-                            <button
-                                className="btn btn-error text-white"
-                                onClick={() => removeChatroom(room.id)}
-                            >
-                                {"Delete"}
-                            </button>
-                        </div>
-                    )}
-                </div>
+                )}
             </div>
         </div>
     )
@@ -250,6 +240,10 @@ export default function EffectLifecycle() {
         const nextRoomId = maxRoomId + 1
         const nextRoom = { id: nextRoomId, visible: true }
         setChatrooms([...chatrooms, nextRoom])
+    }
+
+    if (chatrooms.length == 0) {
+        addChatroom()
     }
 
     return (
