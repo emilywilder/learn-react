@@ -14,7 +14,7 @@ function Item({ name, importance }) {
   export default function PackingList() {
     return (
       <section>
-        <h1>Sally Ride's Packing List</h1>
+        <h1>Sally Ride&apos;s Packing List</h1>
         <ul>
           <Item 
             importance={9} 
