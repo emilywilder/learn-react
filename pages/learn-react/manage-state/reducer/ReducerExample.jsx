@@ -1,5 +1,5 @@
-import index_html from './reducerExample/index.html'
-import './reducerExample/index.js'
+import index_html from './reducerExampleDir/index.html'
+import './reducerExampleDir/index.js'
 
 export default function App() {
     return (
