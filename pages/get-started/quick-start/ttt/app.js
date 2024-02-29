@@ -55,7 +55,7 @@ function Board({ xIsNext, squares, onPlay }) {
                             i.map((j) => (
                                 <Square value={squares[j]}
                                     onSquareClick={() => handleClick(j)}
-                                    winner={...winningLines.includes(j)}
+                                    winner={winningLines.includes(j)}
                                     key={j} />
                             ))
                         }
