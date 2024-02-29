@@ -6,7 +6,7 @@ export default function Form() {
     const [status, setStatus] = useState('typing')
 
     if (status === 'success') {
-        return <h1>That's right!</h1>
+        return <h1>That&apos;s right!</h1>
     }
 
     async function handleSubmit(e) {
