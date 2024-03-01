@@ -1,16 +1,2 @@
-import React, { StrictMode } from "react";
-import "./styles.css";
-
-// import App from './App'
-// import App from './Challenge1'
-// import App from './Challenge2'
-// import App from './Challenge3'
-import App from './Challenge4'
-
-export default function Home() {
-    return (
-        <StrictMode>
-            <App />
-        </StrictMode>
-    )
-}
+import App from "@/modules/learn-react/interactivity/state"
+export default App

@@ -1,11 +1,2 @@
-import React, { StrictMode } from "react";
-
-import App from './App'
-
-export default function Home() {
-    return (
-        <StrictMode>
-            <App />
-        </StrictMode>
-    )
-}
+import App from "@/modules/learn-react/interactivity/render"
+export default App
