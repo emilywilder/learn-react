@@ -32,6 +32,7 @@ function ChatRoom({ roomId }) {
 
     useEffect(() => {
         scrollRef.current.scrollIntoView({
+            block: "nearest",
             behavior: "smooth",
         })
     }, [scrollRef, msgIds])
