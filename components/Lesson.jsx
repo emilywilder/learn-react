@@ -9,7 +9,7 @@ export default function Lesson({ name, sublessons }) {
         .reduce(
             (previous, current) =>
                 current.id > previous.id ? current : previous,
-            []
+            { id: 0 }
         )
 
     return (
