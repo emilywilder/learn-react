@@ -1,6 +1,7 @@
 import Lesson from "@/components/Lesson"
 
 import EffectLifecycle from "./effectLifecycle/App"
+import SyncFrequency from "./syncFrequency/App"
 
 export default function Home() {
     return (
@@ -17,7 +18,7 @@ const sublessons = [
     {
         id: 1,
         title: "Why synchronization may need to happen more than once",
-        component: null, // SyncFrequency
+        component: SyncFrequency,
     },
     {
         id: 2,
