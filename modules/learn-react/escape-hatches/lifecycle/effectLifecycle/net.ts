@@ -34,7 +34,7 @@ export function subscribe(cb: () => void): () => void {
 
 export function useConnectionStore(roomId: number): boolean {
     function getSnapshot(): boolean {
-        return CHAT_CONNECTIONS.find((x) => x === roomId) ? true : false
+        return CHAT_CONNECTIONS.includes(roomId)
     }
 
     return useSyncExternalStore(
