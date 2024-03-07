@@ -211,7 +211,7 @@ function ChatCard({
 }
 
 export default function EffectLifecycle() {
-    const [chatrooms, setChatrooms] = useState([])
+    const [chatrooms, setChatrooms] = useState([{ id: 1, visible: true }])
 
     const maxRoomId = chatrooms.reduce(
         (r, prev) => (r.id > prev.id ? r.id : prev.id),
@@ -241,10 +241,6 @@ export default function EffectLifecycle() {
         const nextRoomId = maxRoomId + 1
         const nextRoom = { id: nextRoomId, visible: true }
         setChatrooms([...chatrooms, nextRoom])
-    }
-
-    if (chatrooms.length == 0) {
-        addChatroom()
     }
 
     return (
