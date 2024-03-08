@@ -5,6 +5,7 @@ import { ChatBubble } from "react-daisyui"
 const chatrooms = [
     { id: 0, name: "General" },
     { id: 1, name: "Travel" },
+    { id: 2, name: "Music" },
 ]
 
 const users = [
