@@ -31,8 +31,6 @@ function ChatRoom({ roomId }) {
     const roomMessages = messages.filter((m) => m.roomId === room.id)
     const msgIds = roomMessages.map((msg) => msg.id)
 
-    const [text, setText] = useState("")
-
     function addChatMessage(userId, message) {
         setMessages([
             ...messages,
@@ -77,10 +75,8 @@ function ChatRoom({ roomId }) {
         setGetReply(false)
     }
 
-    function handleClick(e) {
-        e.preventDefault()
+    function handleSubmit(text) {
         addChatMessage(1, text)
-        setText("")
         setGetReply(true)
     }
     // not in example end
@@ -110,23 +106,7 @@ function ChatRoom({ roomId }) {
                         messageInGroup={messageInGroup}
                     />
 
-                    <form
-                        className="space-y-4"
-                        onSubmit={(e) => handleClick(e)}
-                    >
-                        <input
-                            className="input input-bordered"
-                            placeholder="Type here..."
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            required
-                        />
-                        <div className="flex justify-end">
-                            <button type="submit" className="btn">
-                                Send
-                            </button>
-                        </div>
-                    </form>
+                    <ChatForm handleSubmit={handleSubmit} />
                 </div>
             </div>
         </>
@@ -135,6 +115,32 @@ function ChatRoom({ roomId }) {
 }
 
 // Example end
+
+function ChatForm({ handleSubmit }) {
+    const [text, setText] = useState("")
+
+    function handleClick(e) {
+        e.preventDefault()
+        setText("")
+        handleSubmit(text)
+    }
+    return (
+        <form className="space-y-4" onSubmit={(e) => handleClick(e)}>
+            <input
+                className="input input-bordered"
+                placeholder="Type here..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                required
+            />
+            <div className="flex justify-end">
+                <button type="submit" className="btn">
+                    Send
+                </button>
+            </div>
+        </form>
+    )
+}
 
 function MessageHistory({
     msgIds,
