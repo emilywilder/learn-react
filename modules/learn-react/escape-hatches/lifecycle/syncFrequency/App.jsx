@@ -197,14 +197,8 @@ export default function EffectLifecycle() {
     const r = findRoomById(1)
 
     return (
-        <div className="m-4">
-            <div className="flex flex-wrap gap-4">
-                <ChatCard
-                    key={r.id}
-                    roomId={r.id}
-                    findRoomById={findRoomById}
-                />
-            </div>
+        <div className="flex justify-center items-center m-10">
+            <ChatCard key={r.id} roomId={r.id} findRoomById={findRoomById} />
         </div>
     )
 }
