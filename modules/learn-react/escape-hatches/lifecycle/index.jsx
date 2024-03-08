@@ -4,6 +4,7 @@ import EffectLifecycle from "./effectLifecycle/App"
 import SyncFrequency from "./syncFrequency/App"
 import HowResync from "./howResync/App"
 import EffectPerspective from "./effectPerspective/App"
+import VerifyResync from "./verifyResync/App"
 
 export default function Home() {
     return (
@@ -35,7 +36,8 @@ const sublessons = [
     {
         id: 4,
         title: "How React verifies that your Effect can re-synchronize",
-        component: null, // VerifyResync
+        component: VerifyResync,
+        usesTailwind: false,
     },
     {
         id: 5,
