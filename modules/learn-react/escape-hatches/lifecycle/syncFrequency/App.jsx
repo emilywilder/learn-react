@@ -99,20 +99,32 @@ function ConnectionIndicator({ roomId }) {
     )
 }
 
-function Chat({ roomId, findRoomById }) {
-    const [getReply, setGetReply] = useState(false)
-    const room = findRoomById(roomId)
-    const [messages, setMessages] = useState([])
+function ChatCard({}) {
+    const chatrooms = [
+        { id: 0, name: "General" },
+        { id: 1, name: "Abstract" },
+    ]
     const users = [
         { id: 0, name: "Chatbot" },
         { id: 1, name: "Guest" },
     ]
-    const msgIds = messages.map((msg) => msg.id)
+    const [messages, setMessages] = useState([])
+    const [getReply, setGetReply] = useState(false)
+    const [selected, setSelected] = useState(0)
+
+    function findRoomById(roomId) {
+        return chatrooms.find((r) => r.id === Number(roomId))
+    }
+
+    const roomIds = chatrooms.map((room) => room.id)
 
     const maxMessageId = messages.reduce(
         (m, prev) => (m.id > prev.id ? m.id : prev.id),
         0
     )
+
+    const room = findRoomById(selected)
+    const msgIds = filterMessagesByRoomId(room.id).map((msg) => msg.id)
 
     function addChatMessage(userId, message) {
         setMessages([
@@ -120,6 +132,7 @@ function Chat({ roomId, findRoomById }) {
             {
                 id: maxMessageId + 1,
                 userId: userId,
+                roomId: room.id,
                 message: message,
             },
         ])
@@ -142,13 +155,18 @@ function Chat({ roomId, findRoomById }) {
         return messages.find((x) => x.id === msgId)
     }
 
+    function filterMessagesByRoomId(roomId) {
+        return messages.filter((m) => m.roomId === room.id)
+    }
+
     function messageInGroup(msgId) {
-        const message = messages.find((m) => m.id === msgId)
-        const prev = messages.find((m) => m.id === msgId - 1) || {}
+        const roomMessages = filterMessagesByRoomId(room.id)
+        const message = roomMessages.find((m) => m.id === msgId) || {}
+        const prev = roomMessages.find((m) => m.id === msgId - 1) || {}
         return message.userId === prev.userId
     }
 
-    if (!(messages.length > 0)) {
+    if (!(filterMessagesByRoomId(room.id).length > 0)) {
         addChatMessage(0, "Hello!")
     }
 
@@ -157,36 +175,6 @@ function Chat({ roomId, findRoomById }) {
         setGetReply(false)
     }
 
-    return (
-        <>
-            <ChatRoomContext.Provider
-                value={[msgIds, addChatMessage, setGetReply]}
-            >
-                <ChatMessageContext.Provider
-                    value={[findMessageById, findUserById, messageInGroup]}
-                >
-                    <p>Welcome to {room.name} Chat!</p>
-                    <ChatRoom roomId={room.id} />
-                </ChatMessageContext.Provider>
-            </ChatRoomContext.Provider>
-        </>
-    )
-}
-
-function ChatCard({}) {
-    const chatrooms = [
-        { id: 0, name: "General" },
-        { id: 1, name: "Abstract" },
-    ]
-    const [selected, setSelected] = useState(0)
-
-    function findRoomById(roomId) {
-        return chatrooms.find((r) => r.id === Number(roomId))
-    }
-
-    const roomIds = chatrooms.map((room) => room.id)
-
-    const r = findRoomById(selected)
     return (
         <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
             <div className="card-body">
@@ -205,7 +193,17 @@ function ChatCard({}) {
                         />
                     </div>
                 </div>
-                <Chat key={r.id} roomId={r.id} findRoomById={findRoomById} />
+
+                <ChatRoomContext.Provider
+                    value={[msgIds, addChatMessage, setGetReply]}
+                >
+                    <ChatMessageContext.Provider
+                        value={[findMessageById, findUserById, messageInGroup]}
+                    >
+                        <p>Welcome to {room.name} Chat!</p>
+                        <ChatRoom key={room.id} roomId={room.id} />
+                    </ChatMessageContext.Provider>
+                </ChatRoomContext.Provider>
             </div>
         </div>
     )
