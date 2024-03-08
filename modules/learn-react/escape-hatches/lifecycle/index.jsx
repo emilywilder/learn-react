@@ -1,9 +1,9 @@
 import Lesson from "@/components/Lesson"
+import ReadingLesson from "@/components/ReadingLesson"
 
 import EffectLifecycle from "./effectLifecycle/App"
 import SyncFrequency from "./syncFrequency/App"
 import HowResync from "./howResync/App"
-import EffectPerspective from "./effectPerspective/App"
 import VerifyResync from "./verifyResync/App"
 
 export default function Home() {
@@ -31,7 +31,7 @@ const sublessons = [
     {
         id: 3,
         title: "Thinking from the Effect\u2019s perspective",
-        component: EffectPerspective,
+        component: ReadingLesson,
     },
     {
         id: 4,
