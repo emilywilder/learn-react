@@ -213,9 +213,11 @@ function ChatCard({}) {
 
 function RoomMenu({ roomIds, findRoomById, selected, setSelected }) {
     return (
-        <details className="dropdown">
-            <summary className="m-1 btn">{findRoomById(selected).name}</summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+        <details className="dropdown dropdown-right">
+            <summary className="m-1 btn w-24">
+                {findRoomById(selected).name}
+            </summary>
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box">
                 {roomIds.map((roomId) => (
                     <li key={roomId}>
                         <a onClick={() => setSelected(roomId)}>
