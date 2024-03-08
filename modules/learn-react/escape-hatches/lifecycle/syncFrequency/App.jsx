@@ -7,18 +7,23 @@ const chatrooms = [
     { id: 1, name: "Travel" },
 ]
 
+const users = [
+    { id: 0, name: "Chatbot" },
+    { id: 1, name: "Guest" },
+]
+
 function findRoomById(roomId) {
     return chatrooms.find((r) => r.id === Number(roomId))
+}
+
+function findUserById(userId) {
+    return users.find((x) => x.id === userId)
 }
 
 // Example start
 
 function ChatRoom({ roomId }) {
     // not in example start
-    const users = [
-        { id: 0, name: "Chatbot" },
-        { id: 1, name: "Guest" },
-    ]
     const [messages, setMessages] = useState([])
     const [getReply, setGetReply] = useState(false)
 
@@ -50,10 +55,6 @@ function ChatRoom({ roomId }) {
 
             addChatMessage(0, json.text)
         }, 1000)
-    }
-
-    function findUserById(userId) {
-        return users.find((x) => x.id === userId)
     }
 
     function findMessageById(msgId) {
@@ -102,7 +103,6 @@ function ChatRoom({ roomId }) {
                     <MessageHistory
                         msgIds={msgIds}
                         findMessageById={findMessageById}
-                        findUserById={findUserById}
                         messageInGroup={messageInGroup}
                     />
 
@@ -145,7 +145,7 @@ function ChatForm({ handleSubmit }) {
 function MessageHistory({
     msgIds,
     findMessageById,
-    findUserById,
+
     messageInGroup,
 }) {
     const scrollRef = createRef(null)
@@ -164,7 +164,6 @@ function MessageHistory({
                     key={msgId}
                     msgId={msgId}
                     findMessageById={findMessageById}
-                    findUserById={findUserById}
                     messageInGroup={messageInGroup}
                 />
             ))}
@@ -173,7 +172,7 @@ function MessageHistory({
     )
 }
 
-function ChatMessage({ msgId, findMessageById, findUserById, messageInGroup }) {
+function ChatMessage({ msgId, findMessageById, messageInGroup }) {
     const message = findMessageById(msgId)
     const user = findUserById(message.userId)
     const isInGroup = messageInGroup(message.id)
