@@ -95,7 +95,7 @@ function ChatRoom({ roomId }) {
 
     return (
         <>
-            <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
+            <div className="card shadow-xl h-[26em] w-[20em]">
                 <div className="card-body">
                     <div className="card-title">Chatroom</div>
                     <p>Welcome to {room.name} Chat!</p>
