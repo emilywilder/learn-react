@@ -45,7 +45,6 @@ function ChatRoom({ roomId }) {
 
     return (
         <>
-            <p>Welcome to Chat!</p>
             <div className="max-h-40 overflow-auto">
                 {msgIds.map((msgId) => (
                     <ChatMessage key={msgId} msgId={msgId} />
@@ -166,6 +165,7 @@ function Chat({ roomId, findRoomById }) {
                 <ChatMessageContext.Provider
                     value={[findMessageById, findUserById, messageInGroup]}
                 >
+                    <p>Welcome to {room.name} Chat!</p>
                     <ChatRoom roomId={room.id} />
                 </ChatMessageContext.Provider>
             </ChatRoomContext.Provider>
@@ -173,31 +173,59 @@ function Chat({ roomId, findRoomById }) {
     )
 }
 
-function ChatCard() {
+function ChatCard({}) {
     const chatrooms = [
         { id: 0, name: "General" },
         { id: 1, name: "Abstract" },
     ]
+    const [selected, setSelected] = useState(0)
 
     function findRoomById(roomId) {
-        return chatrooms.find((r) => r.id === roomId)
+        return chatrooms.find((r) => r.id === Number(roomId))
     }
 
-    const r = findRoomById(0)
+    const roomIds = chatrooms.map((room) => room.id)
+
+    const r = findRoomById(selected)
     return (
         <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
             <div className="card-body">
                 <div className="flex justify-between items-center relative">
                     <div className="card-title order-first">
                         <div className="flex items-center gap-2">
-                            <div>Chatroom {r.id}</div>
+                            <div>Chatroom</div>
                         </div>
                     </div>
-                    <button className="btn btn-sm order-last w-16"></button>
+                    <div className="order-last">
+                        <RoomMenu
+                            roomIds={roomIds}
+                            findRoomById={findRoomById}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                    </div>
                 </div>
-                <Chat roomId={r.id} findRoomById={findRoomById} />
+                <Chat key={r.id} roomId={r.id} findRoomById={findRoomById} />
             </div>
         </div>
+    )
+}
+
+function RoomMenu({ roomIds, findRoomById, selected, setSelected }) {
+    return (
+        <details className="dropdown">
+            <summary className="m-1 btn">{findRoomById(selected).name}</summary>
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                {roomIds.map((roomId) => (
+                    <li key={roomId}>
+                        <a onClick={() => setSelected(roomId)}>
+                            <ConnectionIndicator roomId={roomId} />
+                            <span>{findRoomById(roomId).name}</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </details>
     )
 }
 
