@@ -3,6 +3,7 @@ import Lesson from "@/components/Lesson"
 import EffectLifecycle from "./effectLifecycle/App"
 import SyncFrequency from "./syncFrequency/App"
 import HowResync from "./howResync/App"
+import EffectPerspective from "./effectPerspective/App"
 
 export default function Home() {
     return (
@@ -29,7 +30,7 @@ const sublessons = [
     {
         id: 3,
         title: "Thinking from the Effect\u2019s perspective",
-        component: null, // EffectPerspective
+        component: EffectPerspective,
     },
     {
         id: 4,
