@@ -2,6 +2,7 @@ import Lesson from "@/components/Lesson"
 
 import EffectLifecycle from "./effectLifecycle/App"
 import SyncFrequency from "./syncFrequency/App"
+import HowResync from "./howResync/App"
 
 export default function Home() {
     return (
@@ -23,7 +24,7 @@ const sublessons = [
     {
         id: 2,
         title: "How React re-synchronizes your Effect",
-        component: null, // HowResync
+        component: HowResync,
     },
     {
         id: 3,
