@@ -102,7 +102,7 @@ function ConnectionIndicator({ roomId }) {
 function ChatCard({}) {
     const chatrooms = [
         { id: 0, name: "General" },
-        { id: 1, name: "Abstract" },
+        { id: 1, name: "Travel" },
     ]
     const users = [
         { id: 0, name: "Chatbot" },
