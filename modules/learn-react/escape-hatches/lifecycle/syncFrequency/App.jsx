@@ -183,7 +183,7 @@ function ConnectionIndicator({ roomId }) {
 function RoomMenu({ selected, setSelected }) {
     const roomIds = chatrooms.map((room) => room.id)
     return (
-        <details className="dropdown dropdown-right">
+        <details className="dropdown dropdown-bottom dropdown-end">
             <summary className="m-1 btn w-24">
                 {findRoomById(selected).name}
             </summary>
@@ -205,7 +205,9 @@ export default function SyncFrequency() {
     const [selected, setSelected] = useState(0)
     return (
         <>
-            <RoomMenu selected={selected} setSelected={setSelected} />
+            <div className="fixed top-24 right-14">
+                <RoomMenu selected={selected} setSelected={setSelected} />
+            </div>
             <div className="flex justify-center items-center m-10">
                 <ChatRoom roomId={selected} />
             </div>
