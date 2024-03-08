@@ -100,7 +100,7 @@ function ConnectionIndicator({ roomId }) {
     )
 }
 
-function ChatCard({ roomId, findRoomById }) {
+function Chat({ roomId, findRoomById }) {
     const [getReply, setGetReply] = useState(false)
     const room = findRoomById(roomId)
     const [messages, setMessages] = useState([])
@@ -159,46 +159,52 @@ function ChatCard({ roomId, findRoomById }) {
     }
 
     return (
-        <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
-            <div className="card-body">
-                <div className="flex justify-between items-center relative">
-                    <div className="card-title order-first">
-                        <div className="flex items-center gap-2">
-                            <ConnectionIndicator roomId={room.id} />
-                            <div>Chatroom {room.id}</div>
-                        </div>
-                    </div>
-                    <button className="btn btn-sm order-last w-16">
-                        {room.visible ? "Hide" : "Show"}
-                    </button>
-                </div>
-
-                <ChatRoomContext.Provider
-                    value={[msgIds, addChatMessage, setGetReply]}
+        <>
+            <ChatRoomContext.Provider
+                value={[msgIds, addChatMessage, setGetReply]}
+            >
+                <ChatMessageContext.Provider
+                    value={[findMessageById, findUserById, messageInGroup]}
                 >
-                    <ChatMessageContext.Provider
-                        value={[findMessageById, findUserById, messageInGroup]}
-                    >
-                        <ChatRoom roomId={room.id} />
-                    </ChatMessageContext.Provider>
-                </ChatRoomContext.Provider>
-            </div>
-        </div>
+                    <ChatRoom roomId={room.id} />
+                </ChatMessageContext.Provider>
+            </ChatRoomContext.Provider>
+        </>
     )
 }
 
-export default function EffectLifecycle() {
-    const [chatrooms, setChatrooms] = useState([{ id: 1, visible: true }])
+function ChatCard() {
+    const chatrooms = [
+        { id: 0, name: "General" },
+        { id: 1, name: "Abstract" },
+    ]
 
     function findRoomById(roomId) {
         return chatrooms.find((r) => r.id === roomId)
     }
 
-    const r = findRoomById(1)
+    const r = findRoomById(0)
+    return (
+        <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
+            <div className="card-body">
+                <div className="flex justify-between items-center relative">
+                    <div className="card-title order-first">
+                        <div className="flex items-center gap-2">
+                            <div>Chatroom {r.id}</div>
+                        </div>
+                    </div>
+                    <button className="btn btn-sm order-last w-16"></button>
+                </div>
+                <Chat roomId={r.id} findRoomById={findRoomById} />
+            </div>
+        </div>
+    )
+}
 
+export default function SyncFrequency() {
     return (
         <div className="flex justify-center items-center m-10">
-            <ChatCard key={r.id} roomId={r.id} findRoomById={findRoomById} />
+            <ChatCard />
         </div>
     )
 }
