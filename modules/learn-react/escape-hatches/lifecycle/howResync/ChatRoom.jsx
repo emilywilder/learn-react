@@ -199,8 +199,8 @@ function ConnectionIndicator({ roomId }) {
 
 export function RoomMenu({ setSelected }) {
     return (
-        <details className="dropdown dropdown-bottom dropdown-end">
-            <summary className="m-1 btn w-24">Rooms</summary>
+        <details className="dropdown dropdown-bottom">
+            <summary className="btn w-24">Rooms</summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box">
                 {chatrooms.map((room) => (
                     <li key={room.id}>
