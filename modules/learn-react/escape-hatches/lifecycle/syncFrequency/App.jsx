@@ -108,15 +108,7 @@ function ChatRoom({ roomId }) {
         <>
             <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
                 <div className="card-body">
-                    <div className="flex justify-between items-center relative">
-                        <div className="card-title order-first">
-                            <div className="flex items-center gap-2">
-                                <div>Chatroom</div>
-                            </div>
-                        </div>
-                        <div className="order-last"></div>
-                    </div>
-
+                    <div className="card-title">Chatroom</div>
                     <p>Welcome to {room.name} Chat!</p>
                     <div className="max-h-40 overflow-auto">
                         {msgIds.map((msgId) => (
@@ -180,19 +172,16 @@ function ConnectionIndicator({ roomId }) {
     )
 }
 
-function RoomMenu({ selected, setSelected }) {
-    const roomIds = chatrooms.map((room) => room.id)
+function RoomMenu({ setSelected }) {
     return (
         <details className="dropdown dropdown-bottom dropdown-end">
-            <summary className="m-1 btn w-24">
-                {findRoomById(selected).name}
-            </summary>
+            <summary className="m-1 btn w-24">Rooms</summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box">
-                {roomIds.map((roomId) => (
-                    <li key={roomId}>
-                        <a onClick={() => setSelected(roomId)}>
-                            <ConnectionIndicator roomId={roomId} />
-                            <span>{findRoomById(roomId).name}</span>
+                {chatrooms.map((room) => (
+                    <li key={room.id}>
+                        <a onClick={() => setSelected(room.id)}>
+                            <ConnectionIndicator roomId={room.id} />
+                            <span>{room.name}</span>
                         </a>
                     </li>
                 ))}
@@ -206,7 +195,7 @@ export default function SyncFrequency() {
     return (
         <>
             <div className="fixed top-24 right-14">
-                <RoomMenu selected={selected} setSelected={setSelected} />
+                <RoomMenu setSelected={setSelected} />
             </div>
             <div className="flex justify-center items-center m-10">
                 <ChatRoom roomId={selected} />
