@@ -5,8 +5,10 @@ import { useState } from "react"
 import { HiOutlineHome } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
+import { LuBook } from "react-icons/lu"
 
 import Blank from "@/components/Blank"
+import ReadingLesson from "./ReadingLesson"
 
 export default function LessonNavbar({
     lessonName,
@@ -86,6 +88,7 @@ function SublessonMenu({ sublessons, selectedSublessonId, onMenuClick }) {
                 {sl.title}{" "}
                 <p className="flex justify-end">
                     {!sl.component ? <MdErrorOutline /> : undefined}
+                    {sl.component === ReadingLesson ? <LuBook /> : undefined}
                 </p>
             </a>
         </li>
