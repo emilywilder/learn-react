@@ -32,7 +32,6 @@ function ChatRoom({ roomId }) {
     const msgIds = roomMessages.map((msg) => msg.id)
 
     const [text, setText] = useState("")
-    const scrollRef = createRef(null)
 
     function addChatMessage(userId, message) {
         setMessages([
@@ -78,13 +77,6 @@ function ChatRoom({ roomId }) {
         setGetReply(false)
     }
 
-    useEffect(() => {
-        scrollRef.current.scrollIntoView({
-            block: "nearest",
-            behavior: "smooth",
-        })
-    }, [scrollRef, msgIds])
-
     function handleClick(e) {
         e.preventDefault()
         addChatMessage(1, text)
@@ -110,18 +102,14 @@ function ChatRoom({ roomId }) {
                 <div className="card-body">
                     <div className="card-title">Chatroom</div>
                     <p>Welcome to {room.name} Chat!</p>
-                    <div className="max-h-40 overflow-auto">
-                        {msgIds.map((msgId) => (
-                            <ChatMessage
-                                key={msgId}
-                                msgId={msgId}
-                                findMessageById={findMessageById}
-                                findUserById={findUserById}
-                                messageInGroup={messageInGroup}
-                            />
-                        ))}
-                        <div ref={scrollRef} />
-                    </div>
+
+                    <MessageHistory
+                        msgIds={msgIds}
+                        findMessageById={findMessageById}
+                        findUserById={findUserById}
+                        messageInGroup={messageInGroup}
+                    />
+
                     <form
                         className="space-y-4"
                         onSubmit={(e) => handleClick(e)}
@@ -147,6 +135,37 @@ function ChatRoom({ roomId }) {
 }
 
 // Example end
+
+function MessageHistory({
+    msgIds,
+    findMessageById,
+    findUserById,
+    messageInGroup,
+}) {
+    const scrollRef = createRef(null)
+
+    useEffect(() => {
+        scrollRef.current.scrollIntoView({
+            block: "nearest",
+            behavior: "smooth",
+        })
+    }, [scrollRef, msgIds])
+
+    return (
+        <div className="max-h-40 overflow-auto">
+            {msgIds.map((msgId) => (
+                <ChatMessage
+                    key={msgId}
+                    msgId={msgId}
+                    findMessageById={findMessageById}
+                    findUserById={findUserById}
+                    messageInGroup={messageInGroup}
+                />
+            ))}
+            <div ref={scrollRef} />
+        </div>
+    )
+}
 
 function ChatMessage({ msgId, findMessageById, findUserById, messageInGroup }) {
     const message = findMessageById(msgId)
