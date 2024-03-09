@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { RoomMenu, ChatRoom } from "./ChatRoom"
+import ChatRoom from "./ChatRoom"
+import { RoomMenu } from "./Chat"
 
 export default function SyncProcess() {
     const [selected, setSelected] = useState(0)

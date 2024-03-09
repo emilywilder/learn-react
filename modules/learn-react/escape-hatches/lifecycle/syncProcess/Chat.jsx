@@ -1,5 +1,5 @@
 import { createRef, useEffect, useState } from "react"
-import { createConnection, serverUrl, useConnectionStore } from "./net"
+import { useConnectionStore } from "./net"
 import { ChatBubble } from "react-daisyui"
 
 const chatrooms = [
@@ -21,10 +21,7 @@ function findUserById(userId) {
     return users.find((x) => x.id === userId)
 }
 
-// Example start
-
-export function ChatRoom({ roomId }) {
-    // not in example start
+export function ChatRoomRender({ roomId }) {
     const [messages, setMessages] = useState([])
     const [getReply, setGetReply] = useState(false)
 
@@ -81,18 +78,6 @@ export function ChatRoom({ roomId }) {
         addChatMessage(1, text)
         setGetReply(true)
     }
-    // not in example end
-
-    useEffect(() => {
-        const connection = createConnection(serverUrl, roomId)
-        connection.connect()
-        return () => {
-            connection.disconnect()
-        }
-    }, [roomId])
-    // ...
-
-    // not in example start
 
     return (
         <>
@@ -112,10 +97,7 @@ export function ChatRoom({ roomId }) {
             </div>
         </>
     )
-    // not in example end
 }
-
-// Example end
 
 function ChatForm({ handleSubmit }) {
     const [text, setText] = useState("")
