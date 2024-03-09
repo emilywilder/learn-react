@@ -5,6 +5,7 @@ import EffectLifecycle from "./effectLifecycle/App"
 import SyncFrequency from "./syncFrequency/App"
 import HowResync from "./howResync/App"
 import VerifyResync from "./verifyResync/App"
+import SyncProcess from "./syncProcess/App"
 
 export default function Home() {
     return (
@@ -49,7 +50,7 @@ const sublessons = [
     {
         id: 6,
         title: "Each Effect represents a separate synchronization process",
-        component: null, // SyncProcess
+        component: SyncProcess,
     },
     {
         id: 7,
