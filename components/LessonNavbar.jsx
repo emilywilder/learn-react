@@ -131,7 +131,16 @@ function Sublesson({ sublesson }) {
                             : undefined
                     }
                 >
-                    {sublesson.component ? <sublesson.component /> : <Blank />}
+                    {sublesson.component ? (
+                        sublesson.component === ReadingLesson &&
+                        "url" in sublesson ? (
+                            <ReadingLesson url={sublesson.url} />
+                        ) : (
+                            <sublesson.component />
+                        )
+                    ) : (
+                        <Blank />
+                    )}
                 </div>
             ) : (
                 <Blank />

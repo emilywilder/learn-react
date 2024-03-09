@@ -32,6 +32,7 @@ const sublessons = [
         id: 3,
         title: "Thinking from the Effect\u2019s perspective",
         component: ReadingLesson,
+        url: "https://react.dev/learn/lifecycle-of-reactive-effects#thinking-from-the-effects-perspective",
     },
     {
         id: 4,
