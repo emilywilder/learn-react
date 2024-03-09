@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { RoomMenu, ChatRoom } from "./ChatRoom"
 
-export default function HowResync() {
+export default function SyncProcess() {
     const [selected, setSelected] = useState(0)
     const [show, setShow] = useState(true)
 
