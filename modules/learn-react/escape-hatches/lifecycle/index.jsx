@@ -43,7 +43,8 @@ const sublessons = [
     {
         id: 5,
         title: "How React knows that it needs to re-synchronize the Effect",
-        component: null, // WhyResync
+        component: ReadingLesson,
+        url: "https://react.dev/learn/lifecycle-of-reactive-effects#how-react-knows-that-it-needs-to-re-synchronize-the-effect",
     },
     {
         id: 6,
