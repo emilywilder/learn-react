@@ -125,12 +125,7 @@ function ChatForm({ handleSubmit }) {
     )
 }
 
-function MessageHistory({
-    msgIds,
-    findMessageById,
-
-    messageInGroup,
-}) {
+function MessageHistory({ msgIds, findMessageById, messageInGroup }) {
     const scrollRef = createRef(null)
 
     useEffect(() => {
