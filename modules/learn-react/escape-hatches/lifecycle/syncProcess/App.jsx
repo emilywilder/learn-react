@@ -9,7 +9,7 @@ export default function SyncProcess() {
 
     return (
         <>
-            <div className="fixed top-24 right-14">
+            <div className="fixed top-24 right-14 z-10">
                 <div className="flex space-x-2">
                     <RoomMenu setSelected={setSelected} />
                     <button
