@@ -4,28 +4,42 @@ import ChatRoomOneEffect from "./ChatRoomOneEffect"
 import ChatRoomTwoEffects from "./ChatRoomTwoEffects"
 import { RoomMenu, ChatContext, findRoomById } from "./Chat"
 
-function VisitCounts({ counts }) {
+function VisitCounts({ oneEffect, twoEffects }) {
+    return (
+        <div className="card bg-base-100 shadow-xl">
+            <div className="card-body items-center text-center">
+                <h2 className="card-title">Visit Counts</h2>
+                <div className="flex space-x-2">
+                    <VisitCountTable caption="One Effect" counts={oneEffect} />
+                    <VisitCountTable
+                        caption="Two Effects"
+                        counts={twoEffects}
+                    />
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function VisitCountTable({ caption, counts }) {
     return (
         <>
             <table className="table bg-base-100 text-center">
+                <caption>{caption}</caption>
                 <thead>
                     <tr>
-                        <td>Method</td>
                         <td>Room</td>
                         <td>Visits</td>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {Object.entries(counts).map(([method, room]) =>
-                        Object.entries(room).map(([roomId, count]) => (
-                            <tr key={roomId}>
-                                <th>{method}</th>
-                                <td>{findRoomById(roomId).name}</td>
-                                <td>{count}</td>
-                            </tr>
-                        ))
-                    )}
+                    {Object.entries(counts).map(([roomId, count]) => (
+                        <tr key={roomId}>
+                            <td>{findRoomById(roomId).name}</td>
+                            <td>{count}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </>
@@ -61,18 +75,18 @@ export default function SyncProcess() {
                             {show ? "Close" : "Open"} Chatroom
                         </button>
                     </div>
-                    <div className="z-20">
-                        <VisitCounts
-                            counts={{
-                                "One Effect": oneEffectVisitCounts,
-                                "Two Effects": twoEffectVisitCounts,
-                            }}
-                        />
-                    </div>
+                </div>
+            </div>
+            <div className="fixed bottom-5 right-14 z-10">
+                <div className="z-20">
+                    <VisitCounts
+                        oneEffect={oneEffectVisitCounts}
+                        twoEffects={twoEffectVisitCounts}
+                    />
                 </div>
             </div>
             {show && (
-                <div className="flex m-10 space-x-4">
+                <div className="flex m-4 mt-16 space-x-4">
                     <ChatContext.Provider
                         value={(roomId) =>
                             logVisitHook(
