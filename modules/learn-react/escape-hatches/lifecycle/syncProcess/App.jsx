@@ -24,8 +24,12 @@ export default function SyncProcess() {
             </div>
             {show && (
                 <div className="flex m-10">
-                    <ChatRoomOneEffect roomId={selected} />
-                    <ChatRoomTwoEffects roomId={selected} />
+                    <div className="hover:ring-2 rounded-xl ring-red-500">
+                        <ChatRoomOneEffect roomId={selected} />
+                    </div>
+                    <div className="hover:ring-2 rounded-xl ring-green-500">
+                        <ChatRoomTwoEffects roomId={selected} />
+                    </div>
                 </div>
             )}
         </>
