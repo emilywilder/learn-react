@@ -196,3 +196,7 @@ export function RoomMenu({ setSelected }) {
         </details>
     )
 }
+
+export function logVisit(roomId) {
+    console.log(`In room ${roomId}`)
+}
