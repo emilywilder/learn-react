@@ -1,6 +1,6 @@
-import { useEffect } from "react"
+import { useEffect, useContext } from "react"
 import { createConnection, serverUrl } from "./net"
-import { ChatRoomRender, logVisit } from "./Chat"
+import { ChatRoomRender, ChatContext } from "./Chat"
 
 export default function ChatRoom({ roomId }) {
     useEffect(() => {
@@ -12,5 +12,7 @@ export default function ChatRoom({ roomId }) {
         }
     }, [roomId])
     // ...
+
+    const logVisit = useContext(ChatContext)
     return <ChatRoomRender roomId={roomId} />
 }

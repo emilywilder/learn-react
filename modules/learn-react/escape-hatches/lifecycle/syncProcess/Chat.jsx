@@ -1,6 +1,8 @@
 import { createRef, useEffect, useState } from "react"
 import { useConnectionStore } from "./net"
 import { ChatBubble } from "react-daisyui"
+import { createContext } from "react"
+export const ChatContext = createContext()
 
 const chatrooms = [
     { id: 0, name: "General" },
@@ -13,7 +15,7 @@ const users = [
     { id: 1, name: "Guest" },
 ]
 
-function findRoomById(roomId) {
+export function findRoomById(roomId) {
     return chatrooms.find((r) => r.id === Number(roomId))
 }
 
@@ -81,7 +83,7 @@ export function ChatRoomRender({ roomId }) {
 
     return (
         <>
-            <div className="card shadow-xl h-[26em] w-[20em]">
+            <div className="card shadow-xl h-[26em] w-[20em] ">
                 <div className="card-body">
                     <div className="card-title">Chatroom</div>
                     <p>Welcome to {room.name} Chat!</p>
