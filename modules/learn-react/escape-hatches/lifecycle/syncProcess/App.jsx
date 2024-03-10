@@ -7,7 +7,7 @@ import { RoomMenu, ChatContext, findRoomById } from "./Chat"
 function VisitCounts({ counts }) {
     return (
         <>
-            <table className="table bg-base-100">
+            <table className="table bg-base-100 text-center">
                 <thead>
                     <tr>
                         <td>Method</td>
@@ -20,7 +20,7 @@ function VisitCounts({ counts }) {
                     {Object.entries(counts).map(([method, room]) =>
                         Object.entries(room).map(([roomId, count]) => (
                             <tr key={roomId}>
-                                <td>{method}</td>
+                                <th>{method}</th>
                                 <td>{findRoomById(roomId).name}</td>
                                 <td>{count}</td>
                             </tr>
@@ -49,7 +49,7 @@ export default function SyncProcess() {
     return (
         <>
             <div className="fixed top-24 right-14 z-10">
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col space-y-2 items-center">
                     <div className="flex space-x-2 z-30">
                         <RoomMenu setSelected={setSelected} />
                         <button
