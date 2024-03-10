@@ -10,7 +10,7 @@ export default function ChatRoom({ roomId }) {
         return () => {
             connection.disconnect()
         }
-    }, [roomId])
+    }, [roomId]) // eslint-disable-line
     // ...
 
     const logVisit = useContext(ChatContext)

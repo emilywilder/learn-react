@@ -5,7 +5,7 @@ import { ChatRoomRender, ChatContext } from "./Chat"
 export default function ChatRoom({ roomId }) {
     useEffect(() => {
         logVisit(roomId)
-    }, [roomId])
+    }, [roomId]) // eslint-disable-line
 
     useEffect(() => {
         const connection = createConnection(serverUrl, roomId)
