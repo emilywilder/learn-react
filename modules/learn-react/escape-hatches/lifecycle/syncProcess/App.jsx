@@ -1,5 +1,5 @@
 import { useState } from "react"
-import ChatRoom from "./ChatRoom"
+import ChatRoomOneEffect from "./ChatRoomOneEffect"
 import { RoomMenu } from "./Chat"
 
 export default function SyncProcess() {
@@ -23,7 +23,7 @@ export default function SyncProcess() {
             </div>
             {show && (
                 <div className="flex m-10">
-                    <ChatRoom roomId={selected} />
+                    <ChatRoomOneEffect roomId={selected} />
                 </div>
             )}
         </>
