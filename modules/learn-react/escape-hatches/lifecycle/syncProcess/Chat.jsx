@@ -2,9 +2,10 @@ import { createRef, useEffect, useState } from "react"
 import { useConnectionStore } from "./net"
 import { ChatBubble } from "react-daisyui"
 import { createContext } from "react"
+
 export const ChatContext = createContext()
 
-const chatrooms = [
+export const chatrooms = [
     { id: 0, name: "General" },
     { id: 1, name: "Travel" },
     { id: 2, name: "Music" },

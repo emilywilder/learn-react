@@ -2,11 +2,11 @@ import { useState } from "react"
 
 import ChatRoomOneEffect from "./ChatRoomOneEffect"
 import ChatRoomTwoEffects from "./ChatRoomTwoEffects"
-import { RoomMenu, ChatContext, findRoomById } from "./Chat"
+import { RoomMenu, ChatContext, findRoomById, chatrooms } from "./Chat"
 
 function VisitCountsFooter({ oneEffect, twoEffects }) {
     return (
-        <footer className="footer bg-base-200 fixed bottom-0 p-8 h-48">
+        <footer className="footer bg-base-200 fixed bottom-0 p-8">
             <div className="flex items-center justify-between h-full w-full">
                 <h2 className="text-2xl">Visit Counts</h2>
                 <div className="divider divider-horizontal" />
@@ -46,8 +46,15 @@ function VisitCountTable({ caption, counts }) {
 export default function SyncProcess() {
     const [selected, setSelected] = useState(0)
     const [show, setShow] = useState(true)
-    const [oneEffectVisitCounts, setOneEffectVisitCounts] = useState({})
-    const [twoEffectVisitCounts, setTwoEffectVisitCounts] = useState({})
+
+    const initialVisitCounts = chatrooms.reduce((acc, cur) => {
+        return { ...acc, [cur.id]: 0 }
+    }, {})
+
+    const [oneEffectVisitCounts, setOneEffectVisitCounts] =
+        useState(initialVisitCounts)
+    const [twoEffectVisitCounts, setTwoEffectVisitCounts] =
+        useState(initialVisitCounts)
 
     function logVisitHook(visitCounts, setVisitCounts, roomId) {
         const nextVisitCounts = {
