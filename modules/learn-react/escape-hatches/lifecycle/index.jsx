@@ -6,6 +6,7 @@ import SyncFrequency from "./syncFrequency/App"
 import HowResync from "./howResync/App"
 import VerifyResync from "./verifyResync/App"
 import SyncProcess from "./syncProcess/App"
+import ReactiveValues from "./reactiveValues/index"
 
 export default function Home() {
     return (
@@ -55,7 +56,8 @@ const sublessons = [
     {
         id: 7,
         title: "Effects “react” to reactive values",
-        component: null, // ReactiveValues
+        component: ReactiveValues,
+        usesTailwind: false,
     },
     {
         id: 8,
