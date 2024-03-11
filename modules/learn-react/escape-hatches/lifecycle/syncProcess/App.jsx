@@ -4,27 +4,24 @@ import ChatRoomOneEffect from "./ChatRoomOneEffect"
 import ChatRoomTwoEffects from "./ChatRoomTwoEffects"
 import { RoomMenu, ChatContext, findRoomById } from "./Chat"
 
-function VisitCounts({ oneEffect, twoEffects }) {
+function VisitCountsFooter({ oneEffect, twoEffects }) {
     return (
-        <div className="card bg-base-100 shadow-xl">
-            <div className="card-body items-center text-center">
-                <h2 className="card-title">Visit Counts</h2>
-                <div className="flex space-x-2">
-                    <VisitCountTable caption="One Effect" counts={oneEffect} />
-                    <VisitCountTable
-                        caption="Two Effects"
-                        counts={twoEffects}
-                    />
-                </div>
+        <footer className="footer bg-base-200 fixed bottom-0 p-8 h-48">
+            <div className="flex items-center justify-between h-full w-full">
+                <h2 className="text-2xl">Visit Counts</h2>
+                <div className="divider divider-horizontal" />
+
+                <VisitCountTable caption="One Effect" counts={oneEffect} />
+                <VisitCountTable caption="Two Effects" counts={twoEffects} />
             </div>
-        </div>
+        </footer>
     )
 }
 
 function VisitCountTable({ caption, counts }) {
     return (
         <>
-            <table className="table bg-base-100 text-center">
+            <table className="table table-xs text-center max-w-40">
                 <caption>{caption}</caption>
                 <thead>
                     <tr>
@@ -65,11 +62,14 @@ export default function SyncProcess() {
             <div className="fixed top-24 right-14 z-10">
                 <div className="flex flex-col space-y-2 items-center">
                     <div className="flex space-x-2 z-30">
-                        <RoomMenu setSelected={setSelected} />
+                        <div className="rounded-xl shadow-xl">
+                            <RoomMenu setSelected={setSelected} />
+                        </div>
+
                         <button
-                            className={`btn ${
+                            className={`btn text-white shadow-xl ${
                                 show ? "btn-error" : "btn-info"
-                            } text-white`}
+                            }`}
                             onClick={() => setShow(!show)}
                         >
                             {show ? "Close" : "Open"} Chatroom
@@ -77,44 +77,42 @@ export default function SyncProcess() {
                     </div>
                 </div>
             </div>
-            <div className="fixed bottom-5 right-14 z-10">
-                <div className="z-20">
-                    <VisitCounts
-                        oneEffect={oneEffectVisitCounts}
-                        twoEffects={twoEffectVisitCounts}
-                    />
-                </div>
+            <div className="mt-24">
+                {show && (
+                    <div className="flex m-4 space-x-4">
+                        <ChatContext.Provider
+                            value={(roomId) =>
+                                logVisitHook(
+                                    oneEffectVisitCounts,
+                                    setOneEffectVisitCounts,
+                                    roomId
+                                )
+                            }
+                        >
+                            <div className="hover:ring-2 rounded-xl ring-red-500">
+                                <ChatRoomOneEffect roomId={selected} />
+                            </div>
+                        </ChatContext.Provider>
+                        <ChatContext.Provider
+                            value={(roomId) =>
+                                logVisitHook(
+                                    twoEffectVisitCounts,
+                                    setTwoEffectVisitCounts,
+                                    roomId
+                                )
+                            }
+                        >
+                            <div className="hover:ring-2 rounded-xl ring-green-500">
+                                <ChatRoomTwoEffects roomId={selected} />
+                            </div>
+                        </ChatContext.Provider>
+                    </div>
+                )}
             </div>
-            {show && (
-                <div className="flex m-4 mt-16 space-x-4">
-                    <ChatContext.Provider
-                        value={(roomId) =>
-                            logVisitHook(
-                                oneEffectVisitCounts,
-                                setOneEffectVisitCounts,
-                                roomId
-                            )
-                        }
-                    >
-                        <div className="hover:ring-2 rounded-xl ring-red-500">
-                            <ChatRoomOneEffect roomId={selected} />
-                        </div>
-                    </ChatContext.Provider>
-                    <ChatContext.Provider
-                        value={(roomId) =>
-                            logVisitHook(
-                                twoEffectVisitCounts,
-                                setTwoEffectVisitCounts,
-                                roomId
-                            )
-                        }
-                    >
-                        <div className="hover:ring-2 rounded-xl ring-green-500">
-                            <ChatRoomTwoEffects roomId={selected} />
-                        </div>
-                    </ChatContext.Provider>
-                </div>
-            )}
+            <VisitCountsFooter
+                oneEffect={oneEffectVisitCounts}
+                twoEffects={twoEffectVisitCounts}
+            />
         </>
     )
 }
