@@ -16,6 +16,6 @@ export default function ChatRoom({ roomId }) {
     }, [roomId])
     // ...
 
-    const logVisit = useContext(ChatContext)
-    return <ChatRoomRender roomId={roomId} />
+    const [title, logVisit] = useContext(ChatContext)
+    return <ChatRoomRender roomId={roomId} title={title} />
 }

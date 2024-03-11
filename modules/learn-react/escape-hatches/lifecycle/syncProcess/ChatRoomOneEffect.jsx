@@ -13,6 +13,6 @@ export default function ChatRoom({ roomId }) {
     }, [roomId]) // eslint-disable-line
     // ...
 
-    const logVisit = useContext(ChatContext)
-    return <ChatRoomRender roomId={roomId} />
+    const [title, logVisit] = useContext(ChatContext)
+    return <ChatRoomRender roomId={roomId} title={title} />
 }

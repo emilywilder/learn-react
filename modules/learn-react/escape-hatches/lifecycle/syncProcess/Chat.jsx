@@ -24,7 +24,7 @@ function findUserById(userId) {
     return users.find((x) => x.id === userId)
 }
 
-export function ChatRoomRender({ roomId }) {
+export function ChatRoomRender({ roomId, title }) {
     const [messages, setMessages] = useState([])
     const [getReply, setGetReply] = useState(false)
 
@@ -86,7 +86,7 @@ export function ChatRoomRender({ roomId }) {
         <>
             <div className="card bg-base-100 shadow-xl h-[26em] w-[20em] ">
                 <div className="card-body">
-                    <div className="card-title">Chatroom</div>
+                    <div className="card-title">{title}</div>
                     <p>Welcome to {room.name} Chat!</p>
 
                     <MessageHistory

@@ -88,26 +88,30 @@ export default function SyncProcess() {
                 {show && (
                     <div className="flex m-4 space-x-4">
                         <ChatContext.Provider
-                            value={(roomId) =>
-                                logVisitHook(
-                                    oneEffectVisitCounts,
-                                    setOneEffectVisitCounts,
-                                    roomId
-                                )
-                            }
+                            value={[
+                                "Chatroom with one effect",
+                                (roomId) =>
+                                    logVisitHook(
+                                        oneEffectVisitCounts,
+                                        setOneEffectVisitCounts,
+                                        roomId
+                                    ),
+                            ]}
                         >
                             <div className="hover:ring-2 rounded-xl ring-red-500">
                                 <ChatRoomOneEffect roomId={selected} />
                             </div>
                         </ChatContext.Provider>
                         <ChatContext.Provider
-                            value={(roomId) =>
-                                logVisitHook(
-                                    twoEffectVisitCounts,
-                                    setTwoEffectVisitCounts,
-                                    roomId
-                                )
-                            }
+                            value={[
+                                "Chatroom with two effects",
+                                (roomId) =>
+                                    logVisitHook(
+                                        twoEffectVisitCounts,
+                                        setTwoEffectVisitCounts,
+                                        roomId
+                                    ),
+                            ]}
                         >
                             <div className="hover:ring-2 rounded-xl ring-green-500">
                                 <ChatRoomTwoEffects roomId={selected} />
