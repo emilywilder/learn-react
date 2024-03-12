@@ -8,9 +8,11 @@ export default function App() {
         function handleMove(e) {
             setPosition({ x: e.clientX, y: e.clientY })
         }
-        window.addEventListener("pointermove", handleMove)
-        return () => window.removeEventListener("pointermove", handleMove)
-    }, [])
+        if (canMove) {
+            window.addEventListener("pointermove", handleMove)
+            return () => window.removeEventListener("pointermove", handleMove)
+        }
+    }, [canMove])
 
     return (
         <>
