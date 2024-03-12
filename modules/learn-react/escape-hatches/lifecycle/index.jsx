@@ -8,6 +8,7 @@ import VerifyResync from "./verifyResync/App"
 import SyncProcess from "./syncProcess/App"
 import ReactiveValues from "./reactiveValues/index"
 import EmptyDeps from "./emptyDeps/index"
+import Challenge1 from "./challenge1/index"
 
 export default function Home() {
     return (
@@ -87,7 +88,8 @@ const sublessons = [
     {
         id: 12,
         title: "Challenge 1: Fix reconnecting on every keystroke",
-        component: null, // Challenge1
+        component: Challenge1,
+        usesTailwind: false,
     },
     {
         id: 13,
