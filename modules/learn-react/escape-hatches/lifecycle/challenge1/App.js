@@ -10,7 +10,7 @@ function ChatRoom({ roomId }) {
         const connection = createConnection(serverUrl, roomId)
         connection.connect()
         return () => connection.disconnect()
-    })
+    }, [roomId])
 
     return (
         <>
