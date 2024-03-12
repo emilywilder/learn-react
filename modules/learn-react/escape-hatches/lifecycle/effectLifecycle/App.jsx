@@ -165,7 +165,7 @@ function ChatCard({
     }
 
     return (
-        <div className="card shadow-xl hover:ring-2 h-[26em] w-[20em]">
+        <div className="card shadow-xl bg-base-100 hover:ring-2 h-[26em] w-[20em]">
             <div className="card-body">
                 <div className="flex justify-between items-center relative">
                     <div className="card-title order-first">
