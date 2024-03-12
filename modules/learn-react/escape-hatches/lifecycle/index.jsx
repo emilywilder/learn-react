@@ -69,17 +69,20 @@ const sublessons = [
     {
         id: 9,
         title: "All variables declared in the component body are reactive",
-        component: null, // ReactiveVars
+        component: ReadingLesson,
+        url: "https://react.dev/learn/lifecycle-of-reactive-effects#all-variables-declared-in-the-component-body-are-reactive",
     },
     {
         id: 10,
         title: "React verifies that you specified every reactive value as a dependency",
-        component: null, // VerifyReactiveDeps
+        component: ReadingLesson,
+        url: "https://react.dev/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency",
     },
     {
         id: 11,
         title: "What to do when you don\u2019t want to re-synchronize",
-        component: null, // NoResync
+        component: ReadingLesson,
+        url: "https://react.dev/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize",
     },
     {
         id: 12,
