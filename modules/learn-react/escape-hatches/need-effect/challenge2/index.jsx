@@ -1,7 +1,11 @@
-import "./styles.css"
+import "./styles.scss"
 
 import App from "./App"
 
 export default function Index() {
-    return <App />
+    return (
+        <div className="learn-react-escape-hatches-needeffect-challenge2">
+            <App />
+        </div>
+    )
 }
