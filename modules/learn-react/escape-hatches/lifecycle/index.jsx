@@ -9,6 +9,7 @@ import SyncProcess from "./syncProcess/App"
 import ReactiveValues from "./reactiveValues/index"
 import EmptyDeps from "./emptyDeps/index"
 import Challenge1 from "./challenge1/index"
+import Challenge2 from "./challenge2/index"
 
 export default function Home() {
     return (
@@ -94,7 +95,8 @@ const sublessons = [
     {
         id: 13,
         title: "Challenge 2: Switch synchronization on and off",
-        component: null, // Challenge2
+        component: Challenge2,
+        usesTailwind: false,
     },
     {
         id: 14,
