@@ -11,6 +11,7 @@ import EmptyDeps from "./emptyDeps/index"
 import Challenge1 from "./challenge1/index"
 import Challenge2 from "./challenge2/index"
 import Challenge3 from "./challenge3/index"
+import Challenge4 from "./challenge4/index"
 
 export default function Home() {
     return (
@@ -108,7 +109,8 @@ const sublessons = [
     {
         id: 15,
         title: "Challenge 4: Fix a connection switch",
-        component: null, // Challenge4
+        component: Challenge4,
+        usesTailwind: false,
     },
     {
         id: 16,
