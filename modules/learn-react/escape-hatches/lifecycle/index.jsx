@@ -7,6 +7,7 @@ import HowResync from "./howResync/App"
 import VerifyResync from "./verifyResync/App"
 import SyncProcess from "./syncProcess/App"
 import ReactiveValues from "./reactiveValues/index"
+import EmptyDeps from "./emptyDeps/index"
 
 export default function Home() {
     return (
@@ -62,7 +63,8 @@ const sublessons = [
     {
         id: 8,
         title: "What an Effect with empty dependencies means",
-        component: null, // EmptyDeps
+        component: EmptyDeps,
+        usesTailwind: false,
     },
     {
         id: 9,
