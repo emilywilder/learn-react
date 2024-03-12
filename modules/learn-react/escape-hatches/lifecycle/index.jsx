@@ -10,6 +10,7 @@ import ReactiveValues from "./reactiveValues/index"
 import EmptyDeps from "./emptyDeps/index"
 import Challenge1 from "./challenge1/index"
 import Challenge2 from "./challenge2/index"
+import Challenge3 from "./challenge3/index"
 
 export default function Home() {
     return (
@@ -101,7 +102,8 @@ const sublessons = [
     {
         id: 14,
         title: "Challenge 3: Investigate a stale value bug",
-        component: null, // Challenge3
+        component: Challenge3,
+        usesTailwind: false,
     },
     {
         id: 15,
