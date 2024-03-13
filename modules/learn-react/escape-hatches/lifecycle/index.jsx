@@ -12,6 +12,7 @@ import Challenge1 from "./challenge1/index"
 import Challenge2 from "./challenge2/index"
 import Challenge3 from "./challenge3/index"
 import Challenge4 from "./challenge4/index"
+import Challenge5 from "./challenge5/index"
 
 export default function Home() {
     return (
@@ -115,6 +116,7 @@ const sublessons = [
     {
         id: 16,
         title: "Challenge 5: Populate a chain of select boxes",
-        component: null, // Challenge5
+        component: Challenge5,
+        usesTailwind: false,
     },
 ]
