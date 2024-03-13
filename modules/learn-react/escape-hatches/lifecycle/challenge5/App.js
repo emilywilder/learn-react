@@ -22,6 +22,22 @@ export default function Page() {
         }
     }, [])
 
+    useEffect(() => {
+        let ignore = false
+        if (planetId) {
+            fetchData(`/planets/${planetId}/places`).then((result) => {
+                if (!ignore) {
+                    console.log(`Fetched a list of places for ${planetId}.`)
+                    setPlaceList(result)
+                    setPlaceId(result[0].id)
+                }
+            })
+            return () => {
+                ignore = true
+            }
+        }
+    }, [planetId])
+
     return (
         <>
             <label>
