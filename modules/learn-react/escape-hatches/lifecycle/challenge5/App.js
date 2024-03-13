@@ -1,42 +1,12 @@
-import { useState, useEffect } from "react"
-import { fetchData } from "./api.js"
+import { useState } from "react"
+import { useSelectOptions } from "./useSelectOptions.js"
 
 export default function Page() {
-    const [planetList, setPlanetList] = useState([])
-    const [planetId, setPlanetId] = useState("")
+    const [planetList, planetId, setPlanetId] = useSelectOptions("/planets")
 
-    const [placeList, setPlaceList] = useState([])
-    const [placeId, setPlaceId] = useState("")
-
-    useEffect(() => {
-        let ignore = false
-        fetchData("/planets").then((result) => {
-            if (!ignore) {
-                console.log("Fetched a list of planets.")
-                setPlanetList(result)
-                setPlanetId(result[0].id) // Select the first planet
-            }
-        })
-        return () => {
-            ignore = true
-        }
-    }, [])
-
-    useEffect(() => {
-        let ignore = false
-        if (planetId) {
-            fetchData(`/planets/${planetId}/places`).then((result) => {
-                if (!ignore) {
-                    console.log(`Fetched a list of places for ${planetId}.`)
-                    setPlaceList(result)
-                    setPlaceId(result[0].id)
-                }
-            })
-            return () => {
-                ignore = true
-            }
-        }
-    }, [planetId])
+    const [placeList, placeId, setPlaceId] = useSelectOptions(
+        planetId ? `/planets/${planetId}/places` : null
+    )
 
     return (
         <>
@@ -48,7 +18,7 @@ export default function Page() {
                         setPlanetId(e.target.value)
                     }}
                 >
-                    {planetList.map((planet) => (
+                    {planetList?.map((planet) => (
                         <option key={planet.id} value={planet.id}>
                             {planet.name}
                         </option>
@@ -63,7 +33,7 @@ export default function Page() {
                         setPlaceId(e.target.value)
                     }}
                 >
-                    {placeList.map((place) => (
+                    {placeList?.map((place) => (
                         <option key={place.id} value={place.id}>
                             {place.name}
                         </option>
@@ -72,7 +42,7 @@ export default function Page() {
             </label>
             <hr />
             <p>
-                You are going to: {placeId || "???"} on {planetId || "???"}{" "}
+                You are going to: {placeId || "..."} on {planetId || "..."}{" "}
             </p>
         </>
     )
