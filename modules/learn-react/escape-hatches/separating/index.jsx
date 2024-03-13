@@ -14,4 +14,10 @@ const sublessons = [
         component: ReadingLesson,
         url: "https://react.dev/learn/separating-events-from-effects#choosing-between-event-handlers-and-effects",
     },
+    {
+        id: 1,
+        title: "Reactive values and reactive logic",
+        component: ReadingLesson,
+        url: "https://react.dev/learn/separating-events-from-effects#reactive-values-and-reactive-logic",
+    },
 ]
