@@ -1,11 +1,15 @@
-import "./styles.scss"
+import "./notExtracted/styles.scss"
 
-import App from "./App"
+import { noTailwindClassName } from "@/components/LessonNavbar"
+
+import NotExtracted from "./notExtracted/App"
 
 export default function Index() {
     return (
-        <div className="learn-react-escape-hatches-separating-extractingnonreactive">
-            <App />
+        <div
+            className={`${noTailwindClassName} learn-react-escape-hatches-separating-extractingnonreactive`}
+        >
+            <NotExtracted />
         </div>
     )
 }
