@@ -1,7 +1,7 @@
 import Lesson from "@/components/Lesson"
 import ReadingLesson from "@/components/ReadingLesson"
 
-import ExtractingNonReactive from "./extractingNonReactive/index"
+import ExtractingNonReactive from "./extractingNonReactive/App"
 
 export default function Home() {
     return (
