@@ -10,6 +10,8 @@ import { LuBook } from "react-icons/lu"
 import Blank from "@/components/Blank"
 import ReadingLesson from "./ReadingLesson"
 
+export const noTailwindClassName = "notailwind ml-4"
+
 export default function LessonNavbar({
     lessonName,
     sublessons,
@@ -127,7 +129,7 @@ function Sublesson({ sublesson }) {
                 <div
                     className={
                         "usesTailwind" in sublesson && !sublesson.usesTailwind
-                            ? "notailwind ml-4"
+                            ? noTailwindClassName
                             : undefined
                     }
                 >
