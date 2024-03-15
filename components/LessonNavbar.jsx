@@ -123,30 +123,27 @@ function Sublesson({ sublesson }) {
         and set a default margain as the content is too left adjusted
         when tailwind is not used.
     */
-    return (
-        <>
-            {sublesson ? (
-                <div
-                    className={
-                        "usesTailwind" in sublesson && !sublesson.usesTailwind
-                            ? noTailwindClassName
-                            : undefined
-                    }
-                >
-                    {sublesson.component ? (
-                        sublesson.component === ReadingLesson &&
-                        "url" in sublesson ? (
-                            <ReadingLesson url={sublesson.url} />
-                        ) : (
-                            <sublesson.component />
-                        )
-                    ) : (
-                        <Blank />
-                    )}
-                </div>
-            ) : (
-                <Blank />
-            )}
-        </>
-    )
+
+    function getComponent(sublesson) {
+        if ("component" in sublesson && sublesson.component) {
+            if (sublesson.component === ReadingLesson) {
+                return "url" in sublesson ? (
+                    <ReadingLesson url={sublesson.url} />
+                ) : (
+                    <ReadingLesson />
+                )
+            } else {
+                return <sublesson.component />
+            }
+        } else {
+            return <Blank />
+        }
+    }
+
+    const className =
+        "usesTailwind" in sublesson && !sublesson.usesTailwind
+            ? noTailwindClassName
+            : undefined
+
+    return <div className={className}>{getComponent(sublesson)}</div>
 }
