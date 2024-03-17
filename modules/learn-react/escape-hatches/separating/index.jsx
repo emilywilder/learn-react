@@ -26,5 +26,6 @@ const sublessons = [
         id: 2,
         title: "Extracting non-reactive logic out of Effects",
         component: ExtractingNonReactive,
+        experimental: true,
     },
 ]

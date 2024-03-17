@@ -6,9 +6,11 @@ import { HiOutlineHome } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
 import { LuBook } from "react-icons/lu"
+import { AiOutlineExperiment } from "react-icons/ai"
 
 import Blank from "@/components/Blank"
 import ReadingLesson from "./ReadingLesson"
+import Experimental from "./Experimental"
 
 export const noTailwindClassName = "notailwind ml-4"
 
@@ -91,6 +93,7 @@ function SublessonMenu({ sublessons, selectedSublessonId, onMenuClick }) {
                 <p className="flex justify-end">
                     {!sl.component ? <MdErrorOutline /> : undefined}
                     {sl.component === ReadingLesson ? <LuBook /> : undefined}
+                    {sl.experimental ? <AiOutlineExperiment /> : undefined}
                 </p>
             </a>
         </li>
@@ -125,7 +128,9 @@ function Sublesson({ sublesson }) {
     */
 
     function getComponent(sublesson) {
-        if ("component" in sublesson && sublesson.component) {
+        if ("experimental" in sublesson && sublesson.experimental) {
+            return <Experimental />
+        } else if ("component" in sublesson && sublesson.component) {
             if (sublesson.component === ReadingLesson) {
                 return "url" in sublesson ? (
                     <ReadingLesson url={sublesson.url} />
