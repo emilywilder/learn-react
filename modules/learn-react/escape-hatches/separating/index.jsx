@@ -4,6 +4,7 @@ import ReadingLesson from "@/components/ReadingLesson"
 import ExtractingNonReactive from "./extractingNonReactive/App"
 import Challenge1 from "./Challenge1/index"
 import Challenge2 from "./Challenge2/index"
+import Challenge3 from "./Challenge3/index"
 
 export default function Home() {
     return (
@@ -52,6 +53,12 @@ const sublessons = [
         id: 6,
         title: "Challenge 2 of 4: Fix a freezing counter",
         component: Challenge2,
+        usesTailwind: false,
+    },
+    {
+        id: 7,
+        title: "Challenge 3 of 4: Fix a non-adjustable delay",
+        component: Challenge3,
         usesTailwind: false,
     },
 ]
