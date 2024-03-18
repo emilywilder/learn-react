@@ -2,6 +2,7 @@ import Lesson from "@/components/Lesson"
 import ReadingLesson from "@/components/ReadingLesson"
 
 import ExtractingNonReactive from "./extractingNonReactive/App"
+import { title } from "process"
 
 export default function Home() {
     return (
@@ -27,5 +28,17 @@ const sublessons = [
         title: "Extracting non-reactive logic out of Effects",
         component: ExtractingNonReactive,
         experimental: true,
+    },
+    {
+        id: 3,
+        title: "Reading latest props and state with Effect Events",
+        component: ReadingLesson,
+        url: "https://react.dev/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events",
+    },
+    {
+        id: 4,
+        title: "Limitations of Effect Events",
+        component: ReadingLesson,
+        url: "https://react.dev/learn/separating-events-from-effects#limitations-of-effect-events",
     },
 ]
