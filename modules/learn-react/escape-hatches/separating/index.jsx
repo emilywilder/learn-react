@@ -2,7 +2,6 @@ import Lesson from "@/components/Lesson"
 import ReadingLesson from "@/components/ReadingLesson"
 
 import ExtractingNonReactive from "./extractingNonReactive/App"
-import { title } from "process"
 
 export default function Home() {
     return (
