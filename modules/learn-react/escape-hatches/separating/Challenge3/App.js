@@ -10,18 +10,14 @@ export default function Timer() {
         setCount((c) => c + increment)
     })
 
-    const onMount = useEffectEvent(() => {
-        return setInterval(() => {
+    useEffect(() => {
+        const id = setInterval(() => {
             onTick()
         }, delay)
-    })
-
-    useEffect(() => {
-        const id = onMount()
         return () => {
             clearInterval(id)
-        }
-    }, [])
+        } //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [delay]) // eslint doesn't interpret useEffectEvent correctly
 
     return (
         <>
