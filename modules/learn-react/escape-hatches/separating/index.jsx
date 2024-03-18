@@ -3,6 +3,7 @@ import ReadingLesson from "@/components/ReadingLesson"
 
 import ExtractingNonReactive from "./extractingNonReactive/App"
 import Challenge1 from "./Challenge1/index"
+import Challenge2 from "./Challenge2/index"
 
 export default function Home() {
     return (
@@ -45,6 +46,12 @@ const sublessons = [
         id: 5,
         title: "Challenge 1 of 4: Fix a variable that doesn’t update",
         component: Challenge1,
+        usesTailwind: false,
+    },
+    {
+        id: 6,
+        title: "Challenge 2 of 4: Fix a freezing counter",
+        component: Challenge2,
         usesTailwind: false,
     },
 ]
