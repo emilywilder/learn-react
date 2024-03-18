@@ -2,6 +2,7 @@ import Lesson from "@/components/Lesson"
 import ReadingLesson from "@/components/ReadingLesson"
 
 import ExtractingNonReactive from "./extractingNonReactive/App"
+import Challenge1 from "./Challenge1/index"
 
 export default function Home() {
     return (
@@ -39,5 +40,11 @@ const sublessons = [
         title: "Limitations of Effect Events",
         component: ReadingLesson,
         url: "https://react.dev/learn/separating-events-from-effects#limitations-of-effect-events",
+    },
+    {
+        id: 5,
+        title: "Challenge 1 of 4: Fix a variable that doesn’t update",
+        component: Challenge1,
+        usesTailwind: false,
     },
 ]
