@@ -5,6 +5,7 @@ import ExtractingNonReactive from "./extractingNonReactive/App"
 import Challenge1 from "./Challenge1/index"
 import Challenge2 from "./Challenge2/index"
 import Challenge3 from "./Challenge3/index"
+import Challenge4 from "./Challenge4/index"
 
 export default function Home() {
     return (
@@ -59,6 +60,12 @@ const sublessons = [
         id: 7,
         title: "Challenge 3 of 4: Fix a non-adjustable delay",
         component: Challenge3,
+        usesTailwind: false,
+    },
+    {
+        id: 8,
+        title: "Challenge 4 of 4: Fix a delayed notification",
+        component: Challenge4,
         usesTailwind: false,
     },
 ]
