@@ -5,14 +5,18 @@ export default function Timer() {
     const [count, setCount] = useState(0)
     const [increment, setIncrement] = useState(1)
 
+    const onTick = useEffectEvent(() => {
+        setCount((c) => c + increment)
+    })
+
     useEffect(() => {
         const id = setInterval(() => {
-            setCount((c) => c + increment)
+            onTick()
         }, 1000)
         return () => {
             clearInterval(id)
         }
-    }, [increment])
+    }, [])
 
     return (
         <>
