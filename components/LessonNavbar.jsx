@@ -128,12 +128,13 @@ function Sublesson({ sublesson }) {
     */
 
     const isExperimental = (sublesson) =>
-        "experimental" in sublesson && sublesson.experimental
+        sublesson && "experimental" in sublesson && sublesson.experimental
 
     const hasComponent = (sublesson) =>
-        "component" in sublesson && sublesson.component
+        sublesson && "component" in sublesson && sublesson.component
 
-    const isReadingLesson = (sublesson) => sublesson.component === ReadingLesson
+    const isReadingLesson = (sublesson) =>
+        hasComponent(sublesson) && sublesson.component === ReadingLesson
 
     function getComponent(sublesson) {
         if (isExperimental(sublesson)) {
@@ -154,7 +155,7 @@ function Sublesson({ sublesson }) {
     }
 
     const usesTailwind = (sublesson) =>
-        "usesTailwind" in sublesson && !sublesson.usesTailwind
+        sublesson && "usesTailwind" in sublesson && !sublesson.usesTailwind
 
     const className =
         usesTailwind(sublesson) && !isExperimental(sublesson)
