@@ -7,4 +7,11 @@ export default function Home() {
     )
 }
 
-const sublessons = []
+const sublessons = [
+    {
+        id: 0,
+        title: "Dependencies should match the code",
+        component: ReadingLesson,
+        url: "https://react.dev/learn/removing-effect-dependencies#dependencies-should-match-the-code",
+    },
+]
