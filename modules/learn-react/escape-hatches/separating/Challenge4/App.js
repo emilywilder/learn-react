@@ -6,7 +6,7 @@ import { showNotification } from "./notifications.js"
 const serverUrl = "https://localhost:1234"
 
 function ChatRoom({ roomId, theme }) {
-    const onConnected = useEffectEvent(() => {
+    const onConnected = useEffectEvent((roomId) => {
         showNotification("Welcome to " + roomId, theme)
     })
 
@@ -14,11 +14,12 @@ function ChatRoom({ roomId, theme }) {
         const connection = createConnection(serverUrl, roomId)
         connection.on("connected", () => {
             setTimeout(() => {
-                onConnected()
+                onConnected(roomId)
             }, 2000)
         })
         connection.connect()
         return () => connection.disconnect()
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [roomId])
 
     return <h1>Welcome to the {roomId} room!</h1>
