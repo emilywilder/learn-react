@@ -49,23 +49,27 @@ const sublessons = [
         title: "Challenge 1 of 4: Fix a variable that doesn’t update",
         component: Challenge1,
         usesTailwind: false,
+        experimental: true,
     },
     {
         id: 6,
         title: "Challenge 2 of 4: Fix a freezing counter",
         component: Challenge2,
         usesTailwind: false,
+        experimental: true,
     },
     {
         id: 7,
         title: "Challenge 3 of 4: Fix a non-adjustable delay",
         component: Challenge3,
         usesTailwind: false,
+        experimental: true,
     },
     {
         id: 8,
         title: "Challenge 4 of 4: Fix a delayed notification",
         component: Challenge4,
         usesTailwind: false,
+        experimental: true,
     },
 ]
