@@ -127,11 +127,19 @@ function Sublesson({ sublesson }) {
         when tailwind is not used.
     */
 
+    const isExperimental = (sublesson) =>
+        "experimental" in sublesson && sublesson.experimental
+
+    const hasComponent = (sublesson) =>
+        "component" in sublesson && sublesson.component
+
+    const isReadingLesson = (sublesson) => sublesson.component === ReadingLesson
+
     function getComponent(sublesson) {
-        if ("experimental" in sublesson && sublesson.experimental) {
+        if (isExperimental(sublesson)) {
             return <Experimental />
-        } else if ("component" in sublesson && sublesson.component) {
-            if (sublesson.component === ReadingLesson) {
+        } else if (hasComponent(sublesson)) {
+            if (isReadingLesson(sublesson)) {
                 return "url" in sublesson ? (
                     <ReadingLesson url={sublesson.url} />
                 ) : (
@@ -145,8 +153,11 @@ function Sublesson({ sublesson }) {
         }
     }
 
-    const className =
+    const usesTailwind = (sublesson) =>
         "usesTailwind" in sublesson && !sublesson.usesTailwind
+
+    const className =
+        usesTailwind(sublesson) && !isExperimental(sublesson)
             ? noTailwindClassName
             : undefined
 
