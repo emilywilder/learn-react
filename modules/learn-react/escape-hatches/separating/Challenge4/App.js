@@ -11,14 +11,18 @@ function ChatRoom({ roomId, theme }) {
     })
 
     useEffect(() => {
+        let ignore = false
         const connection = createConnection(serverUrl, roomId)
         connection.on("connected", () => {
             setTimeout(() => {
-                onConnected(roomId)
+                if (!ignore) onConnected(roomId)
             }, 2000)
         })
         connection.connect()
-        return () => connection.disconnect()
+        return () => {
+            ignore = true
+            connection.disconnect()
+        }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [roomId])
 
