@@ -8,7 +8,7 @@ function Card({ title, description, children }) {
     const [theme, setTheme] = useState("light")
     return (
         <ThemeContext.Provider value={theme}>
-            <div className="card shadow-xl bg-base-100 w-72">
+            <div className="card shadow-xl bg-base-100 w-72" data-theme={theme}>
                 <div className="card-body">
                     <h1 className="card-title">{title}</h1>
                     <p>{description}</p>
