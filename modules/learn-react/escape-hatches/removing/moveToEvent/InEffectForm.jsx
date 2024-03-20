@@ -1,3 +1,6 @@
+import { useContext, useEffect, useState } from "react"
+import FormRender, { showNotification, post, ThemeContext } from "./Form"
+
 function Form() {
     const [submitted, setSubmitted] = useState(false)
     const theme = useContext(ThemeContext)
@@ -15,6 +18,7 @@ function Form() {
     }
 
     // ...
+    return <FormRender onSubmit={handleSubmit} />
 }
 
 // not in example

@@ -1,4 +1,10 @@
 import InEffectForm from "./InEffectForm"
 import InEventForm from "./InEventForm"
 
-export default function MoveToEvent() {}
+export default function MoveToEvent() {
+    return (
+        <div>
+            <InEffectForm />
+        </div>
+    )
+}
