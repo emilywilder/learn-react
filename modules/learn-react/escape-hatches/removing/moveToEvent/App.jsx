@@ -5,6 +5,7 @@ export default function MoveToEvent() {
     return (
         <div>
             <InEffectForm />
+            <InEventForm />
         </div>
     )
 }

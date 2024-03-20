@@ -1,3 +1,6 @@
+import { useContext } from "react"
+import FormRender, { post, showNotification, ThemeContext } from "./Form"
+
 function Form() {
     const theme = useContext(ThemeContext)
 
@@ -8,6 +11,8 @@ function Form() {
     }
 
     // ...
+
+    return <FormRender onSubmit={handleSubmit} />
 }
 
 // not in example
