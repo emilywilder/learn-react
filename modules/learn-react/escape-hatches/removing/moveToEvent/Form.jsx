@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 export const ThemeContext = createContext()
@@ -14,17 +14,10 @@ export default function FormRender({ onSubmit }) {
     }
 
     return (
-        <div className="card shadow-xl bg-base-100 w-72 h-40">
-            <ToastContainer />
-            <div className="card-body">
-                <form onSubmit={handleSubmit}>
-                    <div className="card-actions">
-                        <button type="submit" className="btn">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <button type="submit" className="btn">
+                Submit
+            </button>
+        </form>
     )
 }
