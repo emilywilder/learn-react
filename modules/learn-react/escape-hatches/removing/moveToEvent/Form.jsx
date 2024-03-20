@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import { toast } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 export const ThemeContext = createContext()
@@ -19,6 +19,7 @@ export default function FormRender({ onSubmit }) {
             <button type="submit" className="btn">
                 Submit
             </button>
+            <ToastContainer />
         </form>
     )
 }
