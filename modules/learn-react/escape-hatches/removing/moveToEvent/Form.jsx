@@ -18,7 +18,10 @@ export default function FormRender({ onSubmit }) {
             <button type="submit" className="btn btn-primary">
                 Submit
             </button>
-            <Toaster />
+            <Toaster
+                toastOptions={{ position: "top-right" }}
+                containerStyle={{ top: 120 }}
+            />
         </form>
     )
 }
