@@ -4,7 +4,8 @@ import "react-toastify/dist/ReactToastify.css"
 
 export const ThemeContext = createContext()
 
-export const showNotification = (message, theme) => toast(message)
+export const showNotification = (message, theme) =>
+    toast(message, { theme: theme })
 export const post = (x) => console.log(x)
 
 export default function FormRender({ onSubmit }) {
