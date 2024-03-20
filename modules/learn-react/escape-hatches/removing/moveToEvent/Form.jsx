@@ -16,7 +16,7 @@ export default function FormRender({ onSubmit }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <button type="submit" className="btn">
+            <button type="submit" className="btn btn-primary">
                 Submit
             </button>
             <ToastContainer />
