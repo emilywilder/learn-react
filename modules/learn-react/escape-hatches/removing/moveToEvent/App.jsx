@@ -1,42 +1,39 @@
-import { ThemeContext } from "./Form"
-
-import InEffectForm from "./InEffectForm"
-import InEventForm from "./InEventForm"
 import { useState } from "react"
 
-export function ThemeMenu({ options, setSelected }) {
+import { Sun, Moon } from "@/components/svg"
+import { ThemeContext } from "./Form"
+import InEffectForm from "./InEffectForm"
+import InEventForm from "./InEventForm"
+
+function ThemeCheckbox({ checked, onToggle }) {
     return (
-        <details className="dropdown dropdown-bottom">
-            <summary className="btn btn-primary w-24">Themes</summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box">
-                {options.map((option) => (
-                    <li key={option.id}>
-                        <a onClick={() => setSelected(option.name)}>
-                            <span>{option.name}</span>
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </details>
+        <label className="swap swap-rotate">
+            <input type="checkbox" onChange={(e) => onToggle(!checked)} />
+            <Sun />
+            <Moon />
+        </label>
     )
 }
 
 function Card({ title, description, children }) {
-    const themes = [
-        { id: 0, name: "light" },
-        { id: 1, name: "dark" },
-    ]
-    const [theme, setTheme] = useState(themes.find((t) => t.name === "light"))
+    const [lightMode, setLightMode] = useState(true)
+    const theme = lightMode ? "light" : "dark"
     return (
         <ThemeContext.Provider value={theme}>
             <div className="card shadow-xl bg-base-100 w-72" data-theme={theme}>
                 <div className="card-body">
-                    <h1 className="card-title">{title}</h1>
-                    <p>{description}</p>
-                    <div className="card-actions justify-end">
-                        <ThemeMenu options={themes} setSelected={setTheme} />
-                        {children}
+                    <div className="flex justify-between">
+                        <h1 className="card-title order-first">{title}</h1>
+                        <div className="order-last">
+                            <ThemeCheckbox
+                                checked={lightMode}
+                                onToggle={setLightMode}
+                            />
+                        </div>
                     </div>
+
+                    <p>{description}</p>
+                    <div className="card-actions justify-end">{children}</div>
                 </div>
             </div>
         </ThemeContext.Provider>
