@@ -9,6 +9,7 @@ module.exports = {
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
         "./modules/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    darkMode: "selector",
     theme: {
         extend: {
             backgroundImage: {
