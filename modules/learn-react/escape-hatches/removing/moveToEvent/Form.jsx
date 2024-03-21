@@ -7,7 +7,7 @@ export function showNotification(message, theme) {
     toast.custom((t) => (
         <div className={theme === "dark" ? "dark" : ""}>
             <div
-                className={`px-6 py-4 shadow-md rounded-full bg-white text-black dark:bg-black dark:text-white ${
+                className={`px-6 py-4 shadow-md rounded-lg bg-white text-black dark:bg-black dark:text-white ${
                     t.visible ? "animate-enter" : "animate-leave"
                 }`}
             >
