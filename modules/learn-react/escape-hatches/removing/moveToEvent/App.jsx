@@ -53,6 +53,9 @@ export default function MoveToEvent() {
                 <Card.Content>
                     This form triggers a notification on submit using
                     useEffect().
+                    <br />
+                    Observe that after the form has been submitted, changing the
+                    theme submits again.
                 </Card.Content>
                 <Card.Actions>
                     <InEffectForm />
@@ -63,6 +66,9 @@ export default function MoveToEvent() {
                 <Card.Content>
                     This form triggers a notification on submit using the event
                     of the button press.
+                    <br />
+                    This method ties submitting with the event of the button
+                    press and doesn&apos;t submit again upon theme change.
                 </Card.Content>
                 <Card.Actions>
                     <InEventForm />
