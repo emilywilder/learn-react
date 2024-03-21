@@ -41,21 +41,29 @@ function Card({ title, description, children }) {
 }
 
 export default function MoveToEvent() {
+    const info = {
+        inEffect: {
+            title: "In Effect",
+            description:
+                "This form triggers a notification on submit using useEffect().",
+        },
+        inEvent: {
+            title: "In Effect",
+            description:
+                "This form triggers a notification on submit using the event of the button press.",
+        },
+    }
     return (
         <div className="flex flex-col space-y-6 pt-20 m-4">
             <Card
-                title={"In Effect"}
-                description={
-                    "This form triggers a notification on submit using useEffect()."
-                }
+                title={info.inEffect.title}
+                description={info.inEffect.description}
             >
                 <InEffectForm />
             </Card>
             <Card
-                title={"In Event"}
-                description={
-                    "This form triggers a notification on submit using the event of the button press."
-                }
+                title={info.inEvent.title}
+                description={info.inEvent.description}
             >
                 <InEventForm />
             </Card>
