@@ -4,15 +4,15 @@ import toast, { Toaster } from "react-hot-toast"
 export const ThemeContext = createContext()
 
 export function showNotification(message, theme) {
-    const toastClassName =
-        theme === "dark" ? "bg-black text-white" : "bg-white text-black"
     toast.custom((t) => (
-        <div
-            className={`px-6 py-4 shadow-md rounded-full ${toastClassName} ${
-                t.visible ? "animate-enter" : "animate-leave"
-            }`}
-        >
-            {message}
+        <div className={theme === "dark" ? "dark" : ""}>
+            <div
+                className={`px-6 py-4 shadow-md rounded-full bg-white text-black dark:bg-black dark:text-white ${
+                    t.visible ? "animate-enter" : "animate-leave"
+                }`}
+            >
+                {message}
+            </div>
         </div>
     ))
 }
