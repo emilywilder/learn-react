@@ -15,57 +15,58 @@ function ThemeCheckbox({ checked, onToggle }) {
     )
 }
 
-function Card({ title, description, children }) {
+function Card({ children }) {
     const [lightMode, setLightMode] = useState(true)
     const theme = lightMode ? "light" : "dark"
     return (
         <ThemeContext.Provider value={theme}>
             <div className="card shadow-xl bg-base-100 w-72" data-theme={theme}>
-                <div className="card-body">
-                    <div className="flex justify-between">
-                        <h1 className="card-title order-first">{title}</h1>
-                        <div className="order-last">
-                            <ThemeCheckbox
-                                checked={lightMode}
-                                onToggle={setLightMode}
-                            />
-                        </div>
-                    </div>
-
-                    <p>{description}</p>
-                    <div className="card-actions justify-end">{children}</div>
+                <div className="absolute top-6 right-6">
+                    <ThemeCheckbox
+                        checked={lightMode}
+                        onToggle={setLightMode}
+                    />
                 </div>
+                <div className="card-body">{children}</div>
             </div>
         </ThemeContext.Provider>
     )
 }
 
+Card.Title = function CardTitle({ children }) {
+    return <h1 className="card-title order-first">{children}</h1>
+}
+
+Card.Content = function HeroContent({ children }) {
+    return <p>{children}</p>
+}
+
+Card.Actions = function HeroActions({ children }) {
+    return <div className="card-actions justify-end">{children}</div>
+}
+
 export default function MoveToEvent() {
-    const info = {
-        inEffect: {
-            title: "In Effect",
-            description:
-                "This form triggers a notification on submit using useEffect().",
-        },
-        inEvent: {
-            title: "In Effect",
-            description:
-                "This form triggers a notification on submit using the event of the button press.",
-        },
-    }
     return (
         <div className="flex flex-col space-y-6 pt-20 m-4">
-            <Card
-                title={info.inEffect.title}
-                description={info.inEffect.description}
-            >
-                <InEffectForm />
+            <Card>
+                <Card.Title>In Effect</Card.Title>
+                <Card.Content>
+                    This form triggers a notification on submit using
+                    useEffect().
+                </Card.Content>
+                <Card.Actions>
+                    <InEffectForm />
+                </Card.Actions>
             </Card>
-            <Card
-                title={info.inEvent.title}
-                description={info.inEvent.description}
-            >
-                <InEventForm />
+            <Card>
+                <Card.Title>In Event</Card.Title>
+                <Card.Content>
+                    This form triggers a notification on submit using the event
+                    of the button press.
+                </Card.Content>
+                <Card.Actions>
+                    <InEventForm />
+                </Card.Actions>
             </Card>
         </div>
     )
