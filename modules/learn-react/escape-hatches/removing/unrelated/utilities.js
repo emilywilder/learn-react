@@ -2,6 +2,8 @@ import { createServer } from "miragejs"
 
 import LOCATION_DATA from "./location_data.json"
 
+export const getCountries = () => Array.from(Object.keys(LOCATION_DATA))
+
 createServer({
     routes() {
         // namespace issue resolution taken from
@@ -12,6 +14,7 @@ createServer({
             /api/areas?city=${city}
         */
         this.namespace = "api"
+        this.get("/countries", () => fetchCountries())
         this.get("/cities", (schema, request) =>
             fetchCities(request.queryParams.country)
         )
@@ -25,6 +28,11 @@ createServer({
 
 function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function fetchCountries() {
+    const locationData = LOCATION_DATA
+    return getCountries()
 }
 
 async function fetchCities(country) {
