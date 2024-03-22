@@ -12,6 +12,7 @@ import Blank from "@/components/Blank"
 import ReadingLesson from "./ReadingLesson"
 import Experimental from "./Experimental"
 
+const navbarHeight = "5em"
 export const noTailwindClassName = "notailwind ml-4"
 
 export default function LessonNavbar({
@@ -42,25 +43,31 @@ export default function LessonNavbar({
 
     return (
         <>
-            <div className="navbar bg-base-100 space-x-0">
-                <div className="flex-1 breadcrumbs">
-                    <ul>
-                        <li>
-                            <HomeButton />
-                        </li>
-                        <li className="normal-case text-xl">{lessonName}</li>
-                        {selectedSublesson && (
-                            <li>{selectedSublesson.title}</li>
-                        )}
-                    </ul>
+            <div className={`h-[${navbarHeight}]`}>
+                <div className="navbar bg-base-100 space-x-0">
+                    <div className="flex-1 breadcrumbs">
+                        <ul>
+                            <li>
+                                <HomeButton />
+                            </li>
+                            <li className="normal-case text-xl">
+                                {lessonName}
+                            </li>
+                            {selectedSublesson && (
+                                <li>{selectedSublesson.title}</li>
+                            )}
+                        </ul>
+                    </div>
+                    <SublessonMenu
+                        sublessons={sublessons}
+                        selectedSublessonId={selectedSublessonId}
+                        onMenuClick={handleMenuClick}
+                    />
                 </div>
-                <SublessonMenu
-                    sublessons={sublessons}
-                    selectedSublessonId={selectedSublessonId}
-                    onMenuClick={handleMenuClick}
-                />
             </div>
-            <Sublesson sublesson={selectedSublesson} />
+            <div className={`h-[calc(100vh-${navbarHeight})]`}>
+                <Sublesson sublesson={selectedSublesson} />
+            </div>
         </>
     )
 }
@@ -160,7 +167,7 @@ function Sublesson({ sublesson }) {
     const className =
         usesTailwind(sublesson) && !isExperimental(sublesson)
             ? noTailwindClassName
-            : undefined
+            : "h-full"
 
     return <div className={className}>{getComponent(sublesson)}</div>
 }
