@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 
+import { ShippingFormRender } from "./ShippingForm"
+
 function ShippingForm({ country }) {
     const [cities, setCities] = useState(null)
     useEffect(() => {
@@ -35,5 +37,6 @@ function ShippingForm({ country }) {
     }, [city]) // ✅ All dependencies declared
 
     // ...
+    return <ShippingFormRender />
 }
 export default ShippingForm
