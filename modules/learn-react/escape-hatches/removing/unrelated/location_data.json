@@ -1,0 +1,37 @@
+{
+    "USA": {
+        "Atlanta": ["Downtown", "Midtown", "Westside", "East Side"],
+        "New York City": [
+            "Manhattan",
+            "Brooklyn",
+            "Queens",
+            "The Bronx",
+            "Staten Island"
+        ]
+    },
+    "Germany": {
+        "Berlin": [
+            "Charlottenburg-Wilmersdorf",
+            "Friedrichshain-Kreuzberg",
+            "Lichtenberg",
+            "Marzahn-Hellersdorf",
+            "Mitte",
+            "Neukölln",
+            "Pankow",
+            "Reinickendorf",
+            "Spandau",
+            "Steglitz-Zehlendorf",
+            "Tempelhof-Schöneberg",
+            "Treptow-Köpenick"
+        ],
+        "Hamburg": [
+            "Hamburg-Mitte",
+            "Altona",
+            "Eimsbüttel",
+            "Hamburg-Nord",
+            "Wandsbek",
+            "Bergedorf",
+            "Harburg"
+        ]
+    }
+}
