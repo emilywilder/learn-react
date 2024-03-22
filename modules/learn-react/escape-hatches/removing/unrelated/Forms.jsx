@@ -1,27 +1,25 @@
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 
-import { getCountries } from "./utilities"
-
 export default function ShippingFormRender({
     cities,
-    setCities,
     city,
     setCity,
     areas,
     setAreas,
-}) {}
-
-export function CountryForm({}) {
-    const countries = getCountries()
-    const [selected, setSelected] = useState(null)
+}) {
+    // debugger
     return (
-        <ListboxSelect
-            options={countries}
-            selected={selected || "Select a country"}
-            setSelected={setSelected}
-        />
+        <>
+            {Array.isArray(cities) && cities.length > 0 && (
+                <ListboxSelect
+                    options={cities}
+                    selected={city || "Select a city"}
+                    setSelected={setCity}
+                />
+            )}
+        </>
     )
 }
 

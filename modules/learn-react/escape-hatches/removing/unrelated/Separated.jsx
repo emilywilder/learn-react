@@ -40,7 +40,6 @@ function ShippingForm({ country }) {
     return (
         <ShippingFormRender
             cities={cities}
-            setCities={setCities}
             city={city}
             setCity={setCity}
             areas={areas}
