@@ -1,5 +1,6 @@
 import "./utilities"
 import Card from "./Card"
+import { CountryForm } from "./Forms"
 
 import Combined from "./Combined"
 import Separated from "./Separated"
@@ -12,6 +13,7 @@ export default function Unrelated() {
                 <Card.Content>
                     This example combines both fetches within the same
                     useEffect().
+                    <CountryForm />
                 </Card.Content>
                 <Card.Actions>
                     <Combined />

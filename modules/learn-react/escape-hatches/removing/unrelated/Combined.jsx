@@ -32,7 +32,16 @@ function ShippingForm({ country }) {
     }, [country, city]) // ✅ All dependencies declared
 
     // ...
-    return <ShippingFormRender />
+    return (
+        <ShippingFormRender
+            cities={cities}
+            setCities={setCities}
+            city={city}
+            setCity={setCity}
+            areas={areas}
+            setAreas={setAreas}
+        />
+    )
 }
 
 export default ShippingForm
