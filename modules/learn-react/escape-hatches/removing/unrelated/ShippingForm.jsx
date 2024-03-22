@@ -1,7 +1,1 @@
-export function ShippingFormRender({}) {
-    return (
-        <>
-            <div></div>
-        </>
-    )
-}
+export default function ShippingFormRender({}) {}

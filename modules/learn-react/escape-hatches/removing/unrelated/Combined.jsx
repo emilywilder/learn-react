@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { ShippingFormRender } from "./ShippingForm"
+import ShippingFormRender from "./ShippingForm"
 
 function ShippingForm({ country }) {
     const [cities, setCities] = useState(null)
