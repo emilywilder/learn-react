@@ -47,33 +47,38 @@ Card.Actions = function HeroActions({ children }) {
 
 export default function MoveToEvent() {
     return (
-        <div className="flex flex-col space-y-6 pt-20 m-4">
-            <Card>
-                <Card.Title>In Effect</Card.Title>
-                <Card.Content>
-                    This form triggers a notification on submit using
-                    useEffect().
-                    <br />
-                    Observe that after the form has been submitted, changing the
-                    theme submits again.
-                </Card.Content>
-                <Card.Actions>
-                    <InEffectForm />
-                </Card.Actions>
-            </Card>
-            <Card>
-                <Card.Title>In Event</Card.Title>
-                <Card.Content>
-                    This form triggers a notification on submit using the event
-                    of the button press.
-                    <br />
-                    This method ties submitting with the event of the button
-                    press and doesn&apos;t submit again upon theme change.
-                </Card.Content>
-                <Card.Actions>
-                    <InEventForm />
-                </Card.Actions>
-            </Card>
+        <div className="h-full flex flex-row">
+            <div className="basis-1/2">
+                <div className="flex flex-col space-y-6 h-full justify-center items-center">
+                    <Card>
+                        <Card.Title>In Effect</Card.Title>
+                        <Card.Content>
+                            This form triggers a notification on submit using
+                            useEffect().
+                            <br />
+                            Observe that after the form has been submitted,
+                            changing the theme submits again.
+                        </Card.Content>
+                        <Card.Actions>
+                            <InEffectForm />
+                        </Card.Actions>
+                    </Card>
+                    <Card>
+                        <Card.Title>In Event</Card.Title>
+                        <Card.Content>
+                            This form triggers a notification on submit using
+                            the event of the button press.
+                            <br />
+                            This method ties submitting with the event of the
+                            button press and doesn&apos;t submit again upon
+                            theme change.
+                        </Card.Content>
+                        <Card.Actions>
+                            <InEventForm />
+                        </Card.Actions>
+                    </Card>
+                </div>
+            </div>
         </div>
     )
 }
