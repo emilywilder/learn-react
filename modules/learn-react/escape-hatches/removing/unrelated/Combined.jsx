@@ -9,19 +9,23 @@ function ShippingForm({ country }) {
 
     useEffect(() => {
         let ignore = false
+        setFetchingCities(true) // NOT IN EXAMPLE
         fetch(`/api/cities?country=${country}`)
             .then((response) => response.json())
             .then((json) => {
                 if (!ignore) {
+                    setFetchingCities(false) // NOT IN EXAMPLE
                     setCities(json)
                 }
             })
         // 🔴 Avoid: A single Effect synchronizes two independent processes
         if (city) {
+            setFetchingAreas(true) // NOT IN EXAMPLE
             fetch(`/api/areas?city=${city}`)
                 .then((response) => response.json())
                 .then((json) => {
                     if (!ignore) {
+                        setFetchingAreas(false) // NOT IN EXAMPLE
                         setAreas(json)
                     }
                 })
@@ -32,6 +36,9 @@ function ShippingForm({ country }) {
     }, [country, city]) // ✅ All dependencies declared
 
     // ...
+    const [fetchingCities, setFetchingCities] = useState(false)
+    const [fetchingAreas, setFetchingAreas] = useState(false)
+
     return (
         <ShippingFormRender
             country={country}
@@ -39,6 +46,8 @@ function ShippingForm({ country }) {
             city={city}
             setCity={setCity}
             areas={areas}
+            fetchingCities={fetchingCities}
+            fetchingAreas={fetchingAreas}
         />
     )
 }

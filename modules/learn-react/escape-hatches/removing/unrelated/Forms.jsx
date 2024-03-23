@@ -17,6 +17,8 @@ export default function ShippingFormRender({
     city,
     setCity,
     areas,
+    fetchingCities,
+    fetchingAreas,
 }) {
     return (
         <div className="flex flex-col space-y-2">
@@ -26,6 +28,7 @@ export default function ShippingFormRender({
                         options={cities}
                         selected={city || "Select a city"}
                         setSelected={setCity}
+                        fetching={fetchingCities}
                     />
                 ) : (
                     <>{country && <Spinner />}</>
@@ -33,13 +36,22 @@ export default function ShippingFormRender({
             </div>
             <div className="z-10">
                 {Array.isArray(areas) && areas.length > 0 ? (
-                    <BarChart
-                        title={`Areas of ${city}, ${country}`}
-                        dataset={areas}
-                    />
+                    <div className="h-full w-full relative">
+                        <BarChart
+                            title={`Areas of ${city}, ${country}`}
+                            dataset={areas}
+                        />
+                        {fetchingAreas && (
+                            <div className="absolute left-0 top-0 h-full w-full  glass rounded">
+                                <div className="flex justify-center place-items-center h-full ">
+                                    <span className="loading loading-spinner loading-lg"></span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 ) : (
                     <>
-                        {city && (
+                        {fetchingAreas && (
                             <div className="h-48">
                                 <Spinner size={"lg"} />
                             </div>
@@ -52,13 +64,17 @@ export default function ShippingFormRender({
 }
 
 // taken from https://headlessui.com/react/listbox
-export function ListboxSelect({ options, selected, setSelected }) {
+export function ListboxSelect({ options, selected, setSelected, fetching }) {
     return (
         <Listbox value={selected} onChange={setSelected}>
             <div className="relative mt-1">
                 <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                     <span className="block truncate">{selected}</span>
+
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                        {fetching && (
+                            <span className="loading loading-spinner loading-sm" />
+                        )}
                         <ChevronUpDownIcon
                             className="h-5 w-5 text-gray-400"
                             aria-hidden="true"
