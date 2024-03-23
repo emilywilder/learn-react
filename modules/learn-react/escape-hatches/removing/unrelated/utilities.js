@@ -40,7 +40,9 @@ async function fetchCities(country) {
     return Array.from(Object.keys(locationData[country] || {}))
 }
 
-async function fetchAreas(country, city) {
+async function fetchAreas(city) {
     const locationData = LOCATION_DATA
-    debugger
+    const countries = getCountries()
+    const country = countries.filter((c) => city in locationData[c])[0]
+    return locationData[country][city]
 }
