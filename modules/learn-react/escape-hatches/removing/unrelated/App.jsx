@@ -49,7 +49,7 @@ function SeparateCard() {
 
 export default function Unrelated() {
     return (
-        <div className="flex flex-col h-full items-center justify-evenly">
+        <div className="flex flex-row h-full items-center justify-evenly">
             <CombinedCard />
             <SeparateCard />
         </div>
