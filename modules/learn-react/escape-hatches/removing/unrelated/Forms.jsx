@@ -12,21 +12,25 @@ export default function ShippingFormRender({
 }) {
     return (
         <div className="flex flex-col space-y-2">
-            {Array.isArray(cities) && cities.length > 0 && (
-                <ListboxSelect
-                    options={cities}
-                    selected={city || "Select a city"}
-                    setSelected={setCity}
-                />
-            )}
-            {Array.isArray(areas) && areas.length > 0 && (
-                <>
-                    <BarChart
-                        title={`Areas of ${city} in ${country}`}
-                        dataset={areas}
+            <div className="z-20">
+                {Array.isArray(cities) && cities.length > 0 && (
+                    <ListboxSelect
+                        options={cities}
+                        selected={city || "Select a city"}
+                        setSelected={setCity}
                     />
-                </>
-            )}
+                )}
+            </div>
+            <div className="z-10">
+                {Array.isArray(areas) && areas.length > 0 && (
+                    <>
+                        <BarChart
+                            title={`Areas of ${city} in ${country}`}
+                            dataset={areas}
+                        />
+                    </>
+                )}
+            </div>
         </div>
     )
 }
