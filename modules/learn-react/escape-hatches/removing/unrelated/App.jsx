@@ -15,7 +15,10 @@ function CombinedCard() {
         <Card>
             <Card.Title>Combined</Card.Title>
             <Card.Content>
-                This example combines both fetches within the same useEffect().
+                <p>
+                    This example combines both fetches within the same
+                    useEffect().
+                </p>
                 <ListboxSelect
                     options={countries}
                     selected={selected || "Select a country"}
@@ -35,7 +38,10 @@ function SeparateCard() {
         <Card>
             <Card.Title>Separated</Card.Title>
             <Card.Content>
-                This example separates each fetch into their own useEffect().
+                <p>
+                    This example separates each fetch into their own
+                    useEffect().
+                </p>
                 <ListboxSelect
                     options={countries}
                     selected={selected || "Select a country"}

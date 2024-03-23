@@ -11,7 +11,7 @@ Card.Title = function CardTitle({ children }) {
 }
 
 Card.Content = function CardContent({ children }) {
-    return <p>{children}</p>
+    return <div className="flex flex-col space-y-2">{children}</div>
 }
 
 Card.Actions = function CardActions({ children }) {
