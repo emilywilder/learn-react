@@ -7,7 +7,7 @@ export default function Card({ children }) {
 }
 
 Card.Title = function CardTitle({ children }) {
-    return <h1 className="card-title">{children}</h1>
+    return <h1 className="card-title font-serif">{children}</h1>
 }
 
 Card.Content = function CardContent({ children }) {

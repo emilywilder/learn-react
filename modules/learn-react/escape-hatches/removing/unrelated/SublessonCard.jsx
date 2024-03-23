@@ -12,7 +12,9 @@ export default function SublessonCard({ title, Sublesson, children }) {
         <Card>
             <Card.Title>{title}</Card.Title>
             <Card.Content>
-                <p>{children}</p>
+                <p className="tracking-tight md:tracking-normal lg:tracking-wide break-words">
+                    {children}
+                </p>
                 <div className="z-20">
                     <ListboxSelect
                         options={countries}
