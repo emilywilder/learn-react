@@ -14,21 +14,21 @@ createServer({
             /api/areas?city=${city}
         */
         this.namespace = "api"
-        this.get("/countries", () => fetchCountries())
-        this.get("/cities", (schema, request) =>
-            fetchCities(request.queryParams.country)
+        this.get("/countries", () => fetchCountries(), { timing: 3000 })
+        this.get(
+            "/cities",
+            (schema, request) => fetchCities(request.queryParams.country),
+            { timing: 3000 }
         )
-        this.get("/areas", (schema, request) =>
-            fetchAreas(request.queryParams.city)
+        this.get(
+            "/areas",
+            (schema, request) => fetchAreas(request.queryParams.city),
+            { timing: 3000 }
         )
         this.namespace = ""
         this.passthrough()
     },
 })
-
-function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-}
 
 async function fetchCountries() {
     const locationData = LOCATION_DATA
