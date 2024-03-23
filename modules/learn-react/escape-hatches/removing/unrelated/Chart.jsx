@@ -81,6 +81,9 @@ export default function BarChart({ title, dataset }) {
                     },
                 },
             },
+            legend: {
+                show: false,
+            },
         },
     }
 
