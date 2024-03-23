@@ -21,7 +21,7 @@ function CombinedCard() {
                     selected={selected || "Select a country"}
                     setSelected={setSelected}
                 />
-                <Combined country={selected} />
+                <Combined key={selected} country={selected} />
             </Card.Content>
         </Card>
     )
@@ -41,7 +41,7 @@ function SeparateCard() {
                     selected={selected || "Select a country"}
                     setSelected={setSelected}
                 />
-                <Separated country={selected} />
+                <Separated key={selected} country={selected} />
             </Card.Content>
         </Card>
     )
