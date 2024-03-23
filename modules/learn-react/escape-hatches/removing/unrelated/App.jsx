@@ -19,12 +19,16 @@ function CombinedCard() {
                     This example combines both fetches within the same
                     useEffect().
                 </p>
-                <ListboxSelect
-                    options={countries}
-                    selected={selected || "Select a country"}
-                    setSelected={setSelected}
-                />
-                <Combined key={selected} country={selected} />
+                <div className="z-20">
+                    <ListboxSelect
+                        options={countries}
+                        selected={selected || "Select a country"}
+                        setSelected={setSelected}
+                    />
+                </div>
+                <div className="z-10">
+                    <Combined key={selected} country={selected} />
+                </div>
             </Card.Content>
         </Card>
     )
@@ -42,12 +46,16 @@ function SeparateCard() {
                     This example separates each fetch into their own
                     useEffect().
                 </p>
-                <ListboxSelect
-                    options={countries}
-                    selected={selected || "Select a country"}
-                    setSelected={setSelected}
-                />
-                <Separated key={selected} country={selected} />
+                <div className="z-20">
+                    <ListboxSelect
+                        options={countries}
+                        selected={selected || "Select a country"}
+                        setSelected={setSelected}
+                    />
+                </div>
+                <div className="z-10">
+                    <Separated key={selected} country={selected} />
+                </div>
             </Card.Content>
         </Card>
     )
