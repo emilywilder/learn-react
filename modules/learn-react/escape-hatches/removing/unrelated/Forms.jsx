@@ -5,7 +5,7 @@ import BarChart from "./Chart"
 
 function Spinner({ size = "md" }) {
     return (
-        <div className="w-full flex justify-center h-full p-2">
+        <div className="flex justify-center place-items-center h-full ">
             <span className={`loading loading-spinner loading-${size}`}></span>
         </div>
     )
@@ -42,10 +42,8 @@ export default function ShippingFormRender({
                             dataset={areas}
                         />
                         {fetchingAreas && (
-                            <div className="absolute left-0 top-0 h-full w-full  glass rounded">
-                                <div className="flex justify-center place-items-center h-full ">
-                                    <span className="loading loading-spinner loading-lg"></span>
-                                </div>
+                            <div className="absolute left-0 top-0 h-full w-full glass rounded">
+                                <Spinner size={"lg"} />
                             </div>
                         )}
                     </div>
