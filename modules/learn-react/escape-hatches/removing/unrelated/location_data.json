@@ -1,37 +1,55 @@
 {
     "USA": {
-        "Atlanta": ["Downtown", "Midtown", "Westside", "East Side"],
+        "Atlanta": [
+            { "id": 0, "name": "Intown", "population": "102907" },
+            { "id": 1, "name": "Southeastern", "population": "72656" },
+            { "id": 2, "name": "Southwestern", "population": "96490" },
+            { "id": 3, "name": "Northwestern", "population": "75220" },
+            { "id": 4, "name": "Buckhead", "population": "90856" }
+        ],
         "New York City": [
-            "Manhattan",
-            "Brooklyn",
-            "Queens",
-            "The Bronx",
-            "Staten Island"
+            { "id": 0, "name": "Manhattan", "population": "1694251" },
+            { "id": 1, "name": "Brooklyn", "population": "2736074" },
+            { "id": 2, "name": "Queens", "population": "2405464" },
+            { "id": 3, "name": "The Bronx", "population": "1472654" },
+            { "id": 4, "name": "Staten Island", "population": "495747" }
         ]
     },
     "Germany": {
         "Berlin": [
-            "Charlottenburg-Wilmersdorf",
-            "Friedrichshain-Kreuzberg",
-            "Lichtenberg",
-            "Marzahn-Hellersdorf",
-            "Mitte",
-            "Neukölln",
-            "Pankow",
-            "Reinickendorf",
-            "Spandau",
-            "Steglitz-Zehlendorf",
-            "Tempelhof-Schöneberg",
-            "Treptow-Köpenick"
+            {
+                "id": 0,
+                "name": "Charlottenburg-Wilmersdorf",
+                "population": "319628"
+            },
+            {
+                "id": 1,
+                "name": "Friedrichshain-Kreuzberg",
+                "population": "268225"
+            },
+            { "id": 2, "name": "Lichtenberg", "population": "259881" },
+            { "id": 3, "name": "Marzahn-Hellersdorf", "population": "248264" },
+            { "id": 4, "name": "Mitte", "population": "332919" },
+            { "id": 5, "name": "Neukölln", "population": "310283" },
+            { "id": 6, "name": "Pankow", "population": "366441" },
+            { "id": 7, "name": "Reinickendorf", "population": "240454" },
+            { "id": 8, "name": "Spandau", "population": "223962" },
+            { "id": 9, "name": "Steglitz-Zehlendorf", "population": "293989" },
+            {
+                "id": 10,
+                "name": "Tempelhof-Schöneberg",
+                "population": "335060"
+            },
+            { "id": 11, "name": "Treptow-Köpenick", "population": "241335" }
         ],
         "Hamburg": [
-            "Hamburg-Mitte",
-            "Altona",
-            "Eimsbüttel",
-            "Hamburg-Nord",
-            "Wandsbek",
-            "Bergedorf",
-            "Harburg"
+            { "id": 0, "name": "Hamburg-Mitte", "population": "301543" },
+            { "id": 1, "name": "Altona", "population": "275264" },
+            { "id": 2, "name": "Eimsbüttel", "population": "267051" },
+            { "id": 3, "name": "Hamburg-Nord", "population": "314593" },
+            { "id": 4, "name": "Wandsbek", "population": "441012" },
+            { "id": 5, "name": "Bergedorf", "population": "130260" },
+            { "id": 6, "name": "Harburg", "population": "169426" }
         ]
     }
 }
