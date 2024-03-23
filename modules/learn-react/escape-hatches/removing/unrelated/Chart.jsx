@@ -11,6 +11,10 @@ import dynamic from "next/dynamic"
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false })
 
 export default function BarChart({ title, dataset }) {
+    const sortedDataset = dataset.sort(
+        (a, b) => parseInt(b.population) - parseInt(a.population)
+    )
+
     function getSeries(dataset) {
         return [{ data: dataset.map((a) => a.population) }]
     }
@@ -19,7 +23,7 @@ export default function BarChart({ title, dataset }) {
         return dataset.map((a) => a.name)
     }
     const state = {
-        series: getSeries(dataset),
+        series: getSeries(sortedDataset),
         options: {
             chart: {
                 type: "bar",
@@ -57,7 +61,7 @@ export default function BarChart({ title, dataset }) {
             },
             xaxis: {
                 tickAmount: 4,
-                categories: getCategories(dataset),
+                categories: getCategories(sortedDataset),
             },
             yaxis: {
                 labels: {
