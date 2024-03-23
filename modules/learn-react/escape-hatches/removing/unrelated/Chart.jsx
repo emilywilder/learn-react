@@ -56,6 +56,7 @@ export default function BarChart({ title, dataset }) {
                 colors: ["#fff"],
             },
             xaxis: {
+                tickAmount: 4,
                 categories: getCategories(dataset),
             },
             yaxis: {
