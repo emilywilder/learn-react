@@ -5,7 +5,7 @@ import BarChart from "./Chart"
 
 function Spinner({ size = "md" }) {
     return (
-        <div className="flex justify-center place-items-center h-full ">
+        <div className="flex justify-center place-items-center h-full p-2">
             <span className={`loading loading-spinner loading-${size}`}></span>
         </div>
     )
