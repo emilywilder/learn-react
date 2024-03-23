@@ -10,7 +10,7 @@ export default function ShippingFormRender({
     areas,
 }) {
     return (
-        <>
+        <div className="flex flex-col space-y-2">
             {Array.isArray(cities) && cities.length > 0 && (
                 <ListboxSelect
                     options={cities}
@@ -23,14 +23,16 @@ export default function ShippingFormRender({
                     <p>
                         The areas of {city} in {country} are:
                     </p>
-                    <ul>
-                        {areas.map((a) => (
-                            <li key={a}>{a}</li>
-                        ))}
-                    </ul>
+                    <div>
+                        <ul className="list-disc p-2">
+                            {areas.map((a) => (
+                                <li key={a}>{a}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </>
             )}
-        </>
+        </div>
     )
 }
 
