@@ -4,6 +4,8 @@ import LOCATION_DATA from "./location_data.json"
 
 export const getCountries = () => Array.from(Object.keys(LOCATION_DATA))
 
+const delay = 2000
+
 createServer({
     routes() {
         // namespace issue resolution taken from
@@ -14,16 +16,17 @@ createServer({
             /api/areas?city=${city}
         */
         this.namespace = "api"
-        this.get("/countries", () => fetchCountries(), { timing: 3000 })
+
+        this.get("/countries", () => fetchCountries(), { timing: delay })
         this.get(
             "/cities",
             (schema, request) => fetchCities(request.queryParams.country),
-            { timing: 3000 }
+            { timing: delay }
         )
         this.get(
             "/areas",
             (schema, request) => fetchAreas(request.queryParams.city),
-            { timing: 3000 }
+            { timing: delay }
         )
         this.namespace = ""
         this.passthrough()
