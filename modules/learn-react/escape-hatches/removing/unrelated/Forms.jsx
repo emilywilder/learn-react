@@ -3,6 +3,14 @@ import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 import BarChart from "./Chart"
 
+function Spinner({ size = "md" }) {
+    return (
+        <div className="w-full flex justify-center h-full p-2">
+            <span className={`loading loading-spinner loading-${size}`}></span>
+        </div>
+    )
+}
+
 export default function ShippingFormRender({
     country,
     cities,
@@ -13,21 +21,29 @@ export default function ShippingFormRender({
     return (
         <div className="flex flex-col space-y-2">
             <div className="z-20">
-                {Array.isArray(cities) && cities.length > 0 && (
+                {Array.isArray(cities) && cities.length > 0 ? (
                     <ListboxSelect
                         options={cities}
                         selected={city || "Select a city"}
                         setSelected={setCity}
                     />
+                ) : (
+                    <>{country && <Spinner />}</>
                 )}
             </div>
             <div className="z-10">
-                {Array.isArray(areas) && areas.length > 0 && (
+                {Array.isArray(areas) && areas.length > 0 ? (
+                    <BarChart
+                        title={`Areas of ${city} in ${country}`}
+                        dataset={areas}
+                    />
+                ) : (
                     <>
-                        <BarChart
-                            title={`Areas of ${city}, ${country}`}
-                            dataset={areas}
-                        />
+                        {city && (
+                            <div className="h-48">
+                                <Spinner size={"lg"} />
+                            </div>
+                        )}
                     </>
                 )}
             </div>
