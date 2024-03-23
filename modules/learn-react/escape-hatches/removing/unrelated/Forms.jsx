@@ -34,7 +34,7 @@ export default function ShippingFormRender({
             <div className="z-10">
                 {Array.isArray(areas) && areas.length > 0 ? (
                     <BarChart
-                        title={`Areas of ${city} in ${country}`}
+                        title={`Areas of ${city}, ${country}`}
                         dataset={areas}
                     />
                 ) : (
