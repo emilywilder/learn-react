@@ -3,13 +3,12 @@ import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 
 export default function ShippingFormRender({
+    country,
     cities,
     city,
     setCity,
     areas,
-    setAreas,
 }) {
-    // debugger
     return (
         <>
             {Array.isArray(cities) && cities.length > 0 && (
@@ -18,6 +17,18 @@ export default function ShippingFormRender({
                     selected={city || "Select a city"}
                     setSelected={setCity}
                 />
+            )}
+            {Array.isArray(areas) && areas.length > 0 && (
+                <>
+                    <p>
+                        The areas of {city} in {country} are:
+                    </p>
+                    <ul>
+                        {areas.map((a) => (
+                            <li key={a}>{a}</li>
+                        ))}
+                    </ul>
+                </>
             )}
         </>
     )
