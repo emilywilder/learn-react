@@ -69,9 +69,8 @@ export default function BarChart({ title, dataset }) {
                 floating: true,
             },
             tooltip: {
-                theme: "dark",
                 x: {
-                    show: false,
+                    show: true,
                 },
                 y: {
                     title: {
