@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
+import BarChart from "./Chart"
 
 export default function ShippingFormRender({
     country,
@@ -20,16 +21,7 @@ export default function ShippingFormRender({
             )}
             {Array.isArray(areas) && areas.length > 0 && (
                 <>
-                    <p>
-                        The areas of {city} in {country} are:
-                    </p>
-                    <div>
-                        <ul className="list-disc p-2">
-                            {areas.map((a) => (
-                                <li key={a}>{a}</li>
-                            ))}
-                        </ul>
-                    </div>
+                    <BarChart title={`Areas of ${city} in ${country}`} />
                 </>
             )}
         </div>
