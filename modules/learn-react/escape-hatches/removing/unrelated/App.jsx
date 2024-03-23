@@ -7,7 +7,7 @@ import SublessonCard from "./SublessonCard"
 
 export default function Unrelated() {
     return (
-        <div className="flex flex-row h-full items-center justify-evenly">
+        <div className="flex flex-row h-full items-center justify-evenly space-x-4">
             <SublessonCard title={"Combined"} Sublesson={Combined}>
                 This example combines both fetches within the same useEffect().
             </SublessonCard>
