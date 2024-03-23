@@ -12,39 +12,11 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false })
 
 export default function BarChart({ title, dataset }) {
     function getSeries(dataset) {
-        // series: [
-        //     {
-        //         data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
-        //     },
-        // ],
-        return [{ data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380] }]
+        return [{ data: dataset.map((a) => a.population) }]
     }
 
     function getCategories(dataset) {
-        // categories: [
-        //     "South Korea",
-        //     "Canada",
-        //     "United Kingdom",
-        //     "Netherlands",
-        //     "Italy",
-        //     "France",
-        //     "Japan",
-        //     "United States",
-        //     "China",
-        //     "India",
-        // ],
-        return [
-            "South Korea",
-            "Canada",
-            "United Kingdom",
-            "Netherlands",
-            "Italy",
-            "France",
-            "Japan",
-            "United States",
-            "China",
-            "India",
-        ]
+        return dataset.map((a) => a.name)
     }
     const state = {
         series: getSeries(dataset),
