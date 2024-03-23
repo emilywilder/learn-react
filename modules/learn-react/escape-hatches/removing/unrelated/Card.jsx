@@ -1,6 +1,6 @@
 export default function Card({ children }) {
     return (
-        <div className="card shadow-xl bg-base-100 min-w-80 max-w-1/4">
+        <div className="card shadow-xl bg-base-100 m-4 min-w-72 max-w-lg">
             <div className="card-body">{children}</div>
         </div>
     )
