@@ -39,11 +39,11 @@ function ShippingForm({ country }) {
     // ...
     return (
         <ShippingFormRender
+            country={country}
             cities={cities}
             city={city}
             setCity={setCity}
             areas={areas}
-            setAreas={setAreas}
         />
     )
 }
